@@ -3,7 +3,12 @@
     package="com.tedmemo.view"
     android:versionCode="1"
     android:versionName="1.0" >
-
+  <supports-screens android:anyDensity="true"
+                    android:smallScreens="true"
+                    android:normalScreens="true"
+                    android:largeScreens="true"
+                    android:resizeable="true"
+                    android:xlargeScreens="true" />
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />

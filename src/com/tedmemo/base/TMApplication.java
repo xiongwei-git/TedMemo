@@ -5,7 +5,10 @@ import android.app.Application;
 public class TMApplication extends Application {
 	private static TMApplication self = new TMApplication();
 	public static TMApplication getInstance() {
-		return self;
+        if(null==self){
+            self = new TMApplication();
+        }
+        return self;
 	}
 	@Override
 	public void onCreate() {

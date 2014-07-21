@@ -1,16 +1,94 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity">
 
-    <TextView
+  <RelativeLayout
+      android:id="@id/topHeader"
+      android:layout_width="fill_parent"
+      android:layout_height="53.0dip"
+      android:background="@drawable/header_bg"
+      android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="125.0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7.0dip"
+        android:orientation="vertical">
+
+      <FrameLayout
+          android:id="@id/topTabArea"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4.0dip">
+
+        <ImageView
+            android:id="@id/tabIconBackground"
+            android:layout_width="@dimen/tab_icon_bg"
+            android:layout_height="@dimen/tab_icon_bg"
+            android:src="@drawable/hukidasi"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:id="@id/topTabIcons"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:splitMotionEvents="false">
+
+          <FrameLayout
+              android:layout_width="0.0dip"
+              android:layout_height="wrap_content"
+              android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@id/tabHome"
+                android:layout_width="@dimen/tab_icon"
+                android:layout_height="@dimen/tab_icon"
+                android:layout_gravity="center"
+                android:src="@drawable/home"/>
+          </FrameLayout>
+
+          <FrameLayout
+              android:layout_width="0.0dip"
+              android:layout_height="wrap_content"
+              android:layout_weight="1.0">
+
+            <ImageView
+                android:id="@id/tabTag"
+                android:layout_width="@dimen/tab_icon"
+                android:layout_height="@dimen/tab_icon"
+                android:layout_gravity="center"
+                android:src="@drawable/folder"/>
+          </FrameLayout>
+        </LinearLayout>
+      </FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="6.0dip"
+        android:layout_marginTop="4.0dip">
+
+      <ImageButton
+          android:id="@id/writeButton"
+          android:layout_width="@dimen/tab_icon"
+          android:layout_height="@dimen/tab_icon"
+          android:background="@drawable/write_button"
+          android:src="@drawable/header_write"/>
+    </FrameLayout>
+  </RelativeLayout>
+
+
+  <android.support.v4.view.ViewPager
+      android:id="@+id/pager"
+      android:layout_below="@id/topHeader"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      />
 
 </RelativeLayout>

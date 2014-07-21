@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item type="id" name="topHeader">false</item>
+  <item type="id" name="topTabArea">false</item>
+  <item type="id" name="tabIconBackground">false</item>
+  <item type="id" name="topTabIcons">false</item>
+  <item type="id" name="tabHome">false</item>
+  <item type="id" name="tabTag">false</item>
+  <item type="id" name="writeButton">false</item>
+</resources>

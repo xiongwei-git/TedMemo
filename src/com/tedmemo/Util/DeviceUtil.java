@@ -1,4 +1,4 @@
-package com.tedmemo.Util;
+package com.tedmemo.util;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -53,7 +53,6 @@ public class DeviceUtil {
         }
         return true;
     }
-    /**Dip转换为实际屏幕的像素值*/
     public static int getPixelFromDip(float f) {
         return getPixelFromDip(TMApplication.getInstance().getResources().getDisplayMetrics(),f);
     }

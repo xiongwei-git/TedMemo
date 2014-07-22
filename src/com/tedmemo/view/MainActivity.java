@@ -31,6 +31,8 @@ public class MainActivity extends FragmentActivity {
     private ImageView mTabTag;
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
     private float mPageMovePercent = 0;
+    /**计数器，防止切换页面时更新icon背景太过于频繁，每接受到3次onPageScrolled时更新一次视图*/
+    private int COUNTER = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

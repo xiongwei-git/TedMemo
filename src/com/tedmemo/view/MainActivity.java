@@ -1,5 +1,6 @@
 package com.tedmemo.view;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ public class MainActivity extends FragmentActivity {
     private ImageView mTabHome;
     private ImageView mTabTag;
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
+    private float mPageMovePercent = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +69,17 @@ public class MainActivity extends FragmentActivity {
     private void setData(){
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOnPageChangeListener(myOnPageChangeListener);
-        //mTabTag.setAlpha(1);
-        mTabTag.setColorFilter(Color.rgb(226, 243, 242));
-        mTabHome.setColorFilter(Color.rgb(129, 214, 207));
-
-//        Drawable drawable = mTabTag.getDrawable();
-//        drawable.setColorFilter(Color.WHITE,PorterDuff.Mode.DST_OUT);
-//        mTabTag.setImageDrawable(drawable);
+        setIconFilter();
     }
 
     private void setIconBgPosition(){
         mIconBgMarPars.leftMargin = mIconBgMarginLeft;
         mIconBg.setLayoutParams(mIconBgMarPars);
+    }
+
+    private void setIconFilter(){
+        mTabTag.setColorFilter(Color.rgb((int)(226-97*mPageMovePercent), (int)(243-29*mPageMovePercent), (int)(242-35*mPageMovePercent)));
+        mTabHome.setColorFilter(Color.rgb((int)(129+97*mPageMovePercent), (int)(214+29*mPageMovePercent), (int)(207+35*mPageMovePercent)));
     }
 
     private ViewPager.OnPageChangeListener myOnPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -90,11 +91,13 @@ public class MainActivity extends FragmentActivity {
                 }else if(i == 1){
                     mIconBgMarginLeft = SELECT_FOLDER;
                 }
-
+                mPageMovePercent = i;
             }else {
-                mIconBgMarginLeft = SELECT_HOME+(SELECT_FOLDER-SELECT_HOME)*i2/WINDOW_WIDTH;
+                mPageMovePercent = (float)i2/(float)WINDOW_WIDTH;
+                mIconBgMarginLeft = (int)(SELECT_HOME+(SELECT_FOLDER-SELECT_HOME)*mPageMovePercent);
             }
             setIconBgPosition();
+            setIconFilter();
         }
 
         @Override

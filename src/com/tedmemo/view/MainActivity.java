@@ -31,24 +31,24 @@ public class MainActivity extends FragmentActivity {
     private ImageView mTabTag;
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
     private float mPageMovePercent = 0;
-    /**¼ÆÊıÆ÷£¬·ÀÖ¹ÇĞ»»Ò³ÃæÊ±¸üĞÂicon±³¾°Ì«¹ıÓÚÆµ·±£¬Ã¿½ÓÊÜµ½3´ÎonPageScrolledÊ±¸üĞÂÒ»´ÎÊÓÍ¼*/
+    /**è®¡æ•°å™¨ï¼Œé˜²æ­¢åˆ‡æ¢é¡µé¢æ—¶æ›´æ–°iconèƒŒæ™¯å¤ªè¿‡äºé¢‘ç¹ï¼Œæ¯æ¥å—åˆ°3æ¬¡onPageScrolledæ—¶æ›´æ–°ä¸€æ¬¡è§†å›¾*/
     private int COUNTER = 0;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         initView();
         initData();
         setData();
         setIconBgPosition();
-	}
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
     private void initData(){
         DisplayMetrics dm = this.getResources().getDisplayMetrics();

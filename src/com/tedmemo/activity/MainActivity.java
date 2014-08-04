@@ -1,6 +1,9 @@
 package com.tedmemo.activity;
 
+import android.app.Service;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -11,9 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.crittercism.app.Crittercism;
+import com.tedmemo.ShakeListener;
 import com.tedmemo.adapter.SectionsPagerAdapter;
 import com.tedmemo.util.DeviceUtil;
 import com.tedmemo.view.R;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
@@ -21,6 +27,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int SELECT_FOLDER;
     private int WINDOW_WIDTH = 0;
     private int mIconBgMarginLeft = SELECT_HOME;
+    /**定义sensor管理器, 注册监听器用*/
+    private SensorManager mSensorManager;
+    /**手机晃动监听器*/
+    private ShakeListener mShakeListener;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -30,10 +40,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
     private float mPageMovePercent = 0;
 
-    TextView textView;
     @Override
     public void onClick(View v) {
-        textView.getText().toString();
         switch (v.getId()){
             case R.id.tabHome:
                 mViewPager.setCurrentItem(0,true);
@@ -49,12 +57,32 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Crittercism.initialize(getApplicationContext(), "53d85fa4bb94753b60000005");
-        Crittercism.setUsername("xiongwei");
+        //Crittercism.initialize(getApplicationContext(), "53d85fa4bb94753b60000005");
+        //Crittercism.setUsername("xiongwei");
         setContentView(R.layout.activity_main);
         initView();
         initData();
         setData();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //获取传感器管理服务
+        mSensorManager = (SensorManager) this
+                .getSystemService(Service.SENSOR_SERVICE);
+        //加速度传感器
+        //还有SENSOR_DELAY_UI、SENSOR_DELAY_FASTEST、SENSOR_DELAY_GAME等，
+        //根据不同应用，需要的反应速率不同，具体根据实际情况设定
+        mSensorManager.registerListener(mShakeListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSensorManager.unregisterListener(mShakeListener);
     }
 
     @Override
@@ -64,6 +92,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initData(){
+        mShakeListener = new ShakeListener();
         DisplayMetrics dm = this.getResources().getDisplayMetrics();
         SELECT_FOLDER = DeviceUtil.getPixelFromDip(dm, 125*3/4-22);
         SELECT_HOME = DeviceUtil.getPixelFromDip(dm,125/4-22);
@@ -71,6 +100,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mIconBgMarginLeft = SELECT_HOME;
         mIconBgMarPars = (ViewGroup.MarginLayoutParams)mIconBg.getLayoutParams();
     }
+
 
     private void initView(){
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());

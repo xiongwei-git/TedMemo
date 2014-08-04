@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import com.crittercism.app.Crittercism;
 import com.tedmemo.adapter.SectionsPagerAdapter;
 import com.tedmemo.util.DeviceUtil;
 import com.tedmemo.view.R;
@@ -28,8 +30,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
     private float mPageMovePercent = 0;
 
+    TextView textView;
     @Override
     public void onClick(View v) {
+        textView.getText().toString();
         switch (v.getId()){
             case R.id.tabHome:
                 mViewPager.setCurrentItem(0,true);
@@ -45,6 +49,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crittercism.initialize(getApplicationContext(), "53d85fa4bb94753b60000005");
+        Crittercism.setUsername("xiongwei");
         setContentView(R.layout.activity_main);
         initView();
         initData();

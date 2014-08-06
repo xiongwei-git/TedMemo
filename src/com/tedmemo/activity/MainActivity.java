@@ -1,10 +1,10 @@
 package com.tedmemo.activity;
 
 import android.app.Service;
+import android.content.Context;
 import android.graphics.Color;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -12,25 +12,21 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import com.crittercism.app.Crittercism;
-import com.tedmemo.ShakeListener;
+import android.widget.Toast;
+import com.android.TedFramework.util.DeviceUtil;
+import com.android.TedFramework.util.LogUtil;
 import com.tedmemo.adapter.SectionsPagerAdapter;
-import com.tedmemo.util.DeviceUtil;
+import com.tedmemo.others.ShakeListener;
 import com.tedmemo.view.R;
 
-import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener{
+public class MainActivity extends FragmentActivity implements View.OnClickListener,ShakeListener.OnShakeListener{
     private int SELECT_HOME;
     private int SELECT_FOLDER;
     private int WINDOW_WIDTH = 0;
     private int mIconBgMarginLeft = SELECT_HOME;
-    /**定义sensor管理器, 注册监听器用*/
-    private SensorManager mSensorManager;
-    /**手机晃动监听器*/
-    private ShakeListener mShakeListener;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -39,6 +35,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ImageView mTabTag;
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
     private float mPageMovePercent = 0;
+    private ShakeListener mShakeListener;
+    private AtomicBoolean mShakeCallOver;
+    private Vibrator mShakeVibrator;
 
     @Override
     public void onClick(View v) {
@@ -57,9 +56,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //Crittercism.initialize(getApplicationContext(), "53d85fa4bb94753b60000005");
         //Crittercism.setUsername("xiongwei");
         setContentView(R.layout.activity_main);
+        initShake();
         initView();
         initData();
         setData();
@@ -68,21 +69,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onResume() {
         super.onResume();
-        //获取传感器管理服务
-        mSensorManager = (SensorManager) this
-                .getSystemService(Service.SENSOR_SERVICE);
-        //加速度传感器
-        //还有SENSOR_DELAY_UI、SENSOR_DELAY_FASTEST、SENSOR_DELAY_GAME等，
-        //根据不同应用，需要的反应速率不同，具体根据实际情况设定
-        mSensorManager.registerListener(mShakeListener,
-                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSensorManager.unregisterListener(mShakeListener);
+        mShakeListener.stop();
     }
 
     @Override
@@ -91,8 +83,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return true;
     }
 
+    @Override
+    public void onShake() {
+        if(mShakeCallOver.compareAndSet(true,false)){
+            mShakeListener.stop();
+            long [] pattern = {100,400};
+            mShakeVibrator.vibrate(pattern,-1);
+            Toast.makeText(getApplicationContext(),"晃动手机了",Toast.LENGTH_SHORT).show();
+            LogUtil.e("晃动手机了");
+            mShakeCallOver.set(true);
+            mShakeListener.start();
+        }
+    }
+    void initShake(){
+        mShakeListener = new ShakeListener(this);
+        mShakeListener.setOnShakeListener(this);
+        mShakeCallOver = new AtomicBoolean(true);
+        mShakeVibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+    }
+
     private void initData(){
-        mShakeListener = new ShakeListener();
         DisplayMetrics dm = this.getResources().getDisplayMetrics();
         SELECT_FOLDER = DeviceUtil.getPixelFromDip(dm, 125*3/4-22);
         SELECT_HOME = DeviceUtil.getPixelFromDip(dm,125/4-22);

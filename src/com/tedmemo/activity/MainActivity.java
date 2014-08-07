@@ -1,7 +1,6 @@
 package com.tedmemo.activity;
 
-import android.app.Service;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -12,17 +11,16 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.android.TedFramework.util.DeviceUtil;
-import com.android.TedFramework.util.LogUtil;
 import com.tedmemo.adapter.SectionsPagerAdapter;
 import com.tedmemo.others.ShakeListener;
 import com.tedmemo.view.R;
+import com.tedmemo.service.WatchingService;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
-public class MainActivity extends FragmentActivity implements View.OnClickListener,ShakeListener.OnShakeListener{
+public class MainActivity extends FragmentActivity implements View.OnClickListener{
     private int SELECT_HOME;
     private int SELECT_FOLDER;
     private int WINDOW_WIDTH = 0;
@@ -35,9 +33,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ImageView mTabTag;
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
     private float mPageMovePercent = 0;
-    private ShakeListener mShakeListener;
-    private AtomicBoolean mShakeCallOver;
-    private Vibrator mShakeVibrator;
 
     @Override
     public void onClick(View v) {
@@ -60,7 +55,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //Crittercism.initialize(getApplicationContext(), "53d85fa4bb94753b60000005");
         //Crittercism.setUsername("xiongwei");
         setContentView(R.layout.activity_main);
-        initShake();
+        initService();
         initView();
         initData();
         setData();
@@ -73,8 +68,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     protected void onDestroy() {
+        stopService(new Intent(this, WatchingService.class));
         super.onDestroy();
-        mShakeListener.stop();
     }
 
     @Override
@@ -83,23 +78,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return true;
     }
 
-    @Override
-    public void onShake() {
-        if(mShakeCallOver.compareAndSet(true,false)){
-            mShakeListener.stop();
-            long [] pattern = {100,400};
-            mShakeVibrator.vibrate(pattern,-1);
-            Toast.makeText(getApplicationContext(),"晃动手机了",Toast.LENGTH_SHORT).show();
-            LogUtil.e("晃动手机了");
-            mShakeCallOver.set(true);
-            mShakeListener.start();
-        }
-    }
-    void initShake(){
-        mShakeListener = new ShakeListener(this);
-        mShakeListener.setOnShakeListener(this);
-        mShakeCallOver = new AtomicBoolean(true);
-        mShakeVibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+    void initService(){
+        startService(new Intent(this, WatchingService.class));
     }
 
     private void initData(){

@@ -11,7 +11,7 @@ import android.hardware.SensorManager;
  */
 public class ShakeListener implements SensorEventListener {
     // 速度阈值，当摇晃速度达到这值后产生作用
-    private static final int SPEED_SHRESHOLD = 2000;
+    private static final int SPEED_SHRESHOLD = 1500;
     // 两次检测的时间间隔
     private static final int UPTATE_INTERVAL_TIME = 70;
     /**回调时间隔，避免频繁回调*/

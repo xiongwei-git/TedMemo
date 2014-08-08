@@ -64,21 +64,19 @@ public class WatchingService extends Service implements ShakeListener.OnShakeLis
     @Override
     public void onPrimaryClipChanged() {
         makeClipMemo();
+        stopListenShake();
         ToastUtil.show(mContext,"剪切板内容改变了");
     }
 
     @Override
     public void onShake() {
         if(mShakeCallOver.compareAndSet(true,false)){
-            mShakeListener.stop();
-            long [] pattern = {100,400};
-            mShakeVibrator.vibrate(pattern,-1);
-            Toast.makeText(getApplicationContext(), "晃动手机了", Toast.LENGTH_SHORT).show();
-            LogUtil.e("晃动手机了");
+            startListenShake();
+            doVibrate();
             mShakeCallOver.set(true);
-            mShakeListener.start();
         }
     }
+
 
     private void makeClipMemo(){
         if(!mInsertFinish){
@@ -112,5 +110,27 @@ public class WatchingService extends Service implements ShakeListener.OnShakeLis
             }
         }
         ToastUtil.show(mContext,localStringBuilder.toString());
+    }
+    private void doVibrate(){
+        if(null == mShakeVibrator){
+            mShakeVibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        long [] pattern = {100,400};
+        mShakeVibrator.vibrate(pattern, -1);
+    }
+
+    private void startListenShake(){
+        if(null == mShakeListener){
+            mShakeListener = new ShakeListener(this);
+            mShakeListener.setOnShakeListener(this);
+        }
+        mShakeListener.start();
+    }
+
+    private void stopListenShake(){
+        if(null != mShakeListener){
+            mShakeListener.stop();
+        }
+
     }
 }

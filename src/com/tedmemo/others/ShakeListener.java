@@ -36,7 +36,7 @@ public class ShakeListener implements SensorEventListener {
     public ShakeListener(Context c) {
         // 获得监听对象
         mContext = c;
-        start();
+        //start();
     }
 
     // 开始
@@ -56,7 +56,9 @@ public class ShakeListener implements SensorEventListener {
 
     // 停止检测
     public void stop() {
-        sensorManager.unregisterListener(this);
+        if(null != sensorManager){
+            sensorManager.unregisterListener(this);
+        }
     }
 
     // 设置重力感应监听器
@@ -65,6 +67,7 @@ public class ShakeListener implements SensorEventListener {
     }
 
     // 重力感应器感应获得变化数据
+    @Override
     public void onSensorChanged(SensorEvent event) {
         // 现在检测时间
         long currentUpdateTime = System.currentTimeMillis();
@@ -91,9 +94,7 @@ public class ShakeListener implements SensorEventListener {
         lastY = y;
         lastZ = z;
 
-        double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ
-                * deltaZ)
-                / timeInterval * 10000;
+        double speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ* deltaZ)/ timeInterval * 10000;
         // 达到速度阀值，发出提示
         if (speed >= SPEED_SHRESHOLD) {
             long callBackTimeInterval = currentUpdateTime - lastCallBackTime;
@@ -104,6 +105,7 @@ public class ShakeListener implements SensorEventListener {
         }
     }
 
+    @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }

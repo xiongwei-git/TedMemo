@@ -2,12 +2,15 @@ package com.tedmemo.service;
 
 import android.app.Service;
 import android.content.*;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Vibrator;
 import android.widget.Toast;
 import com.android.TedFramework.util.LogUtil;
 import com.android.TedFramework.util.ToastUtil;
 import com.tedmemo.db.MemoItemInfo;
+import com.tedmemo.others.Constants;
 import com.tedmemo.others.ShakeListener;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -30,6 +33,20 @@ public class WatchingService extends Service implements ShakeListener.OnShakeLis
     private boolean mInsertFinish = true;
 
     private long mLastUpdateTime = 0l;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case Constants.CLOSE_SHAKE_MSG:
+                    stopListenShake();
+                    break;
+            }
+        }
+    };
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -64,14 +81,13 @@ public class WatchingService extends Service implements ShakeListener.OnShakeLis
     @Override
     public void onPrimaryClipChanged() {
         makeClipMemo();
-        stopListenShake();
-        ToastUtil.show(mContext,"剪切板内容改变了");
+        startListenShake();
     }
 
     @Override
     public void onShake() {
         if(mShakeCallOver.compareAndSet(true,false)){
-            startListenShake();
+            stopListenShake();
             doVibrate();
             mShakeCallOver.set(true);
         }
@@ -109,7 +125,7 @@ public class WatchingService extends Service implements ShakeListener.OnShakeLis
                 localStringBuilder.append(item.getText());
             }
         }
-        ToastUtil.show(mContext,localStringBuilder.toString());
+        //ToastUtil.show(mContext,localStringBuilder.toString());
     }
     private void doVibrate(){
         if(null == mShakeVibrator){
@@ -125,11 +141,15 @@ public class WatchingService extends Service implements ShakeListener.OnShakeLis
             mShakeListener.setOnShakeListener(this);
         }
         mShakeListener.start();
+        mHandler.sendEmptyMessageDelayed(Constants.CLOSE_SHAKE_MSG,Constants.LISTEN_SHAKE_TIME);
     }
 
     private void stopListenShake(){
         if(null != mShakeListener){
-            mShakeListener.stop();
+            if(mShakeCallOver.compareAndSet(true,false)){
+                mShakeListener.stop();
+                mShakeCallOver.set(true);
+            }
         }
 
     }

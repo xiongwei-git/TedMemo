@@ -16,4 +16,14 @@
   <color name="header_btn_bg_on_color">#ff3d897f</color>
   <color name="common_bg_color">#fff2eee2</color>
   <color name="text_color">#ff5e554c</color>
+  <color name="check_box_bg_color">#ffc2dfdc</color>
+  <color name="summary_text_color">#ff78746f</color>
+  <color name="top_background">#fff2eee2</color>
+  <color name="summary_bg_color">#ffdfeff6</color>
+  <color name="summary_url_color">#ff1da0c1</color>
+  <color name="more_text_color">#ff1da0c1</color>
+  <color name="update_date">#ffb7b8b8</color>
+  <color name="top_icon_edit_button_text_color">#ff7d7457</color>
+  <color name="top_icon_edit_button_bg_color">#ffd9d2bc</color>
+  <color name="top_icon_edit_button_bg_pressed_color">#ffb9b08d</color>
 </resources>

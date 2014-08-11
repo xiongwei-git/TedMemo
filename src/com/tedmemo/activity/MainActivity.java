@@ -51,7 +51,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //Crittercism.initialize(getApplicationContext(), "53d85fa4bb94753b60000005");
         //Crittercism.setUsername("xiongwei");
         setContentView(R.layout.activity_main);

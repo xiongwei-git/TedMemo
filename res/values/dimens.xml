@@ -6,4 +6,7 @@
 
   <dimen name="tab_icon">39.0dip</dimen>
   <dimen name="tab_icon_bg">44.0dip</dimen>
+  <dimen name="summary_text_home">11.0sp</dimen>
+  <dimen name="home_list_deliver_height">8.0dip</dimen>
+  <dimen name="radius3dp">3.0dip</dimen>
 </resources>

@@ -7,4 +7,31 @@
   <item type="id" name="tabHome">false</item>
   <item type="id" name="tabTag">false</item>
   <item type="id" name="writeButton">false</item>
+  <item type="id" name="homeListView">false</item>
+
+  <item type="id" name="topSpace">false</item>
+  <item type="id" name="tabGridViewNormal">false</item>
+  <item type="id" name="tabGridViewEdit">false</item>
+  <item type="id" name="iconEditButton">false</item>
+  <item type="id" name="iconEditButtonText">false</item>
+
+
+
+
+  <item type="id" name="checkBox">false</item>
+  <item type="id" name="article_thumb">false</item>
+  <item type="id" name="checkBoxOff">false</item>
+  <item type="id" name="checkBoxOn">false</item>
+  <item type="id" name="memoListMaintextArea">false</item>
+  <item type="id" name="text_top">false</item>
+  <item type="id" name="summary_image_layout">false</item>
+  <item type="id" name="summary_image">false</item>
+  <item type="id" name="summary_cell">false</item>
+  <item type="id" name="article_url">false</item>
+  <item type="id" name="article_title">false</item>
+  <item type="id" name="iconArea">false</item>
+  <item type="id" name="icon">false</item>
+  <item type="id" name="dateArea">false</item>
+  <item type="id" name="see_more">false</item>
+  <item type="id" name="update_date">false</item>
 </resources>

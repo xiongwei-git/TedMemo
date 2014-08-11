@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape>
+            <solid android:color="@color/top_icon_edit_button_bg_color" />
+            <corners android:topLeftRadius="@dimen/radius3dp" android:topRightRadius="@dimen/radius3dp" android:bottomLeftRadius="@dimen/radius3dp" android:bottomRightRadius="@dimen/radius3dp" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/top_icon_edit_button_bg_pressed_color" />
+            <corners android:topLeftRadius="@dimen/radius3dp" android:topRightRadius="@dimen/radius3dp" android:bottomLeftRadius="@dimen/radius3dp" android:bottomRightRadius="@dimen/radius3dp" />
+        </shape>
+    </item>
+</selector>

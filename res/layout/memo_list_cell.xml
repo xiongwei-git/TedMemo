@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cell_drop_shadow"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <FrameLayout
+        android:id="@id/checkBox"
+        android:layout_width="17.0dip"
+        android:layout_height="17.0dip"
+        android:layout_gravity="center_vertical"
+        android:visibility="visible" >
+
+        <View
+            android:id="@id/checkBoxOff"
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:background="@color/check_box_bg_color"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@id/checkBoxOn"
+            android:layout_width="24.0dip"
+            android:layout_height="24.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:background="@color/check_box_bg_color"
+            android:src="@drawable/check"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@id/memoListMaintextArea"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5.0dip"
+                android:layout_marginLeft="0.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_weight="1.0"
+                android:minHeight="20.0dip"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@id/text_top"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:scrollHorizontally="true"
+                    android:textColor="@color/summary_text_color" />
+
+                <LinearLayout
+                    android:id="@id/summary_image_layout"
+                    android:layout_width="212.0dip"
+                    android:layout_height="159.0dip"
+                    android:layout_gravity="center"
+                    android:background="@drawable/summary_image_line"
+                    android:gravity="center"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@id/summary_image"
+                        android:layout_width="210.0dip"
+                        android:layout_height="157.0dip" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@id/summary_cell"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7.0dip"
+                    android:background="@color/summary_bg_color"
+                    android:orientation="vertical"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:id="@id/article_url"
+                        android:layout_width="fill_parent"
+                        android:layout_height="21.0dip"
+                        android:layout_marginLeft="5.0dip"
+                        android:layout_marginRight="5.0dip"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:scrollHorizontally="true"
+                        android:textColor="@color/summary_url_color"
+                        android:textSize="@dimen/summary_text_home" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1.0dip"
+                        android:background="#ffffffff" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal" >
+
+                        <com.android.TedWidget.view.TImageView
+                            android:id="@id/article_thumb"
+                            android:layout_width="40.0dip"
+                            android:layout_height="40.0dip"
+                            android:layout_gravity="center"
+                            android:layout_margin="1.0dip" />
+
+                        <LinearLayout
+                            android:layout_width="0.0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3.0dip"
+                            android:layout_weight="1.0"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@id/article_title"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:ellipsize="end"
+                                android:lineSpacingExtra="2.0dip"
+                                android:maxLines="2"
+                                android:scrollHorizontally="true"
+                                android:textColor="@color/summary_text_color"
+                                android:textSize="@dimen/summary_text_home" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@id/iconArea"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:baselineAligned="false"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:id="@id/icon"
+                    android:layout_width="23.0dip"
+                    android:layout_height="23.0dip"
+                    android:layout_marginLeft="13.0dip"
+                    android:layout_marginRight="7.0dip"
+                    android:layout_marginTop="4.0dip" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/dateArea"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8.0dip"
+            android:layout_marginLeft="0.0dip"
+            android:layout_marginRight="6.0dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@id/see_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/see_more"
+                android:textColor="@color/more_text_color"
+                android:textSize="12.0sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@id/update_date"
+                android:layout_width="0.0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:gravity="right"
+                android:textColor="@color/update_date"
+                android:textSize="11.0sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

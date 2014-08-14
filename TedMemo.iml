@@ -13,8 +13,8 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="TedWidget" />
     <orderEntry type="library" name="memo_libs" level="project" />
+    <orderEntry type="module" module-name="TedWidget" />
   </component>
 </module>
 

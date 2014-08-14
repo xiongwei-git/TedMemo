@@ -114,7 +114,7 @@
                         android:baselineAligned="false"
                         android:orientation="horizontal" >
 
-                        <com.android.TedWidget.view.TImageView
+                        <com.android.tedwidget.view.TImageView
                             android:id="@id/article_thumb"
                             android:layout_width="40.0dip"
                             android:layout_height="40.0dip"

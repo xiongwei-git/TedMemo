@@ -60,6 +60,11 @@ public class MainListAdapter extends BaseAdapter{
 
 
 
+    private void updateItemData(MemoCellClass memoCell,InnerMemoData memoData){
+
+    }
+
+
     public static class MemoCellClass {
 
         public void init(View rootView){

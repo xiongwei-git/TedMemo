@@ -4,4 +4,13 @@
     android:layout_height="fill_parent" >
 
 
+
+  <ImageView
+      android:layout_width="80dip"
+      android:layout_height="80dip"
+      android:src="@drawable/tag_large_a03_diamond"
+      android:background="@drawable/icon_white_stroke_bg"
+      android:id="@+id/imageView"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentLeft="true"/>
 </RelativeLayout>

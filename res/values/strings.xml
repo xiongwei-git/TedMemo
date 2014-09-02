@@ -5,7 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="see_more">…read more</string>
-  <string name="edit_icon">Icon Add/Edit</string>
+    <string name="edit_icon">Icon Add/Edit</string>
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
 
+    <string name="test_string">“天降大任于一个年代，成就一代人的伟大，那一代人可以是你。”讲述“南非之魂、黑人领袖”南非前总统纳尔逊？曼德拉传奇一生的影片《曼德拉》，在刚刚过去的7月登陆中国大陆。在非洲乃至世界范围内，曼德拉是为数不多的得到官方与民间，以及不同派别的人普遍认同和尊重的政治领袖。他曾称，“我二十多年在罗本岛狱中生活的精神支柱来自中国！”</string>
 </resources>

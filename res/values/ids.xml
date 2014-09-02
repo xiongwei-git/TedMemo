@@ -15,7 +15,14 @@
   <item type="id" name="iconEditButton">false</item>
   <item type="id" name="iconEditButtonText">false</item>
 
-
+  <item type="id" name="editIconHeader">false</item>
+  <item type="id" name="editIconCloseDialogButton">false</item>
+  <item type="id" name="editIconSelected">false</item>
+  <item type="id" name="editIconOkButton">false</item>
+  <item type="id" name="editIconGridView">false</item>
+  <item type="id" name="editIconCategoryButton1">false</item>
+  <item type="id" name="editIconCategoryButton2">false</item>
+  <item type="id" name="editIconCategoryButton3">false</item>
 
 
   <item type="id" name="checkBox">false</item>

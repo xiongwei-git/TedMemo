@@ -145,8 +145,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        dialog.show();
         MemoIconChooseView chooseView = new MemoIconChooseView(this);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT, Gravity.CENTER_VERTICAL);
-        int marginTop = getResources().getDimensionPixelSize(R.dimen.action_bar_height);
-        int marginSide = DeviceUtil.getPixelFromDip(this,20.0f);
+        int marginTop = getResources().getDimensionPixelSize(R.dimen.action_bar_height)+DeviceUtil.getPixelFromDip(this,15.0f);
+        int marginSide = DeviceUtil.getPixelFromDip(this,25.0f);
         lp.setMargins(marginSide, marginTop, marginSide, marginTop);
         chooseView.setLayoutParams(lp);
         setmCustomDialogView(chooseView);

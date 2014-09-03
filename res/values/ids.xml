@@ -20,6 +20,7 @@
   <item type="id" name="editIconSelected">false</item>
   <item type="id" name="editIconOkButton">false</item>
   <item type="id" name="editIconGridView">false</item>
+  <item type="id" name="editIconCategoryLayout">false</item>
   <item type="id" name="editIconCategoryButton1">false</item>
   <item type="id" name="editIconCategoryButton2">false</item>
   <item type="id" name="editIconCategoryButton3">false</item>

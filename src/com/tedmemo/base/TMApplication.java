@@ -1,6 +1,7 @@
 package com.tedmemo.base;
 
 import android.app.Application;
+import com.android.TedFramework.util.DeviceUtil;
 
 //@ReportsCrashes(formKey = "", // will not be used
 //        mailTo = "315981826@qq.com",
@@ -23,6 +24,7 @@ public class TMApplication extends Application {
 	@Override
 	public void onCreate() {
         super.onCreate();
+        DeviceUtil.initScreenParams(getResources());
 //        ACRA.init(this);
 //        CrashReportSender crashReportSender = new CrashReportSender(this);
 //        ACRA.getErrorReporter().setReportSender(crashReportSender);

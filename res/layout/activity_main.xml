@@ -7,7 +7,7 @@
   <RelativeLayout
       android:id="@id/topHeader"
       android:layout_width="fill_parent"
-      android:layout_height="53.0dip"
+      android:layout_height="@dimen/action_bar_height"
       android:background="@drawable/header_bg"
       android:clickable="true">
 

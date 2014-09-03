@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
+    <color name="main_color">#ff5ebab0</color>
+    <color name="main_pressed_color">#ff215f5a</color>
     <color name="yellow">#ffffff00</color>
     <color name="white">#ffffffff</color>
     <color name="white_a40">#66ffffff</color>
@@ -12,6 +14,7 @@
     <color name="red">#f85d00</color>
     <color name="orange">#ff9913</color>
 
+  <color name="icon_gray_color">#ffc6c8c7</color>
   <color name="header_btn_bg_off_color">#ff45a199</color>
   <color name="header_btn_bg_on_color">#ff3d897f</color>
   <color name="common_bg_color">#fff2eee2</color>
@@ -26,4 +29,11 @@
   <color name="top_icon_edit_button_text_color">#ff7d7457</color>
   <color name="top_icon_edit_button_bg_color">#ffd9d2bc</color>
   <color name="top_icon_edit_button_bg_pressed_color">#ffb9b08d</color>
+  <color name="top_icon_edit_dialog_cancel_button_bg_color">#ffc5c7c6</color>
+  <color name="top_icon_edit_dialog_cancel_button_bg_pressed_color">#ffacb4b0</color>
+
+
+  <!-- 对话框背景 -->
+  <color name="background_dialog">#99000000</color>
+  <color name="dialog_bg">#3f000000</color>
 </resources>

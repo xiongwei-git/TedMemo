@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -149,16 +150,27 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mIconBgData.setBackgroundColorOnStr("#f85d00");
         mIconBgData.setBackgroundColorOffStr("#0D9151");
         MemoIconChooseView chooseView = new MemoIconChooseView(this,mIconBgData);
+        chooseView.setmSelecetIconCallBack(mSelecetIconCallBack);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT, Gravity.CENTER_VERTICAL);
         int marginTop = getResources().getDimensionPixelSize(R.dimen.action_bar_height)+DeviceUtil.getPixelFromDip(this,15.0f);
         int marginSide = DeviceUtil.getPixelFromDip(this,25.0f);
         lp.setMargins(marginSide, marginTop, marginSide, marginTop);
         chooseView.setLayoutParams(lp);
         setmCustomDialogView(chooseView);
-        DialogExchangeModel.DialogExchangeModelBuilder dialogExchangeModelBuilder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.CUSTOMER,"");
+        DialogExchangeModel.DialogExchangeModelBuilder dialogExchangeModelBuilder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.CUSTOMER,"SELECT_DIALOG");
         dialogExchangeModelBuilder.setBackable(true);
         TDialogManager.showDialogFragment(getSupportFragmentManager(),dialogExchangeModelBuilder.creat(),null);
     }
+
+    private MemoIconChooseView.SelecetIconCallBack mSelecetIconCallBack = new MemoIconChooseView.SelecetIconCallBack() {
+        @Override
+        public void onSelected(IconBgData mIconBgData) {
+            if(null != mIconBgData){
+
+            }
+            ((DialogFragment)getSupportFragmentManager().findFragmentByTag("SELECT_DIALOG")).dismiss();
+        }
+    };
 
     private ViewPager.OnPageChangeListener myOnPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override

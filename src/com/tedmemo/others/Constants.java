@@ -4,7 +4,7 @@ package com.tedmemo.others;
  * Created by w_xiong on 2014/8/11.
  */
 public class Constants {
-    public static final String GRAY_COLOR = "#ff333333";
+    public static final String GRAY_ICON_COLOR = "#c6c8c7";
     /**MSG*/
     public static final int CLOSE_SHAKE_MSG = 1;
 

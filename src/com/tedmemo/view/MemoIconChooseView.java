@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.android.TedFramework.util.CheckDoubleClick;
 import com.android.TedFramework.util.StringUtil;
 import com.android.TedFramework.util.ToastUtil;
 import com.android.tedwidget.view.TImageView;
@@ -19,17 +20,59 @@ import java.util.Arrays;
 /**
  * Created by Ted on 2014/9/3.
  */
-public class MemoIconChooseView extends RelativeLayout implements View.OnClickListener{
+public class MemoIconChooseView extends RelativeLayout implements View.OnClickListener,AdapterView.OnItemClickListener {
 
     private Context mContext;
     private IconBgData mIconBgData;
     private GridView mGridView;
-    private TImageView mIconSelected;
+    private ImageView mIconSelected;
     private IconGridAdapter mIconGridAdapter;
+    private int mCurrentPage = 0;
+    private SelecetIconCallBack mSelecetIconCallBack;
 
     @Override
     public void onClick(View v) {
-        ToastUtil.show(getContext(),"点击了");
+        if(CheckDoubleClick.isFastDoubleClick()){
+            return;
+        }
+        switch (v.getId()){
+            case R.id.editIconCloseDialogButton:
+                if(null!= mSelecetIconCallBack){
+                    mSelecetIconCallBack.onSelected(null);
+                }
+                break;
+            case R.id.editIconOkButton:
+                if(null!= mSelecetIconCallBack){
+                    mSelecetIconCallBack.onSelected(mIconBgData);
+                }
+                break;
+            case R.id.editIconCategoryButton1:
+                setCurrentPage(0);
+                mIconGridAdapter.setDatas(getIcondatas());
+                mIconGridAdapter.notifyDataSetChanged();
+                break;
+            case R.id.editIconCategoryButton2:
+                setCurrentPage(1);
+                mIconGridAdapter.setDatas(getIcondatas());
+                mIconGridAdapter.notifyDataSetChanged();
+                break;
+            case R.id.editIconCategoryButton3:
+                setCurrentPage(2);
+                mIconGridAdapter.setDatas(getIcondatas());
+                mIconGridAdapter.notifyDataSetChanged();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    public void setmSelecetIconCallBack(SelecetIconCallBack mSelecetIconCallBack) {
+        this.mSelecetIconCallBack = mSelecetIconCallBack;
     }
 
     public MemoIconChooseView(Context context,IconBgData iconBgData) {
@@ -45,44 +88,89 @@ public class MemoIconChooseView extends RelativeLayout implements View.OnClickLi
         this.setBackgroundResource(R.drawable.mtmm_dialog_bg);
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.edit_icon_dialog_view, this);
         mGridView = (GridView)contentView.findViewById(R.id.editIconGridView);
-        mIconSelected = (TImageView)findViewById(R.id.editIconSelected);
-        mIconSelected.setOnClickListener(this);
+        mIconSelected = (ImageView)findViewById(R.id.editIconSelected);
+        findViewById(R.id.editIconCloseDialogButton).setOnClickListener(this);
+        findViewById(R.id.editIconOkButton).setOnClickListener(this);
+        findViewById(R.id.editIconCategoryButton1).setOnClickListener(this);
+        findViewById(R.id.editIconCategoryButton2).setOnClickListener(this);
+        findViewById(R.id.editIconCategoryButton3).setOnClickListener(this);
     }
 
     private void initData(){
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            mIconSelected.setBackground(mIconBgData.getDrawable(mContext, IconBgData.ICON_TYPE_LARGE));
-        } else {
-            mIconSelected.setBackgroundDrawable(mIconBgData.getDrawable(mContext, IconBgData.ICON_TYPE_LARGE));
-        }
+        setCurrentPage(0);
+        refreshSelectedIcon();
         mIconGridAdapter = new IconGridAdapter(mContext);
-        mIconGridAdapter.setDatas(Constants.ICON_NAME_1);
-        mIconGridAdapter.setIconFilterColor(Constants.GRAY_COLOR,mIconBgData.getBackgroundColorOnStr());
+        mIconGridAdapter.setDatas(getIcondatas());
+        mIconGridAdapter.setIconBgData(mIconBgData);
         mGridView.setAdapter(mIconGridAdapter);
-        mIconGridAdapter.notifyDataSetChanged();
+        //mGridView.setOnItemClickListener(this);
     }
+
+    private void refreshSelectedIcon(){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+            mIconSelected.setImageDrawable(mIconBgData.getDrawable(mContext, IconBgData.ICON_TYPE_LARGE));
+        } else {
+            mIconSelected.setImageDrawable(mIconBgData.getDrawable(mContext, IconBgData.ICON_TYPE_LARGE));
+        }
+    }
+
+    private String[] getIcondatas(){
+        switch (mCurrentPage){
+            case 0:
+                return Constants.ICON_NAME_1;
+            case 1:
+                return Constants.ICON_NAME_2;
+            case 2:
+                return Constants.ICON_NAME_3;
+            default:
+                break;
+        }
+        return null;
+    }
+
+    private void setCurrentPage(int page){
+        mCurrentPage = page;
+        findViewById(R.id.editIconCategoryButton1).setSelected(page==0);
+        findViewById(R.id.editIconCategoryButton2).setSelected(page==1);
+        findViewById(R.id.editIconCategoryButton3).setSelected(page==2);
+    }
+
+    private OnClickListener mItemClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if(CheckDoubleClick.isFastDoubleClick()){
+                return;
+            }
+            if(view instanceof TImageView && view.getTag() instanceof String){
+                String iconName = (String)view.getTag();
+                mIconBgData.set_mName(iconName);
+                mIconGridAdapter.setIconBgData(mIconBgData);
+                mIconGridAdapter.notifyDataSetChanged();
+                refreshSelectedIcon();
+            }
+        }
+    };
 
     public class IconGridAdapter extends BaseAdapter {
         private ArrayList<String> mIconDatas = new ArrayList<String>();
         private Context mContext;
-        private String mFilterColorOffStr;
-        private String mFilterColorOnStr;
+        private IconBgData mIconBgData;
 
         public IconGridAdapter(Context context){
             this.mContext = context;
         }
 
-        public void setIconFilterColor(String colorOn,String colorOff){
-            this.mFilterColorOnStr = colorOn;
-            this.mFilterColorOffStr = colorOff;
-        }
-
         public void setDatas(String[] datas){
+            mIconDatas.clear();
             if(null !=datas && datas.length >0){
                 for(String data:datas){
                     mIconDatas.add(data);
                 }
             }
+        }
+
+        public void setIconBgData(IconBgData iconBgData){
+            this.mIconBgData = iconBgData;
         }
 
         @Override
@@ -102,9 +190,15 @@ public class MemoIconChooseView extends RelativeLayout implements View.OnClickLi
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            String iconName= (String)getItem(position);
             TImageView imageView = new TImageView(mContext);
-            imageView.setImageDrawable(getIconDrawable((String)getItem(position)));
-            imageView.setFilterColor(mFilterColorOnStr,mFilterColorOffStr);
+            imageView.setImageDrawable(getIconDrawable(iconName));
+            imageView.setFilterColor(Constants.GRAY_ICON_COLOR, mIconBgData.getBackgroundColorOnStr());
+            if(iconName.equalsIgnoreCase(mIconBgData.get_mName())){
+                imageView.setFilterState(TImageView.FILTER_OFF);
+            }
+            imageView.setTag(iconName);
+            imageView.setOnClickListener(mItemClickListener);
             return imageView;
         }
 
@@ -120,5 +214,7 @@ public class MemoIconChooseView extends RelativeLayout implements View.OnClickLi
             return mContext.getResources().getDrawable(sourceId);
         }
     }
-
+    public interface SelecetIconCallBack{
+        public void onSelected(IconBgData mIconBgData);
+    }
 }

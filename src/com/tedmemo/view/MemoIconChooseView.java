@@ -117,11 +117,11 @@ public class MemoIconChooseView extends RelativeLayout implements View.OnClickLi
     private String[] getIcondatas(){
         switch (mCurrentPage){
             case 0:
-                return Constants.ICON_NAME_1;
+                return Constants.ICON_NAME_A;
             case 1:
-                return Constants.ICON_NAME_2;
+                return Constants.ICON_NAME_B;
             case 2:
-                return Constants.ICON_NAME_3;
+                return Constants.ICON_NAME_C;
             default:
                 break;
         }
@@ -209,7 +209,7 @@ public class MemoIconChooseView extends RelativeLayout implements View.OnClickLi
             localStringBuilder.append(iconName);
             int sourceId = mContext.getResources().getIdentifier(localStringBuilder.toString(), "drawable", mContext.getPackageName());
             if(sourceId <= 0 || StringUtil.emptyOrNull(iconName)){
-                sourceId = R.drawable.tag_large_none;
+                sourceId = R.drawable.tag_large_s_none;
             }
             return mContext.getResources().getDrawable(sourceId);
         }

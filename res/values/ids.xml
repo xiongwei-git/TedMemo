@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <item type="id" name="headerShadow">false</item>
+  <item type="id" name="topPager">false</item>
   <item type="id" name="topHeader">false</item>
   <item type="id" name="topTabArea">false</item>
   <item type="id" name="tabIconBackground">false</item>
@@ -8,6 +10,9 @@
   <item type="id" name="tabTag">false</item>
   <item type="id" name="writeButton">false</item>
   <item type="id" name="homeListView">false</item>
+
+  <item type="id" name="iconEditHeader">false</item>
+  <item type="id" name="iconEditCancelButton">false</item>
 
   <item type="id" name="topSpace">false</item>
   <item type="id" name="tabGridViewNormal">false</item>
@@ -42,4 +47,5 @@
   <item type="id" name="dateArea">false</item>
   <item type="id" name="see_more">false</item>
   <item type="id" name="update_date">false</item>
+  <item type="id" name="memo_count">false</item>
 </resources>

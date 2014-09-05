@@ -114,7 +114,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initView(){
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager = (ViewPager) findViewById(R.id.topPager);
         mIconBg = (ImageView) findViewById(R.id.tabIconBackground);
         mTabHome = (ImageView) findViewById(R.id.tabHome);
         mTabTag = (ImageView) findViewById(R.id.tabTag);
@@ -146,7 +146,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        dialog.setContentView(R.layout.edit_icon_dialog_view);
 //        dialog.show();
         IconBgData mIconBgData = new IconBgData();
-        mIconBgData.set_mName("o_idea");
+        mIconBgData.set_mName("c_funny");
         mIconBgData.setBackgroundColorOnStr("#f85d00");
         mIconBgData.setBackgroundColorOffStr("#0D9151");
         MemoIconChooseView chooseView = new MemoIconChooseView(this,mIconBgData);

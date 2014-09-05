@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.tedwidget.view.ScaleFramelayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="75.0dip"
+    android:layout_height="75.0dip" >
+
+    <FrameLayout
+        android:id="@id/iconArea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+
+        <ImageView
+            android:id="@id/icon"
+            android:layout_width="50.0dip"
+            android:layout_height="50.0dip"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@id/memo_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right|center"
+            android:background="@drawable/tag_icon_badge"
+            android:paddingLeft="3.0dip"
+            android:paddingRight="3.0dip"
+            android:textColor="@color/icon_badge_text_color"
+            android:textSize="13.0sp" />
+    </FrameLayout>
+
+</com.android.tedwidget.view.ScaleFramelayout>

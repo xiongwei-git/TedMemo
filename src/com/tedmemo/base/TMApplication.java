@@ -2,6 +2,7 @@ package com.tedmemo.base;
 
 import android.app.Application;
 import com.android.TedFramework.util.DeviceUtil;
+import com.tedmemo.data.IconDataManager;
 
 //@ReportsCrashes(formKey = "", // will not be used
 //        mailTo = "315981826@qq.com",
@@ -25,6 +26,7 @@ public class TMApplication extends Application {
 	public void onCreate() {
         super.onCreate();
         DeviceUtil.initScreenParams(getResources());
+        IconDataManager.getInstance(this).initIconDBDatas();
 //        ACRA.init(this);
 //        CrashReportSender crashReportSender = new CrashReportSender(this);
 //        ACRA.getErrorReporter().setReportSender(crashReportSender);

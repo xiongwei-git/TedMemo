@@ -11,4 +11,6 @@
   <dimen name="home_list_deliver_height">8.0dip</dimen>
   <dimen name="radius3dp">3.0dip</dimen>
   <integer name="anim_fragment">250</integer>
+  <dimen name="header_shadow_size">3.0dip</dimen>
+  <dimen name="header_text">14.0sp</dimen>
 </resources>

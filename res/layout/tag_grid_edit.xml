@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.android.tedwidget.view.ScaleFramelayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/iconArea"
+    android:layout_width="75.0dip"
+    android:layout_height="75.0dip"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:id="@id/iconEdit"
+        android:layout_width="52.0dip"
+        android:layout_height="52.0dip"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@id/iconEditPlus"
+        android:src="@drawable/icon_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+
+</com.android.tedwidget.view.ScaleFramelayout>

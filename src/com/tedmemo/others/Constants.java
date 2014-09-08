@@ -13,7 +13,9 @@ public class Constants {
     public static final String GRAY_ICON_COLOR = "#c6c8c7";
 
     /**MSG*/
-    public static final int CLOSE_SHAKE_MSG = 1;
+    public static final int CLOSE_SHAKE_MSG = 0x1;
+    public static final int WAIT_ANIM_OVER = 0x2;
+
 
 
     /**OTHER*/
@@ -22,7 +24,7 @@ public class Constants {
     public static final String[] ICON_COLORS = {"#fdcb35","#e46682","#aebe7e","#7f74b4",
             "#a0bde8","#f5ae68","#7c866d","#a8877c",
             "#b8aa83","#a26b9f","#6d92b4","#f07a63",
-            "#d35543","#eaa7bd","#9aad9a"};
+            "#d35543","#eaa7bd","#9aad9a","#303030","#5ebab0"};
 
     public static final String[] ICON_NAME_A = {"a_diamond","a_club","a_spade","a_square",
             "a_triangle","a_laugh","a_smile","a_surprised","a_wooden",

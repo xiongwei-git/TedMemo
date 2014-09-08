@@ -13,6 +13,11 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="edit_icon_for_header">Icon Edit</string>
+    <string name="bulk_edit">Bulk Edit</string>
+    <string name="delete">Delete</string>
+    <string name="merge">Merge</string>
+    <string name="change">Change</string>
+    <string name="complete_icon">Finish</string>
 
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
 

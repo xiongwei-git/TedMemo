@@ -20,6 +20,11 @@
   <item type="id" name="iconEditButton">false</item>
   <item type="id" name="iconEditButtonText">false</item>
 
+  <item type="id" name="bulkEditHeader">false</item>
+  <item type="id" name="bulkCancelButton">false</item>
+    <item type="id" name="bulkDeleteButton">false</item>
+    <item type="id" name="bulkMergeButton">false</item>
+    <item type="id" name="bulkIconChangeButton">false</item>
   <item type="id" name="editIconHeader">false</item>
   <item type="id" name="editIconCloseDialogButton">false</item>
   <item type="id" name="editIconSelected">false</item>
@@ -44,6 +49,8 @@
   <item type="id" name="article_title">false</item>
   <item type="id" name="iconArea">false</item>
   <item type="id" name="icon">false</item>
+  <item type="id" name="iconEdit">false</item>
+  <item type="id" name="iconEditPlus">false</item>
   <item type="id" name="dateArea">false</item>
   <item type="id" name="see_more">false</item>
   <item type="id" name="update_date">false</item>

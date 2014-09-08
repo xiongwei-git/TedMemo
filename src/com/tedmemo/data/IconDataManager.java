@@ -47,7 +47,7 @@ public class IconDataManager {
             for(int i = 0;i < colorData.size();i++){
                 IconBgData iconBgData = new IconBgData();
                 iconBgData.setBackgroundColorOnStr(colorData.get(i));
-                if(i==0){
+                if(i == colorData.size()-1){
                     iconBgData.set_mName(Constants.ICON_NAME_S);
                 }
                 iconBgData.setMemoCount(0);

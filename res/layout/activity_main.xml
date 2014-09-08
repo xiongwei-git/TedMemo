@@ -4,149 +4,276 @@
                 android:layout_height="match_parent"
                 tools:context=".MainActivity">
 
-  <FrameLayout
-      android:visibility="visible"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:layout_alignParentTop="true">
-
-    <com.android.tedwidget.view.HoldableViewPager
-        android:id="@id/topPager"
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:visibility="visible">
 
-    <View
-        android:id="@id/headerShadow"
+        <com.android.tedwidget.view.HoldableViewPager
+            android:id="@id/topPager"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@id/headerShadow"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/header_shadow_size"
+            android:layout_marginTop="53.0dip"
+            android:background="@drawable/header_shadow"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@id/iconEditHeader"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/header_shadow_size"
-        android:layout_marginTop="53.0dip"
-        android:background="@drawable/header_shadow"/>
-  </FrameLayout>
-
-  <RelativeLayout
-      android:id="@id/iconEditHeader"
-      android:layout_width="fill_parent"
-      android:layout_height="53.0dip"
-      android:layout_alignParentTop="false"
-      android:background="@color/bulk_header_color"
-      android:clickable="true"
-      android:visibility="gone" >
-
-    <LinearLayout
-        android:id="@id/iconEditCancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="35.0dip"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="9.0dip"
-        android:layout_marginLeft="5.0dip"
-        android:layout_marginTop="9.0dip"
+        android:layout_height="53.0dip"
+        android:layout_alignParentTop="false"
+        android:background="@color/bulk_header_color"
         android:clickable="true"
-        android:orientation="horizontal" >
-
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginRight="3.0dip"
-          android:src="@drawable/arrow" />
-
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginRight="3.0dip"
-          android:src="@drawable/ab_icon" />
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:includeFontPadding="false"
-          android:text="@string/edit_icon_for_header"
-          android:textColor="@android:color/white"
-          android:textSize="@dimen/header_text" />
-    </LinearLayout>
-  </RelativeLayout>
-
-  <RelativeLayout
-      android:id="@id/topHeader"
-      android:visibility="gone"
-      android:layout_width="fill_parent"
-      android:layout_height="@dimen/action_bar_height"
-      android:background="@drawable/header_bg"
-      android:clickable="true">
-
-    <LinearLayout
-        android:layout_width="125.0dip"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="7.0dip"
-        android:orientation="vertical">
-
-      <FrameLayout
-          android:id="@id/topTabArea"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="4.0dip">
-
-        <ImageView
-            android:id="@id/tabIconBackground"
-            android:layout_width="@dimen/tab_icon_bg"
-            android:layout_height="@dimen/tab_icon_bg"
-            android:src="@drawable/hukidasi"
-            android:visibility="visible"/>
+        android:visibility="gone">
 
         <LinearLayout
-            android:id="@id/topTabIcons"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:splitMotionEvents="false">
-
-          <FrameLayout
-              android:layout_width="0.0dip"
-              android:layout_height="wrap_content"
-              android:layout_weight="1.0">
+            android:id="@id/iconEditCancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="9.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginTop="9.0dip"
+            android:clickable="true"
+            android:orientation="horizontal">
 
             <ImageView
-                android:id="@id/tabHome"
-                android:layout_width="@dimen/tab_icon"
-                android:layout_height="@dimen/tab_icon"
-                android:layout_gravity="center"
-                android:src="@drawable/home"/>
-          </FrameLayout>
-
-          <FrameLayout
-              android:layout_width="0.0dip"
-              android:layout_height="wrap_content"
-              android:layout_weight="1.0">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="3.0dip"
+                android:src="@drawable/arrow"/>
 
             <ImageView
-                android:id="@id/tabTag"
-                android:layout_width="@dimen/tab_icon"
-                android:layout_height="@dimen/tab_icon"
-                android:layout_gravity="center"
-                android:src="@drawable/folder"/>
-          </FrameLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="3.0dip"
+                android:src="@drawable/ab_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/edit_icon_for_header"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/header_text"/>
         </LinearLayout>
-      </FrameLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="6.0dip"
-        android:layout_marginTop="4.0dip">
+    <RelativeLayout
+        android:id="@id/bulkEditHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="53.0dip"
+        android:layout_alignParentTop="false"
+        android:background="@color/bulk_header_color"
+        android:clickable="true"
+        android:visibility="gone">
 
-      <ImageButton
-          android:id="@id/writeButton"
-          android:layout_width="@dimen/tab_icon"
-          android:layout_height="@dimen/tab_icon"
-          android:background="@drawable/write_button"
-          android:src="@drawable/header_write"/>
-    </FrameLayout>
-  </RelativeLayout>
+        <LinearLayout
+            android:id="@id/bulkCancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="35.0dip"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="9.0dip"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginTop="9.0dip"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="3.0dip"
+                android:src="@drawable/arrow"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="3.0dip"
+                android:src="@drawable/ab_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:text="@string/bulk_edit"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/header_text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/bulkDeleteButton"
+            android:layout_width="45.0dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="3.0dip"
+            android:layout_marginRight="8.0dip"
+            android:layout_marginTop="7.0dip"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/delete"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="@string/delete"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/tab_text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/bulkMergeButton"
+            android:layout_width="45.0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3.0dip"
+            android:layout_marginRight="8.0dip"
+            android:layout_marginTop="7.0dip"
+            android:layout_toLeftOf="@id/bulkDeleteButton"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/merge"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="@string/merge"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/tab_text"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@id/bulkIconChangeButton"
+            android:layout_width="45.0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3.0dip"
+            android:layout_marginRight="8.0dip"
+            android:layout_marginTop="7.0dip"
+            android:layout_toLeftOf="@id/bulkMergeButton"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40.0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/change"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="@string/change"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/tab_text"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@id/topHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/action_bar_height"
+        android:background="@drawable/header_bg"
+        android:clickable="true"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="125.0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7.0dip"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@id/topTabArea"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4.0dip">
+
+                <ImageView
+                    android:id="@id/tabIconBackground"
+                    android:layout_width="@dimen/tab_icon_bg"
+                    android:layout_height="@dimen/tab_icon_bg"
+                    android:src="@drawable/hukidasi"
+                    android:visibility="visible"/>
+
+                <LinearLayout
+                    android:id="@id/topTabIcons"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:splitMotionEvents="false">
+
+                    <FrameLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            android:id="@id/tabHome"
+                            android:layout_width="@dimen/tab_icon"
+                            android:layout_height="@dimen/tab_icon"
+                            android:layout_gravity="center"
+                            android:src="@drawable/home"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0">
+
+                        <ImageView
+                            android:id="@id/tabTag"
+                            android:layout_width="@dimen/tab_icon"
+                            android:layout_height="@dimen/tab_icon"
+                            android:layout_gravity="center"
+                            android:src="@drawable/folder"/>
+                    </FrameLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6.0dip"
+            android:layout_marginTop="4.0dip">
+
+            <ImageButton
+                android:id="@id/writeButton"
+                android:layout_width="@dimen/tab_icon"
+                android:layout_height="@dimen/tab_icon"
+                android:background="@drawable/write_button"
+                android:src="@drawable/header_write"/>
+        </FrameLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

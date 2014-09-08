@@ -66,6 +66,28 @@ public class IconBgData {
         return getDrawable(paramContext, ICON_TYPE_LARGE);
     }
 
+    /**获取到背景加图片的drawable*/
+    public Drawable getMixDrawable(Context paramContext, int iconType)
+    {
+        Resources localResources = paramContext.getResources();
+
+        GradientDrawable localGradientDrawableOn = ((GradientDrawable)localResources.getDrawable(R.drawable.icon_white_stroke_bg));
+        localGradientDrawableOn.setColor(Color.parseColor(getBackgroundColorOnStr()));
+
+//        GradientDrawable localGradientDrawableOff = (GradientDrawable)localResources.getDrawable(R.drawable.icon_bg2);
+//        localGradientDrawableOff.setColor(Color.parseColor(getBackgroundColorOffStr()));
+
+        StateListDrawable localStateListDrawable = new StateListDrawable();
+        //localStateListDrawable.addState(new int[]{android.R.attr.state_pressed}, localGradientDrawableOff);
+        localStateListDrawable.addState(new int[]{}, localGradientDrawableOn);
+        int i = getResourceId(paramContext, iconType);
+        if (i == 0) {
+            i = getResourceId(paramContext);
+        }
+        this._mDrawable = new LayerDrawable(new Drawable[] { localStateListDrawable, localResources.getDrawable(i) });
+        return this._mDrawable;
+    }
+
     public Drawable getDrawable(Context paramContext, int iconType)
     {
         Resources localResources = paramContext.getResources();

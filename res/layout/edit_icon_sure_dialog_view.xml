@@ -7,6 +7,7 @@
   <LinearLayout
       android:background="@drawable/mtmm_dialog_bg"
       android:orientation="vertical"
+      android:layout_gravity="center_vertical"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content">
 
@@ -17,7 +18,7 @@
         android:paddingLeft="10dp"
         android:gravity="center_vertical"
         android:background="@drawable/bg_black_a10_selector"
-        style="@style/text_15_5e554c"
+        style="@style/text_16_5e554c"
         android:layout_height="50dip"/>
 
     <View
@@ -32,7 +33,7 @@
         android:paddingLeft="10dp"
         android:gravity="center_vertical"
         android:background="@drawable/bg_black_a10_selector"
-        style="@style/text_15_5e554c"
+        style="@style/text_16_5e554c"
         android:layout_height="50dip"/>
 
   </LinearLayout>

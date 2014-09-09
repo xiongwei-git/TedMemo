@@ -51,6 +51,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
     private TagGridAdapter mGridAdapterEdit;
     private View mIconEditBtn;
     private View mCustomDialogView;
+    private IconBgData mSelectIcon;
     /**
      * 退出编辑模式的动画是否结束
      */
@@ -65,13 +66,9 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
     private MemoIconChooseView.SelecetIconCallBack mSelecetIconCallBack = new MemoIconChooseView.SelecetIconCallBack() {
         @Override
         public void onSelected(IconBgData mIconBgData) {
-            ((DialogFragment)getFragmentManager().findFragmentByTag("SELECT_DIALOG")).dismiss();
-            if(null != mIconBgData){
-                IconDataManager.getInstance(getActivity()).updateIconDBDatas(mIconBgData);
-                mGridAdapterEdit.setmNowAnim(TagGridAdapter.ANIM_IN);
-
-                mGridAdapterEdit.notifyDataSetChanged();
-            }
+            ((DialogFragment)getFragmentManager().findFragmentByTag("CTEATE_ICON_DIALOG")).dismiss();
+            updateIconDataToDB(mIconBgData);
+            refreshEditePage();
         }
     };
 
@@ -93,7 +90,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
                 return;
             }
             Vibrator mShakeVibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-            long [] pattern = {10,200};
+            long [] pattern = {10,130};
             mShakeVibrator.vibrate(pattern, -1);
             openEditIconMode();
         }
@@ -132,11 +129,22 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
         switch (v.getId()) {
             case R.id.iconEditButton:
                 if (mShowState == STATE_EDIT) {
-                    //XTODO 保存数据
                     ((MainActivity) getActivity()).setEditHeader(View.GONE);
                 } else {
                     openEditIconMode();
                 }
+                break;
+            case R.id.editSureDlg_Change:
+                ((DialogFragment)getFragmentManager().findFragmentByTag("CHOOSE_ACTION_DIALOG")).dismiss();
+                if(null != mSelectIcon){
+                    popupIconCreateDialog(mSelectIcon);
+                }
+                break;
+            case R.id.editSureDlg_Delete:
+                ((DialogFragment)getFragmentManager().findFragmentByTag("CHOOSE_ACTION_DIALOG")).dismiss();
+                mSelectIcon.set_mName("");
+                updateIconDataToDB(mSelectIcon);
+                refreshEditePage();
                 break;
             default:
                 break;
@@ -179,6 +187,24 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
         mGridAdapterEdit.notifyDataSetChanged();
     }
 
+    /***
+     * 将一个icon数据更新到数据库
+     * @param data
+     */
+    private void updateIconDataToDB(IconBgData data){
+        if(null != data){
+            IconDataManager.getInstance(getActivity()).updateIconDBDatas(data);
+        }
+    }
+
+    /***
+     * 在更新完数据之后调用该方法刷新编辑页面显示
+     */
+    private void refreshEditePage() {
+        mGridAdapterEdit.setmNowAnim(TagGridAdapter.ANIM_IN);
+        mGridAdapterEdit.notifyDataSetChanged();
+    }
+
     /**
      * 初始化视图
      */
@@ -216,7 +242,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
         lp.setMargins(marginSide, marginTop, marginSide, marginTop);
         chooseView.setLayoutParams(lp);
         setmCustomDialogView(chooseView);
-        DialogExchangeModel.DialogExchangeModelBuilder dialogExchangeModelBuilder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.CUSTOMER,"SELECT_DIALOG");
+        DialogExchangeModel.DialogExchangeModelBuilder dialogExchangeModelBuilder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.CUSTOMER,"CTEATE_ICON_DIALOG");
         dialogExchangeModelBuilder.setBackable(true);
         TDialogManager.showDialogFragment(getFragmentManager(), dialogExchangeModelBuilder.creat(), this);
     }
@@ -226,14 +252,16 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
      * @param mIconBgData
      */
     private void popupChooseDialog(IconBgData mIconBgData) {
+        this.mSelectIcon = mIconBgData;
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.CENTER_VERTICAL);
         View dialogView = LayoutInflater.from(getActivity()).inflate(R.layout.edit_icon_sure_dialog_view, null);
-        //int marginTop = getResources().getDimensionPixelSize(R.dimen.action_bar_height)+ DeviceUtil.getPixelFromDip(getActivity(), 15.0f);
+        dialogView.findViewById(R.id.editSureDlg_Change).setOnClickListener(this);
+        dialogView.findViewById(R.id.editSureDlg_Delete).setOnClickListener(this);
         int marginSide = DeviceUtil.getPixelFromDip(getActivity(),25.0f);
-        lp.setMargins(marginSide, 0, marginSide, 0);
+        lp.setMargins(marginSide, 0, marginSide, marginSide);
         dialogView.setLayoutParams(lp);
         setmCustomDialogView(dialogView);
-        DialogExchangeModel.DialogExchangeModelBuilder dialogExchangeModelBuilder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.CUSTOMER,"CHOOSE_DIALOG");
+        DialogExchangeModel.DialogExchangeModelBuilder dialogExchangeModelBuilder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.CUSTOMER,"CHOOSE_ACTION_DIALOG");
         dialogExchangeModelBuilder.setBackable(true);
         TDialogManager.showDialogFragment(getFragmentManager(), dialogExchangeModelBuilder.creat(), this);
     }

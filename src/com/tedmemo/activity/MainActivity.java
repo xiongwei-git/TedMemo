@@ -1,35 +1,24 @@
 package com.tedmemo.activity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Vibrator;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.view.*;
-import android.widget.FrameLayout;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.android.TedFramework.util.DeviceUtil;
 import com.android.tedwidget.view.HoldableViewPager;
 import com.tedmemo.adapter.SectionsPagerAdapter;
-import com.tedmemo.data.IconDataManager;
-import com.tedmemo.db.IconBgData;
 import com.tedmemo.dialog.CustomerFragmentCallBack;
-import com.tedmemo.dialog.DialogExchangeModel;
-import com.tedmemo.dialog.DialogType;
-import com.tedmemo.dialog.TDialogManager;
-import com.tedmemo.others.ShakeListener;
-import com.tedmemo.view.MemoIconChooseView;
-import com.tedmemo.view.R;
 import com.tedmemo.service.WatchingService;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.tedmemo.view.R;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener,CustomerFragmentCallBack{

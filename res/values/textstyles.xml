@@ -7,8 +7,8 @@
     <item name="android:shadowRadius">1</item>
   </style>
 
-  <style name="text_15_5e554c">
-    <item name="android:textSize">15sp</item>
+  <style name="text_16_5e554c">
+    <item name="android:textSize">16sp</item>
     <item name="android:textColor">#ff5e554c</item>
   </style>
 

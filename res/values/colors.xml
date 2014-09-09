@@ -34,7 +34,9 @@
   <color name="spread_menu_control_item_bg_color">#ffffa499</color>
   <color name="icon_badge_text_color">#ffffffff</color>
   <color name="bulk_header_color">#ff5eb9b0</color>
-
+  <color name="summary_bg_line_color">#ffdef5fb</color>
+  <color name="app_info_list_border_color">#ffddeeec</color>
+  <color name="black_a10">#1a000000</color>
   <!-- 对话框背景 -->
   <color name="background_dialog">#99000000</color>
   <color name="dialog_bg">#3f000000</color>

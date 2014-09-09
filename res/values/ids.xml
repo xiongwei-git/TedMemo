@@ -34,6 +34,8 @@
   <item type="id" name="editIconCategoryButton1">false</item>
   <item type="id" name="editIconCategoryButton2">false</item>
   <item type="id" name="editIconCategoryButton3">false</item>
+  <item type="id" name="editSureDlg_Delete">false</item>
+  <item type="id" name="editSureDlg_Change">false</item>
 
 
   <item type="id" name="checkBox">false</item>

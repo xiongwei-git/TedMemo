@@ -43,4 +43,12 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         return position+"";
     }
+
+    public MainListFragment getMainListFragment() {
+        return mMainListFragment;
+    }
+
+    public TagGridFragment getTagGridFragment() {
+        return mTagGridFragment;
+    }
 }

@@ -107,9 +107,9 @@ public class MemoIconChooseView extends RelativeLayout implements View.OnClickLi
     }
 
     private void refreshSelectedIcon(){
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            mIconSelected.setImageDrawable(mIconBgData.getDrawable(mContext, IconBgData.ICON_TYPE_LARGE));
-        } else {
+        if(StringUtil.emptyOrNull(mIconBgData.get_mName())){
+            mIconSelected.setImageDrawable(mIconBgData.getColorDrawable(mContext));
+        }else {
             mIconSelected.setImageDrawable(mIconBgData.getDrawable(mContext, IconBgData.ICON_TYPE_LARGE));
         }
     }

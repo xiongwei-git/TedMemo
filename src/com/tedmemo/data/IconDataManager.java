@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class IconDataManager {
     private Context mContext;
+    private IconDBUtil iconDBUtil;
     private List<IconBgData> mAllIconBgData = new ArrayList<IconBgData>();
     public static IconDataManager mManager;
     public static IconDataManager getInstance(Context context){
@@ -27,10 +28,20 @@ public class IconDataManager {
     }
 
     public void initIconDBDatas(){
-        IconDBUtil iconDBUtil = new IconDBUtil(mContext);
+        iconDBUtil = new IconDBUtil(mContext);
         mAllIconBgData = iconDBUtil.queryAll();
         if(null == mAllIconBgData || mAllIconBgData.size() == 0){
             createDefaultData();
+        }
+    }
+
+    public void updateIconDBDatas(IconBgData iconBgData){
+        iconDBUtil.insert(iconBgData);
+    }
+
+    public void clostIconDB(){
+        if(null != iconDBUtil){
+            iconDBUtil.closeDB();
         }
     }
 
@@ -50,8 +61,10 @@ public class IconDataManager {
                 if(i == colorData.size()-1){
                     iconBgData.set_mName(Constants.ICON_NAME_S);
                 }
+                iconBgData.set_id(i);
                 iconBgData.setMemoCount(0);
                 mAllIconBgData.add(iconBgData);
+                updateIconDBDatas(iconBgData);
             }
         }
     }

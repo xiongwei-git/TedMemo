@@ -26,7 +26,6 @@ public class TMApplication extends Application {
 	public void onCreate() {
         super.onCreate();
         DeviceUtil.initScreenParams(getResources());
-        IconDataManager.getInstance(this).initIconDBDatas();
 //        ACRA.init(this);
 //        CrashReportSender crashReportSender = new CrashReportSender(this);
 //        ACRA.getErrorReporter().setReportSender(crashReportSender);

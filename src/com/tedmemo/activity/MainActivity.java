@@ -6,18 +6,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import com.android.TedFramework.util.DeviceUtil;
+import com.android.tedwidget.view.HoldableViewPager;
 import com.tedmemo.adapter.SectionsPagerAdapter;
+import com.tedmemo.data.IconDataManager;
 import com.tedmemo.db.IconBgData;
 import com.tedmemo.dialog.CustomerFragmentCallBack;
 import com.tedmemo.dialog.DialogExchangeModel;
@@ -38,7 +39,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private int mIconBgMarginLeft = SELECT_HOME;
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
+    private HoldableViewPager mViewPager;
     private ImageView mIconBg;
     private ImageView mTabHome;
     private ImageView mTabTag;
@@ -46,6 +47,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ViewGroup.MarginLayoutParams mIconBgMarPars;
     private float mPageMovePercent = 0;
     private View mCustomDialogView;
+    /**编辑icon时候的顶部视图*/
+    private RelativeLayout mIconEditHeader;
+    /**正常状态的顶部视图*/
+    private RelativeLayout mTopHeader;
 
     @Override
     public void onClick(View v) {
@@ -59,10 +64,41 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             case R.id.writeButton:
                 writeNewMemo();
                 break;
+            case R.id.iconEditCancelButton:
+                setEditHeader(View.GONE);
+                break;
             default:
                 break;
         }
     }
+
+
+    private ViewPager.OnPageChangeListener myOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i2) {
+            if(v==0.0){
+                if(i==0){
+                    mIconBgMarginLeft = SELECT_HOME;
+                }else if(i == 1){
+                    mIconBgMarginLeft = SELECT_FOLDER;
+                }
+                mPageMovePercent = i;
+            }else {
+                mPageMovePercent = (float)i2/(float)WINDOW_WIDTH;
+                mIconBgMarginLeft = (int)(SELECT_HOME+(SELECT_FOLDER-SELECT_HOME)*mPageMovePercent);
+            }
+            setIconBgPosition();
+            setIconFilter();
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+        }
+    };
 
     @Override
     public View getCustomerView(String mTag) {
@@ -88,6 +124,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     protected void onDestroy() {
+        //IconDataManager.getInstance(this).clostIconDB();
         stopService(new Intent(this, WatchingService.class));
         super.onDestroy();
     }
@@ -97,6 +134,33 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            /**当前处在编辑icon模式*/
+            if(mIconEditHeader.isShown()){
+                setEditHeader(View.GONE);
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**********Public***************/
+    public void setEditHeader(int visibility){
+        mIconEditHeader.setVisibility(visibility);
+        if(visibility == View.VISIBLE){
+            mViewPager.setSwipeHold(true);
+            mTopHeader.setVisibility(View.GONE);
+            mIconEditHeader.findViewById(R.id.iconEditCancelButton).setOnClickListener(this);
+        }else {
+            mViewPager.setSwipeHold(false);
+            mTopHeader.setVisibility(View.VISIBLE);
+            mSectionsPagerAdapter.getTagGridFragment().closeEditIconMode();
+        }
+    }
+
 
     void initService(){
         startService(new Intent(this, WatchingService.class));
@@ -114,7 +178,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     private void initView(){
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.topPager);
+        mTopHeader = (RelativeLayout)findViewById(R.id.topHeader);
+        mIconEditHeader = (RelativeLayout)findViewById(R.id.iconEditHeader);
+        mViewPager = (HoldableViewPager) findViewById(R.id.topPager);
         mIconBg = (ImageView) findViewById(R.id.tabIconBackground);
         mTabHome = (ImageView) findViewById(R.id.tabHome);
         mTabTag = (ImageView) findViewById(R.id.tabTag);
@@ -145,59 +211,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 //        Dialog dialog = new Dialog(this,R.style.ChooseIconDialog);
 //        dialog.setContentView(R.layout.edit_icon_dialog_view);
 //        dialog.show();
-        IconBgData mIconBgData = new IconBgData();
-        mIconBgData.set_mName("c_funny");
-        mIconBgData.setBackgroundColorOnStr("#f85d00");
-        mIconBgData.setBackgroundColorOffStr("#0D9151");
-        MemoIconChooseView chooseView = new MemoIconChooseView(this,mIconBgData);
-        chooseView.setmSelecetIconCallBack(mSelecetIconCallBack);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT, Gravity.CENTER_VERTICAL);
-        int marginTop = getResources().getDimensionPixelSize(R.dimen.action_bar_height)+DeviceUtil.getPixelFromDip(this,15.0f);
-        int marginSide = DeviceUtil.getPixelFromDip(this,25.0f);
-        lp.setMargins(marginSide, marginTop, marginSide, marginTop);
-        chooseView.setLayoutParams(lp);
-        setmCustomDialogView(chooseView);
-        DialogExchangeModel.DialogExchangeModelBuilder dialogExchangeModelBuilder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.CUSTOMER,"SELECT_DIALOG");
-        dialogExchangeModelBuilder.setBackable(true);
-        TDialogManager.showDialogFragment(getSupportFragmentManager(),dialogExchangeModelBuilder.creat(),null);
+
     }
 
-    private MemoIconChooseView.SelecetIconCallBack mSelecetIconCallBack = new MemoIconChooseView.SelecetIconCallBack() {
-        @Override
-        public void onSelected(IconBgData mIconBgData) {
-            if(null != mIconBgData){
 
-            }
-            ((DialogFragment)getSupportFragmentManager().findFragmentByTag("SELECT_DIALOG")).dismiss();
-        }
-    };
-
-    private ViewPager.OnPageChangeListener myOnPageChangeListener = new ViewPager.OnPageChangeListener() {
-        @Override
-        public void onPageScrolled(int i, float v, int i2) {
-            if(v==0.0){
-                if(i==0){
-                    mIconBgMarginLeft = SELECT_HOME;
-                }else if(i == 1){
-                    mIconBgMarginLeft = SELECT_FOLDER;
-                }
-                mPageMovePercent = i;
-            }else {
-                mPageMovePercent = (float)i2/(float)WINDOW_WIDTH;
-                mIconBgMarginLeft = (int)(SELECT_HOME+(SELECT_FOLDER-SELECT_HOME)*mPageMovePercent);
-            }
-            setIconBgPosition();
-            setIconFilter();
-        }
-
-        @Override
-        public void onPageSelected(int i) {
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int i) {
-        }
-    };
 
     /****set+get method****/
     public void setmCustomDialogView(View mCustomDialogView) {

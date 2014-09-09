@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class IconDBUtil {
     private Context mContext;
-    IconDBHelper mIconDBHelper;
+    private IconDBHelper mIconDBHelper;
     RuntimeExceptionDao<IconBgData, Integer> mIconDAO;
 
     public IconDBUtil(Context context) {
@@ -25,8 +25,8 @@ public class IconDBUtil {
     /**
      * 插入
      */
-    public void insert(IconBgData houseInfo) {
-        mIconDAO.createOrUpdate(houseInfo);
+    public void insert(IconBgData iconBgData) {
+        mIconDAO.createOrUpdate(iconBgData);
     }
 
     /**
@@ -38,7 +38,7 @@ public class IconDBUtil {
     public int delete(IconBgData icon) {
         try {
             DeleteBuilder<IconBgData, Integer> deleteBuilder = mIconDAO.deleteBuilder();
-            deleteBuilder.where().eq("name", icon.get_mName());
+            deleteBuilder.where().eq("id", icon.get_mName());
             return deleteBuilder.delete();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,13 +49,13 @@ public class IconDBUtil {
     /**
      * 按照指定的id 删除一项
      *
-     * @param infoID
+     * @param id
      * @return 删除成功返回1 ，失败返回0
      */
-    public int delete(long infoID) {
+    public int delete(long id) {
         try {
             DeleteBuilder<IconBgData, Integer> deleteBuilder = mIconDAO.deleteBuilder();
-            deleteBuilder.where().eq("mUserInfoID", infoID);
+            deleteBuilder.where().eq("id", id);
             return deleteBuilder.delete();
         } catch (SQLException e) {
             e.printStackTrace();

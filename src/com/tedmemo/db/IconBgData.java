@@ -29,8 +29,10 @@ public class IconBgData {
     private String _mBackgroundColorOnStr;
     @DatabaseField(columnName="order")
     private int _mOrder = -1;
-    @DatabaseField(columnName="name", id=true)
+    @DatabaseField(columnName="name")
     private String _mName;
+    @DatabaseField(columnName="id", id=true)
+    private int _id;
 
     private Drawable _mDrawable = null;
     private long _mMemoCount = -1L;
@@ -109,6 +111,25 @@ public class IconBgData {
         return this._mDrawable;
     }
 
+    /***
+     * 如果某个颜色尚未分配到资源，就只能获取到颜色为背景的图片
+     * @param paramContext
+     * @return
+     */
+    public Drawable getColorDrawable(Context paramContext)
+    {
+        Resources localResources = paramContext.getResources();
+
+        GradientDrawable localGradientDrawableOn = ((GradientDrawable)localResources.getDrawable(R.drawable.icon_bg));
+        localGradientDrawableOn.setColor(Color.parseColor(getBackgroundColorOnStr()));
+
+        StateListDrawable localStateListDrawable = new StateListDrawable();
+        //localStateListDrawable.addState(new int[]{android.R.attr.state_pressed}, localGradientDrawableOff);
+        localStateListDrawable.addState(new int[]{}, localGradientDrawableOn);
+        this._mDrawable = new LayerDrawable(new Drawable[] { localStateListDrawable });
+        return this._mDrawable;
+    }
+
     public long getMemoCount(Context paramContext)
     {
         //this._mMemoCount = new o(paramContext).a(this);
@@ -146,6 +167,14 @@ public class IconBgData {
 
     public String get_mName() {
         return _mName;
+    }
+
+    public int get_id() {
+        return _id;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
     public void set_mName(String _mName) {

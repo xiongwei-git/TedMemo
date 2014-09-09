@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <LinearLayout
+      android:background="@drawable/mtmm_dialog_bg"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@id/editSureDlg_Change"
+        android:layout_width="fill_parent"
+        android:text="@string/change"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_black_a10_selector"
+        style="@style/text_15_5e554c"
+        android:layout_height="50dip"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1.0dip"
+        android:background="@color/app_info_list_border_color"/>
+
+    <TextView
+        android:id="@id/editSureDlg_Delete"
+        android:layout_width="fill_parent"
+        android:text="@string/delete"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_black_a10_selector"
+        style="@style/text_15_5e554c"
+        android:layout_height="50dip"/>
+
+  </LinearLayout>
+
+</LinearLayout>

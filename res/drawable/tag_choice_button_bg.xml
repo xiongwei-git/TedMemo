@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false" android:left="0.0dip" android:top="@dimen/for_border_db" android:right="@dimen/for_border_db" android:bottom="@dimen/for_border_db">
+        <shape android:shape="rectangle">
+            <stroke android:width="1.0dip" android:color="@color/footer_border_color" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+    <item android:state_pressed="true" android:left="0.0dip" android:top="@dimen/for_border_db" android:right="@dimen/for_border_db" android:bottom="@dimen/for_border_db">
+        <shape android:shape="rectangle">
+            <stroke android:width="1.0dip" android:color="@color/footer_border_color" />
+            <solid android:color="@color/edit_memo_footer_press_background" />
+        </shape>
+    </item>
+</selector>

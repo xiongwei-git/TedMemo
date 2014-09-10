@@ -37,6 +37,19 @@
   <item type="id" name="editSureDlg_Delete">false</item>
   <item type="id" name="editSureDlg_Change">false</item>
 
+  <!--edit_memo_fragment-->
+  <item type="id" name="editMemoHeader">false</item>
+  <item type="id" name="cancelButton">false</item>
+  <item type="id" name="saveButton">false</item>
+  <item type="id" name="imageEditTextScrollView">false</item>
+  <item type="id" name="editMemoFooter">false</item>
+  <item type="id" name="galleryButton">false</item>
+  <item type="id" name="imageCaptureButton">false</item>
+  <item type="id" name="tagButton">false</item>
+  <item type="id" name="tagButtonImg">false</item>
+  <item type="id" name="imageEditText">false</item>
+
+
 
   <item type="id" name="checkBox">false</item>
   <item type="id" name="article_thumb">false</item>

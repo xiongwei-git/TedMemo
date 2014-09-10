@@ -10,6 +10,7 @@
     <string name="edit_icon">Icon Add/Edit</string>
     <string name="decide">OK</string>
     <string name="i_know">我知道了</string>
+    <string name="save">Save</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="edit_icon_for_header">Icon Edit</string>
@@ -18,6 +19,8 @@
     <string name="merge">Merge</string>
     <string name="change">Change</string>
     <string name="complete_icon">Finish</string>
+    <string name="edit">Edit</string>
+    <string name="write_memo">Please write here</string>
 
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
 

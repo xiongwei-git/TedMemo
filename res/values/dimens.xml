@@ -14,4 +14,5 @@
     <dimen name="header_shadow_size">3.0dip</dimen>
     <dimen name="header_text">14.0sp</dimen>
     <dimen name="tab_text">10.0sp</dimen>
+    <dimen name="for_border_db">-20.0dip</dimen>
 </resources>

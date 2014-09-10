@@ -15,16 +15,14 @@ import com.tedmemo.data.IconDataManager;
 //        mode = ReportingInteractionMode.TOAST,
 //        resToastText = R.string.crash_toast_text)
 public class TMApplication extends Application {
-	private static TMApplication self = new TMApplication();
+	private static TMApplication self = null;
 	public static TMApplication getInstance() {
-        if(null==self){
-            self = new TMApplication();
-        }
         return self;
 	}
 	@Override
 	public void onCreate() {
         super.onCreate();
+        self = this;
         DeviceUtil.initScreenParams(getResources());
 //        ACRA.init(this);
 //        CrashReportSender crashReportSender = new CrashReportSender(this);

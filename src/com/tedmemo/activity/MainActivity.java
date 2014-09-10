@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -17,6 +18,8 @@ import com.android.TedFramework.util.DeviceUtil;
 import com.android.tedwidget.view.HoldableViewPager;
 import com.tedmemo.adapter.SectionsPagerAdapter;
 import com.tedmemo.dialog.CustomerFragmentCallBack;
+import com.tedmemo.fragment.FragmentExchangeController;
+import com.tedmemo.fragment.WriteMemoFragment;
 import com.tedmemo.service.WatchingService;
 import com.tedmemo.view.R;
 
@@ -197,10 +200,13 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void writeNewMemo(){
-//        Dialog dialog = new Dialog(this,R.style.ChooseIconDialog);
-//        dialog.setContentView(R.layout.edit_icon_dialog_view);
-//        dialog.show();
-
+        WriteMemoFragment writeMemoFragment = WriteMemoFragment.getInstance();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.anim_fragment_in, R.anim.anim_fragment_out, R.anim.anim_fragment_close_in, R.anim.anim_fragment_close_out);
+        transaction.add(android.R.id.content, writeMemoFragment, "WRITE_MEMO");
+        transaction.addToBackStack("WRITE_MEMO");
+        transaction.commitAllowingStateLoss();
+        //FragmentExchangeController.initFragment(getSupportFragmentManager(),writeMemoFragment,"WRITE_MEMO");
     }
 
 

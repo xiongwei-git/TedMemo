@@ -136,7 +136,7 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         mImageEditText.insertImage(bm,imgUrl);
     }
     private void selectIcon(){
-        IconSelectFrament iconSelectFrament = new IconSelectFrament();
+        IconSelectFrament iconSelectFrament = IconSelectFrament.getInstance();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         //transaction.setCustomAnimations(R.anim.anim_fragment_in, R.anim.anim_fragment_out, R.anim.anim_fragment_close_in, R.anim.anim_fragment_close_out);
         transaction.add(R.id.writeMemoSelectIcon, iconSelectFrament, "SELECT_ICON");

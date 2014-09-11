@@ -54,37 +54,32 @@ public class ImageEditText extends EditText {
 
     }
 
-    private void analysisString(String string, int length) {
+    private void analysisString(String string, int index) {
         List localList = URLAnalysis.getUrl(string);
         if (localList.size() == 0) {
-            if (!StringUtil.emptyOrNull(string)){
+            if (!StringUtil.emptyOrNull(string)) {
                 addTextObject(string);
             }
             return;
         }
-
         int i = this.mNum;
         Iterator localIterator = localList.iterator();
-
-        for (int j = 0; ; ++j) {
-
-            if (localIterator.hasNext()) ;
-            IncludedUrlInfo localIncludedUrlInfo = (IncludedUrlInfo) localIterator.next();
-
-            if (this.mNum < i + localIncludedUrlInfo.getStartPosition())
-                addTextObject(this.mString.substring(this.mNum, i + localIncludedUrlInfo.getStartPosition()));
-
-            addUrlObject(localIncludedUrlInfo.getUrl());
-
-            if ((j != -1 + localList.size()) || (i + localIncludedUrlInfo.getEndPosition() >= length))
-                continue;
-
-            String str = this.mString.substring(this.mNum, length);
-
-            if ("".equals(str))
-                continue;
-            addTextObject(str);
-
+        int j = 0;
+        while (localIterator.hasNext()){
+            IncludedUrlInfo includedUrlInfo = (IncludedUrlInfo) localIterator.next();
+            if (this.mNum < i + includedUrlInfo.getStartPosition()){
+                addTextObject(this.mString.substring(this.mNum, i + includedUrlInfo.getStartPosition()));
+            }
+            addUrlObject(includedUrlInfo.getUrl());
+            if(j == localList.size()-1){
+                if(i + includedUrlInfo.getEndPosition() < index){
+                    String str = this.mString.substring(this.mNum, index);
+                    if(!StringUtil.emptyOrNull(str)){
+                        addTextObject(str);
+                    }
+                }
+            }
+            j++;
         }
     }
 
@@ -190,19 +185,15 @@ public class ImageEditText extends EditText {
                     ImageSpan localImageSpan = (ImageSpan) localIterator.next();
                     int j = localEditable.getSpanStart(localImageSpan);
                     int k = localEditable.getSpanEnd(localImageSpan);
+                    /**图片之前有字符串*/
                     if (this.mNum < j) {
                         analysisString(this.mString.substring(this.mNum, j), j);
-                        addImageObject(this.mMap.get(localImageSpan.getSource()));
                     }
-                    do {
-                        if (i != -1 + localList.size())
-                            break;
-                        analysisString(this.mString.substring(k, this.mString.length()), this.mString.length());
-                        break;
-                    }
-                    while (this.mNum != j);
                     addImageObject(this.mMap.get(localImageSpan.getSource()));
-                    ++i;
+                    if(i == localList.size()-1){
+                        analysisString(this.mString.substring(k, this.mString.length()), this.mString.length());
+                    }
+                    i++;
                 }
                 localJSONObject.put("memo", this.mJsonArray);
                 return localJSONObject.toString();

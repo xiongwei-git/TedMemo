@@ -1,5 +1,7 @@
 package com.tedmemo.others;
 
+import android.os.Environment;
+
 /**
  * Created by w_xiong on 2014/8/11.
  */
@@ -16,6 +18,7 @@ public class Constants {
     public static final int CLOSE_SHAKE_MSG = 0x1;
     public static final int WAIT_ANIM_OVER = 0x2;
 
+    public static final String PHOTO_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
 
 
     /**OTHER*/

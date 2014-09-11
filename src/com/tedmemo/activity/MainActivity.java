@@ -1,10 +1,15 @@
 package com.tedmemo.activity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -18,13 +23,15 @@ import com.android.TedFramework.util.DeviceUtil;
 import com.android.tedwidget.view.HoldableViewPager;
 import com.tedmemo.adapter.SectionsPagerAdapter;
 import com.tedmemo.dialog.CustomerFragmentCallBack;
-import com.tedmemo.fragment.FragmentExchangeController;
 import com.tedmemo.fragment.WriteMemoFragment;
 import com.tedmemo.service.WatchingService;
 import com.tedmemo.view.R;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener,CustomerFragmentCallBack{
+    public static final int REQUEST_CODE_GALLERY = 0x001;
+    public static final int REQUEST_CODE_CAMERA = 0x002;
+
     private int SELECT_HOME;
     private int SELECT_FOLDER;
     private int WINDOW_WIDTH = 0;
@@ -139,6 +146,20 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if(requestCode == REQUEST_CODE_GALLERY){
+                /**获得图片的uri*/
+                Uri imageUri = data.getData();
+                putImgToWritePage(imageUri);
+            }else if(requestCode == REQUEST_CODE_CAMERA){
+
+            }
+        }
+    }
+
     /**********Public***************/
     public void setEditHeader(int visibility){
         mIconEditHeader.setVisibility(visibility);
@@ -209,7 +230,24 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //FragmentExchangeController.initFragment(getSupportFragmentManager(),writeMemoFragment,"WRITE_MEMO");
     }
 
+    private void putImgToWritePage(Uri uri){
+        String[] projection = { MediaStore.Images.Media.DATA };
+        CursorLoader cursorLoader = new CursorLoader(this);
+        cursorLoader.setProjection(projection);
+        cursorLoader.setUri(uri);
+        Cursor cursor = cursorLoader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String imgUrl = cursor.getString(column_index);
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("WRITE_MEMO");
+        if(null != fragment){
+            ((WriteMemoFragment)fragment).insertImageToEdit(imgUrl);
+        }
+    }
 
+    private void getPhotoData(Intent data){
+
+    }
 
     /****set+get method****/
     public void setmCustomDialogView(View mCustomDialogView) {

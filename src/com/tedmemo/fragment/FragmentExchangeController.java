@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
+import com.tedmemo.view.R;
 
 public class FragmentExchangeController {
 	public static void replaceFragment(FragmentManager fragmentManager, Fragment targetFragment, String tag) {
@@ -29,7 +30,7 @@ public class FragmentExchangeController {
 	public static void addFragment(FragmentManager supportFragmentManager, Fragment baseDialogFragment, int content, String tag) {
 
 		FragmentTransaction transaction = supportFragmentManager.beginTransaction();
-//		transaction.setCustomAnimations(R.anim.anim_fragment_in, R.anim.anim_fragment_out, R.anim.anim_fragment_close_in, R.anim.anim_fragment_close_out);
+		transaction.setCustomAnimations(R.anim.anim_fragment_in, R.anim.anim_fragment_out, R.anim.anim_fragment_close_in, R.anim.anim_fragment_close_out);
 		Fragment fragment = supportFragmentManager.findFragmentById(content);
 		if (fragment != null) {
 			if (fragment instanceof OnBackStackChangedListener) {

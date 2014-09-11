@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.CursorLoader;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -69,6 +70,10 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
                     TInputMethodManager.hideSoftInput(mImageEditText);
                     callCamera();
                     break;
+                case R.id.tagButton:
+                    TInputMethodManager.hideSoftInput(mImageEditText);
+                    selectIcon();
+                    break;
                 default:
                     break;
             }
@@ -87,6 +92,7 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         rootView.findViewById(R.id.saveButton).setOnClickListener(this);
         rootView.findViewById(R.id.galleryButton).setOnClickListener(this);
         rootView.findViewById(R.id.imageCaptureButton).setOnClickListener(this);
+        rootView.findViewById(R.id.tagButton).setOnClickListener(this);
         mImageEditText =(ImageEditText)rootView.findViewById(R.id.imageEditText);
     }
 
@@ -94,10 +100,16 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         String jsonStr = mImageEditText.getJSONObject();
     }
 
+    public void insertImageToEdit(){
+        if(!StringUtil.emptyOrNull(mPhotoPath)){
+            File file =  new File(mPhotoPath);
+            if(file.exists()){
+                insertImageToEdit(mPhotoPath);
+            }
+        }
+    }
     public void insertImageToEdit(String imgUrl){
         Bitmap bm = null;
-
-
         BitmapFactory.Options options = new BitmapFactory.Options();
         //开始读入图片，此时把options.inJustDecodeBounds 设回true了
         options.inJustDecodeBounds = true;
@@ -122,6 +134,14 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
         bm = BitmapFactory.decodeFile(imgUrl, options);
         mImageEditText.insertImage(bm,imgUrl);
+    }
+    private void selectIcon(){
+        IconSelectFrament iconSelectFrament = new IconSelectFrament();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //transaction.setCustomAnimations(R.anim.anim_fragment_in, R.anim.anim_fragment_out, R.anim.anim_fragment_close_in, R.anim.anim_fragment_close_out);
+        transaction.add(R.id.writeMemoSelectIcon, iconSelectFrament, "SELECT_ICON");
+        transaction.addToBackStack("SELECT_ICON");
+        transaction.commitAllowingStateLoss();
     }
     private void callGallery(){
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);

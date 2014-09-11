@@ -37,6 +37,9 @@
   <item type="id" name="editSureDlg_Delete">false</item>
   <item type="id" name="editSureDlg_Change">false</item>
 
+    <item type="id" name="temporarySaveButton">false</item>
+    <item type="id" name="icon_selection_gridview">false</item>
+
   <!--edit_memo_fragment-->
   <item type="id" name="editMemoHeader">false</item>
   <item type="id" name="cancelButton">false</item>
@@ -48,6 +51,7 @@
   <item type="id" name="tagButton">false</item>
   <item type="id" name="tagButtonImg">false</item>
   <item type="id" name="imageEditText">false</item>
+  <item type="id" name="writeMemoSelectIcon">false</item>
 
 
 

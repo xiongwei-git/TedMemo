@@ -21,6 +21,8 @@
     <string name="complete_icon">Finish</string>
     <string name="edit">Edit</string>
     <string name="write_memo">Please write here</string>
+    <string name="temporary_save">Take a memo for now</string>
+    <string name="icon_selection_cancel">Cancel</string>
 
     <string name="crash_toast_text">Ooooops ! I crashed, but a report has been sent to my developer to help fix the issue !</string>
 

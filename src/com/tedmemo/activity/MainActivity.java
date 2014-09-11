@@ -155,7 +155,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 Uri imageUri = data.getData();
                 putImgToWritePage(imageUri);
             }else if(requestCode == REQUEST_CODE_CAMERA){
-
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag("WRITE_MEMO");
+                if(null != fragment){
+                    ((WriteMemoFragment)fragment).insertImageToEdit();
+                }
             }
         }
     }

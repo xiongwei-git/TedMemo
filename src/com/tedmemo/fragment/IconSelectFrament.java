@@ -43,9 +43,7 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), R.style.IconSelectionThema);
-        LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
-        View rootView = localInflater.inflate(R.layout.icon_selection_fragment, container,false);
+        View rootView = inflater.inflate(R.layout.icon_selection_fragment, container,false);
         initView(rootView);
         return rootView;
     }

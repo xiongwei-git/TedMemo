@@ -11,13 +11,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/progress_bg" >
+        android:background="@drawable/mtmm_dialog_bg" >
 
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/mtmm_dialog_top_bg"
             android:orientation="vertical" >
 
             <ScrollView
@@ -49,7 +50,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
-                android:background="#333333"
+                android:background="@color/black"
                 android:gravity="center_horizontal" />
 
             <LinearLayout
@@ -63,14 +64,14 @@
                     android:layout_width="0dip"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_dialog_selector"
+                    android:background="@drawable/dialog_left_button_selector"
                     android:gravity="center"
                     android:text="@string/ok" />
 
                 <TextView
                     android:layout_width="1dip"
                     android:layout_height="fill_parent"
-                    android:background="#333333"
+                    android:background="@color/black"
                     android:gravity="center_horizontal" />
 
                 <TextView
@@ -79,7 +80,7 @@
                     android:layout_width="0dip"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_dialog_selector"
+                    android:background="@drawable/dialog_right_button_selector"
                     android:gravity="center"
                     android:text="@string/cancel" />
             </LinearLayout>

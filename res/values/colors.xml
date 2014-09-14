@@ -43,6 +43,7 @@
   <color name="edit_memo_footer_press_background">#ffdedede</color>
   <color name="edittext_color_hint">#ffc7c7c7</color>
     <color name="mtmm_alpha_green_bg_color">#cc2e4745</color>
+    <color name="common_press_background">#ffefefef</color>
   <color name="black_a10">#1a000000</color>
   <!-- 对话框背景 -->
   <color name="background_dialog">#99000000</color>

@@ -1,16 +1,12 @@
 package com.tedmemo.fragment;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.CursorLoader;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +14,16 @@ import android.view.ViewGroup;
 import com.android.TedFramework.Fragment.TFragment;
 import com.android.TedFramework.util.*;
 import com.tedmemo.activity.MainActivity;
+import com.tedmemo.dialog.DialogExchangeModel;
+import com.tedmemo.dialog.DialogType;
+import com.tedmemo.dialog.TDialogManager;
 import com.tedmemo.others.Constants;
+import com.tedmemo.others.ImageIOManager;
 import com.tedmemo.view.ImageEditText;
 import com.tedmemo.view.R;
 import com.tedmemo.view.manager.TInputMethodManager;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -56,7 +55,9 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
             switch (v.getId()){
                 case R.id.cancelButton:
                     TInputMethodManager.hideSoftInput(mImageEditText);
-                    getActivity().onBackPressed();
+                    if(checkCancel()){
+                        getActivity().onBackPressed();
+                    }
                     break;
                 case R.id.saveButton:
                     TInputMethodManager.hideSoftInput(mImageEditText);
@@ -87,6 +88,34 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         return rootView;
     }
 
+    public boolean checkCancel(){
+        String jsonStr = mImageEditText.getJSONObject();
+        if(StringUtil.emptyOrNull(jsonStr)){
+            return true;
+        }else {
+            DialogExchangeModel.DialogExchangeModelBuilder builder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.EXCUTE,"LEAVE");
+            builder.setBackable(true).setDialogContext(getTString(R.string.confirm_leave));
+            TDialogManager.showDialogFragment(getFragmentManager(),builder.creat(),this);
+            return false;
+        }
+    }
+
+    public void insertImageToEdit(){
+        if(!StringUtil.emptyOrNull(mPhotoPath)){
+            File file =  new File(mPhotoPath);
+            if(file.exists()){
+                insertImageToEdit(mPhotoPath);
+            }
+        }
+    }
+    public void insertImageToEdit(String imgUrl){
+        Bitmap bm = ImageIOManager.loadBitmap(imgUrl,mWHRatio);
+        if(StringUtil.emptyOrNull(imgUrl) || null == bm){
+            return;
+        }
+        mImageEditText.insertImage(bm,imgUrl);
+    }
+
     private void initView(View rootView){
         rootView.findViewById(R.id.cancelButton).setOnClickListener(this);
         rootView.findViewById(R.id.saveButton).setOnClickListener(this);
@@ -100,41 +129,8 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         String jsonStr = mImageEditText.getJSONObject();
     }
 
-    public void insertImageToEdit(){
-        if(!StringUtil.emptyOrNull(mPhotoPath)){
-            File file =  new File(mPhotoPath);
-            if(file.exists()){
-                insertImageToEdit(mPhotoPath);
-            }
-        }
-    }
-    public void insertImageToEdit(String imgUrl){
-        Bitmap bm = null;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(imgUrl,options);//此时返回bm为空
-        options.inJustDecodeBounds = false;
-        int w = options.outWidth;
-        int h = options.outHeight;
-        //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
-        int be = 1;//be=1表示不缩放
-        float hh = 250f;//这里设置高度为800f+
-        float ww = hh*mWHRatio;//这里设置宽度为480f
-        LogUtil.e("w="+w+":::h="+h);
-        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
-            be = (int) (w / ww);
-        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
-            be = (int) (h / hh);
-        }
-        if (be <= 0){
-            be = 1;
-        }
-        options.inSampleSize = be;//设置缩放比例
-        //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
-        bm = BitmapFactory.decodeFile(imgUrl, options);
-        mImageEditText.insertImage(bm,imgUrl);
-    }
+
+
     private void selectIcon(){
         IconSelectFrament iconSelectFrament = IconSelectFrament.getInstance();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();

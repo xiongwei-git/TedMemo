@@ -226,7 +226,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private void writeNewMemo(){
         WriteMemoFragment writeMemoFragment = WriteMemoFragment.getInstance();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.anim_fragment_in, R.anim.anim_fragment_out, R.anim.anim_fragment_close_in, R.anim.anim_fragment_close_out);
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         transaction.add(android.R.id.content, writeMemoFragment, "WRITE_MEMO");
         transaction.addToBackStack("WRITE_MEMO");
         transaction.commitAllowingStateLoss();

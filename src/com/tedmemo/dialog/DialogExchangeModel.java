@@ -11,8 +11,8 @@ public class DialogExchangeModel implements Serializable {
 	private static final long serialVersionUID = -3685432164096360692L;
 	public DialogExchangeModelBuilder dialogExchangeModelBuilder;
 
-	public DialogExchangeModel(DialogExchangeModelBuilder ctripDialogExchangeModelBuilder) {
-		this.dialogExchangeModelBuilder = ctripDialogExchangeModelBuilder;
+	public DialogExchangeModel(DialogExchangeModelBuilder dialogExchangeModelBuilder) {
+		this.dialogExchangeModelBuilder = dialogExchangeModelBuilder;
 	}
 
 	public DialogType getDialogType() {
@@ -37,10 +37,6 @@ public class DialogExchangeModel implements Serializable {
 
 	public String getSingleText() {
 		return dialogExchangeModelBuilder.singleText;
-	}
-
-	public boolean isBussinessCancleable() {
-		return dialogExchangeModelBuilder.isBussinessCancleable;
 	}
 
 	public boolean isBackable() {
@@ -71,11 +67,11 @@ public class DialogExchangeModel implements Serializable {
 		/**
 		 * 确认按键
 		 */
-		private String postiveText = "";
+		private String postiveText = "OK";
 		/**
 		 * 取消按键
 		 */
-		private String negativeText = "";
+		private String negativeText = "Cancel";
 		/**
 		 * 单按键
 		 */
@@ -92,15 +88,11 @@ public class DialogExchangeModel implements Serializable {
 		 * 空白可点（默认可点）
 		 */
 		private boolean isSpaceable = true;
-		/**
-		 * 服务可取消(默认可取消)
-		 */
-		private boolean isBussinessCancleable = true;
 
 		private int gravity = Gravity.CENTER;
 
-		public DialogExchangeModelBuilder(DialogType ctripHDDialogType, String tag) {
-			this.dialogType = ctripHDDialogType;
+		public DialogExchangeModelBuilder(DialogType dialogType, String tag) {
+			this.dialogType = dialogType;
 			this.tag = tag;
 		}
 
@@ -131,11 +123,6 @@ public class DialogExchangeModel implements Serializable {
 
 		public DialogExchangeModelBuilder setBackable(boolean isBackable) {
 			this.isBackable = isBackable;
-			return this;
-		}
-
-		public DialogExchangeModelBuilder setBussinessCancleable(boolean isBussinessCancleable) {
-			this.isBussinessCancleable = isBussinessCancleable;
 			return this;
 		}
 

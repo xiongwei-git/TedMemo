@@ -5,7 +5,7 @@
     android:clickable="true"
     android:orientation="vertical"
     android:background="@color/dialog_bg"
-    android:padding="25dip" >
+    android:padding="25dp" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -27,7 +27,7 @@
 
                 <TextView
                     android:id="@+id/content_text"
-                    style="@style/text_15_ffffff"
+                    style="@style/text_16_5e554c"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -47,11 +47,10 @@
             android:gravity="center"
             android:orientation="vertical" >
 
-            <TextView
+            <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
-                android:background="@color/black"
-                android:gravity="center_horizontal" />
+                android:background="@color/dialog_diver_line"/>
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -60,29 +59,28 @@
 
                 <TextView
                     android:id="@+id/lef_btn"
-                    style="@style/text_15_ffffff"
+                    style="@style/text_16_5e554c"
                     android:layout_width="0dip"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:background="@drawable/dialog_left_button_selector"
                     android:gravity="center"
-                    android:text="@string/ok" />
+                    android:text="@string/cancel"/>
 
-                <TextView
+                <View
                     android:layout_width="1dip"
                     android:layout_height="fill_parent"
-                    android:background="@color/black"
-                    android:gravity="center_horizontal" />
+                    android:background="@color/dialog_diver_line"/>
 
                 <TextView
                     android:id="@+id/right_btn"
-                    style="@style/text_15_ffffff"
+                    style="@style/text_16_5ebab0"
                     android:layout_width="0dip"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:background="@drawable/dialog_right_button_selector"
                     android:gravity="center"
-                    android:text="@string/cancel" />
+                    android:text="@string/ok" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

@@ -27,7 +27,7 @@ public class Constants {
     public static final String[] ICON_COLORS = {"#fdcb35","#e46682","#aebe7e","#7f74b4",
             "#a0bde8","#f5ae68","#7c866d","#a8877c",
             "#b8aa83","#a26b9f","#6d92b4","#f07a63",
-            "#d35543","#eaa7bd","#9aad9a","#303030","#5ebab0"};
+            "#d35543","#eaa7bd","#9aad9a","#5ebab0"};//"#303030",
 
     public static final String[] ICON_NAME_A = {"a_diamond","a_club","a_spade","a_square",
             "a_triangle","a_laugh","a_smile","a_surprised","a_wooden",

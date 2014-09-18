@@ -15,17 +15,17 @@ import java.sql.SQLException;
 /**
  * Created by Ted on 14-7-29.
  */
-public class IconDBHelper extends OrmLiteSqliteOpenHelper {
+public class DBOpenHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG = "IconDBHelper";
 
     private Dao<IconBgData, Integer> iconDBDao = null;
     private RuntimeExceptionDao<IconBgData, Integer> iconDBRuntimeDao = null;
 
-    public IconDBHelper(Context context) {
+    public DBOpenHelper(Context context) {
         super(context, Constants.DATABASE_NAME, null, Constants.DATABASE_VERSION);
     }
 
-    public IconDBHelper(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
+    public DBOpenHelper(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
         super(context, databaseName, factory, databaseVersion);
     }
 
@@ -33,8 +33,8 @@ public class IconDBHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, IconBgData.class);
-            iconDBDao = getHouseInfoDao();
-            iconDBRuntimeDao = getHouseInfoDataDao();
+            iconDBDao = getIconBgDao();
+            iconDBRuntimeDao = getIconBgRunDao();
         } catch (SQLException e) {
             Log.e(TAG, e.toString());
             e.printStackTrace();
@@ -47,22 +47,17 @@ public class IconDBHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, IconBgData.class, true);
             onCreate(sqliteDatabase, connectionSource);
         } catch (SQLException e) {
-            Log.e(IconDBHelper.class.getName(), "Unable to upgrade database from version " + oldVer + " to new " + newVer, e);
+            Log.e(DBOpenHelper.class.getName(), "Unable to upgrade database from version " + oldVer + " to new " + newVer, e);
         }
     }
 
-    /**
-     * @return
-     * @throws java.sql.SQLException
-     * @throws java.sql.SQLException
-     */
-    private Dao<IconBgData, Integer> getHouseInfoDao() throws SQLException {
+    private Dao<IconBgData, Integer> getIconBgDao() throws SQLException {
         if (iconDBDao == null)
             iconDBDao = getDao(IconBgData.class);
         return iconDBDao;
     }
 
-    public RuntimeExceptionDao<IconBgData, Integer> getHouseInfoDataDao() {
+    public RuntimeExceptionDao<IconBgData, Integer> getIconBgRunDao() {
         if (iconDBRuntimeDao == null) {
             iconDBRuntimeDao = getRuntimeExceptionDao(IconBgData.class);
         }

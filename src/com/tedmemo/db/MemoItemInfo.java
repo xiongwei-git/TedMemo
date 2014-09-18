@@ -21,14 +21,18 @@ public class MemoItemInfo {
     @DatabaseField(columnName="text")
     private String _mText;
 
+    /**对应的标签id*/
+    @DatabaseField(columnName="icon_id")
+    private int _mIconId;
+
     /**时间*/
     @DatabaseField(columnName="updated")
     private long _mUpdated;
 
 
-public MemoItemInfo(){
+    public MemoItemInfo(){
 
-}
+    }
 
     public int get_mId() {
         return _mId;
@@ -64,6 +68,14 @@ public MemoItemInfo(){
 
     public long get_mUpdated() {
         return _mUpdated;
+    }
+
+    public int get_mIconId() {
+        return _mIconId;
+    }
+
+    public void set_mIconId(int _mIconId) {
+        this._mIconId = _mIconId;
     }
 
     public void set_mUpdated(long _mUpdated) {

@@ -141,6 +141,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             if(mIconEditHeader.isShown()){
                 setEditHeader(View.GONE);
                 return true;
+            }else if(isAtWriteMode()){
+                return true;
             }
         }
         return super.onKeyDown(keyCode, event);
@@ -224,13 +226,26 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void writeNewMemo(){
-        WriteMemoFragment writeMemoFragment = WriteMemoFragment.getInstance();
+        WriteMemoFragment writeMemoFragment = new WriteMemoFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         transaction.add(android.R.id.content, writeMemoFragment, "WRITE_MEMO");
         transaction.addToBackStack("WRITE_MEMO");
         transaction.commitAllowingStateLoss();
         //FragmentExchangeController.initFragment(getSupportFragmentManager(),writeMemoFragment,"WRITE_MEMO");
+    }
+
+    /***
+     * 是否在编辑便签状态
+     */
+    private boolean isAtWriteMode(){
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("WRITE_MEMO");
+        if(null != fragment && fragment instanceof WriteMemoFragment){
+            if (fragment.isVisible()){
+                return !((WriteMemoFragment)fragment).checkCancel();
+            }
+        }
+        return false;
     }
 
     private void putImgToWritePage(Uri uri){

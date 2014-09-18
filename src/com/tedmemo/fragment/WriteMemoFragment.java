@@ -11,17 +11,22 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import com.android.TedFramework.Fragment.TFragment;
 import com.android.TedFramework.util.*;
 import com.tedmemo.activity.MainActivity;
 import com.tedmemo.dialog.DialogExchangeModel;
 import com.tedmemo.dialog.DialogType;
+import com.tedmemo.dialog.ExcuteDialogFragmentCallBack;
 import com.tedmemo.dialog.TDialogManager;
 import com.tedmemo.others.Constants;
 import com.tedmemo.others.ImageIOManager;
 import com.tedmemo.view.ImageEditText;
 import com.tedmemo.view.R;
 import com.tedmemo.view.manager.TInputMethodManager;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Calendar;
@@ -30,23 +35,44 @@ import java.util.Locale;
 /**
  * Created by w_xiong on 2014/9/11.
  */
-public class WriteMemoFragment extends TFragment implements View.OnClickListener{
+public class WriteMemoFragment extends TFragment implements View.OnClickListener , ExcuteDialogFragmentCallBack{
     private ImageEditText mImageEditText;
     /**当前手机的宽高比例*/
     private float mWHRatio = 1080/1920;
     private String mPhotoPath;
+    /**标签的icon*/
+    private ImageView mMemoIcon;
 
 
-    private static WriteMemoFragment self = null;
-    public static WriteMemoFragment getInstance(){
-        if(null == self){
-            self = new WriteMemoFragment();
-        }
-        return self;
-    }
+
+//    private static WriteMemoFragment self = null;
+//    public static WriteMemoFragment getInstance(){
+//        if(null == self){
+//            self = new WriteMemoFragment();
+//        }
+//        return self;
+//    }
 
     public WriteMemoFragment(){
         mWHRatio = DeviceUtil.getScreenSize()[0]/DeviceUtil.getScreenSize()[0];
+    }
+
+    @Override
+    public void onPositiveBtnClick(String tag) {
+        if(!CheckDoubleClick.isFastDoubleClick()){
+            if("LEAVE".equalsIgnoreCase(tag)){
+                getActivity().onBackPressed();
+            }
+        }
+    }
+
+    @Override
+    public void onNegtiveBtnClick(String tag) {
+        if(!CheckDoubleClick.isFastDoubleClick()){
+            if("LEAVE".equalsIgnoreCase(tag)){
+
+            }
+        }
     }
 
     @Override
@@ -90,13 +116,20 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
 
     public boolean checkCancel(){
         String jsonStr = mImageEditText.getJSONObject();
-        if(StringUtil.emptyOrNull(jsonStr)){
-            return true;
-        }else {
+        boolean isHaveMemo = false;
+        try {
+            JSONArray jsonArray = (new JSONObject(jsonStr)).getJSONArray("memo");
+            isHaveMemo = jsonArray.length() > 0;
+        }catch (JSONException localJSONException) {
+
+        }
+        if(isHaveMemo){
             DialogExchangeModel.DialogExchangeModelBuilder builder = new DialogExchangeModel.DialogExchangeModelBuilder(DialogType.EXCUTE,"LEAVE");
             builder.setBackable(true).setDialogContext(getTString(R.string.confirm_leave));
             TDialogManager.showDialogFragment(getFragmentManager(),builder.creat(),this);
             return false;
+        }else {
+            return true;
         }
     }
 
@@ -122,7 +155,12 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         rootView.findViewById(R.id.galleryButton).setOnClickListener(this);
         rootView.findViewById(R.id.imageCaptureButton).setOnClickListener(this);
         rootView.findViewById(R.id.tagButton).setOnClickListener(this);
+        mMemoIcon = (ImageView)rootView.findViewById(R.id.tagButtonImg);
         mImageEditText =(ImageEditText)rootView.findViewById(R.id.imageEditText);
+    }
+
+    private void setMemoIcon(int iconID){
+
     }
 
     private void saveNewMemo(){

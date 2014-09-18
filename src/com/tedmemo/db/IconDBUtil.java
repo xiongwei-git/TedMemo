@@ -13,13 +13,13 @@ import java.util.List;
  */
 public class IconDBUtil {
     private Context mContext;
-    private IconDBHelper mIconDBHelper;
+    private DBOpenHelper mIconDBHelper;
     RuntimeExceptionDao<IconBgData, Integer> mIconDAO;
 
     public IconDBUtil(Context context) {
         this.mContext = context;
-        mIconDBHelper = OpenHelperManager.getHelper(mContext, IconDBHelper.class);
-        mIconDAO = mIconDBHelper.getHouseInfoDataDao();
+        mIconDBHelper = OpenHelperManager.getHelper(mContext, DBOpenHelper.class);
+        mIconDAO = mIconDBHelper.getIconBgRunDao();
     }
 
     /**

@@ -203,36 +203,6 @@ public class ImageEditText extends EditText {
             //k.a(localJSONException);
             return null;
         }
-
-//        while (true) {
-//            try {
-//                Iterator localIterator = localList.iterator();
-//                if (!localIterator.hasNext()) {
-//                    localJSONObject.put("memo", this.mJsonArray);
-//                    return localJSONObject.toString();
-//                }
-//
-//                ImageSpan localImageSpan = (ImageSpan) localIterator.next();
-//                int j = localEditable.getSpanStart(localImageSpan);
-//                int k = localEditable.getSpanEnd(localImageSpan);
-//                if (this.mNum < j) {
-//                    analysisString(this.mString.substring(this.mNum, j), j);
-//                    addImageObject(this.mMap.get(localImageSpan.getSource()));
-//                }
-//                do {
-//                    if (i != -1 + localList.size())
-//                        break;
-//                    analysisString(this.mString.substring(k, this.mString.length()), this.mString.length());
-//                    break;
-//                }
-//                while (this.mNum != j);
-//                addImageObject(this.mMap.get(localImageSpan.getSource()));
-//            } catch (JSONException localJSONException) {
-//                //k.a(localJSONException);
-//                return null;
-//            }
-//            ++i;
-//        }
     }
 
     public void setJson(String jsonString) {

@@ -96,7 +96,7 @@ public class ExcuteInfoDialogFragment extends BaseDialogFragment {
 			mRightBtn.setText(R.string.ok);
 		}
 		mRightBtn.setOnClickListener(mExcuitePositiveListener);
-		mRightBtn.setBackgroundResource(R.drawable.btn_dialog_selector);
+		//mRightBtn.setBackgroundResource(R.drawable.btn_dialog_selector);
 
 		if (!StringUtil.emptyOrNull(mNegativeBtnTxt)) {
 			mBtnLeft.setText(mNegativeBtnTxt);
@@ -104,7 +104,7 @@ public class ExcuteInfoDialogFragment extends BaseDialogFragment {
 			mBtnLeft.setText(R.string.cancel);
 		}
 		mBtnLeft.setOnClickListener(mExcuiteNegativeListener);
-		mBtnLeft.setBackgroundResource(R.drawable.btn_dialog_selector);
+		//mBtnLeft.setBackgroundResource(R.drawable.btn_dialog_selector);
 		return view;
 	}
 }

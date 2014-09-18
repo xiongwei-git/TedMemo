@@ -14,6 +14,9 @@
     <color name="red">#f85d00</color>
     <color name="orange">#ff9913</color>
 
+
+
+  <color name="dialog_diver_line">#484848</color>
   <color name="icon_gray_color">#ffc6c8c7</color>
   <color name="header_btn_bg_off_color">#ff45a199</color>
   <color name="header_btn_bg_on_color">#ff3d897f</color>

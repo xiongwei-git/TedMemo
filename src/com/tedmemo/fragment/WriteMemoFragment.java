@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -15,21 +16,27 @@ import android.widget.ImageView;
 import com.android.TedFramework.Fragment.TFragment;
 import com.android.TedFramework.util.*;
 import com.tedmemo.activity.MainActivity;
+import com.tedmemo.data.IconDataManager;
+import com.tedmemo.db.IconBgData;
+import com.tedmemo.db.MemoItemInfo;
 import com.tedmemo.dialog.DialogExchangeModel;
 import com.tedmemo.dialog.DialogType;
 import com.tedmemo.dialog.ExcuteDialogFragmentCallBack;
 import com.tedmemo.dialog.TDialogManager;
+import com.tedmemo.event.SelectIconEvent;
 import com.tedmemo.others.Constants;
 import com.tedmemo.others.ImageIOManager;
 import com.tedmemo.view.ImageEditText;
 import com.tedmemo.view.R;
 import com.tedmemo.view.manager.TInputMethodManager;
+import de.greenrobot.event.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -42,7 +49,8 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
     private String mPhotoPath;
     /**标签的icon*/
     private ImageView mMemoIcon;
-
+    /**编辑页面对应的icon*/
+    private MemoItemInfo mMemo;
 
 
 //    private static WriteMemoFragment self = null;
@@ -69,9 +77,7 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
     @Override
     public void onNegtiveBtnClick(String tag) {
         if(!CheckDoubleClick.isFastDoubleClick()){
-            if("LEAVE".equalsIgnoreCase(tag)){
 
-            }
         }
     }
 
@@ -112,6 +118,30 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         View rootView = inflater.inflate(R.layout.edit_memo_fragment,null);
         initView(rootView);
         return rootView;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
+        if(null != getArguments()){
+
+        }else {
+            mMemo = new MemoItemInfo();
+            mMemo.set_mIconId(Constants.DEFAULT_NONE_ICON_ID);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setMemoIcon();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public boolean checkCancel(){
@@ -156,23 +186,40 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         rootView.findViewById(R.id.imageCaptureButton).setOnClickListener(this);
         rootView.findViewById(R.id.tagButton).setOnClickListener(this);
         mMemoIcon = (ImageView)rootView.findViewById(R.id.tagButtonImg);
+
         mImageEditText =(ImageEditText)rootView.findViewById(R.id.imageEditText);
     }
 
-    private void setMemoIcon(int iconID){
-
+    private void setMemoIcon(){
+        int iconID = mMemo.get_mIconId();
+        List<IconBgData> listIcon = IconDataManager.getInstance(getActivity()).getmAllIconBgData();
+        for (IconBgData iconBg:listIcon){
+            if(iconBg.get_id() == iconID){
+                mMemoIcon.setImageDrawable(iconBg.getDrawable(getActivity()));
+                break;
+            }
+        }
     }
 
     private void saveNewMemo(){
         String jsonStr = mImageEditText.getJSONObject();
     }
 
-
+    /***
+     * 选择了icon
+     * @param event
+     */
+    public void onEventMainThread(SelectIconEvent event) {
+        mMemo.set_mIconId(event.getIconId());
+        setMemoIcon();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.popBackStack();
+    }
 
     private void selectIcon(){
-        IconSelectFrament iconSelectFrament = IconSelectFrament.getInstance();
+        IconSelectFrament iconSelectFrament = new IconSelectFrament();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        //transaction.setCustomAnimations(R.anim.anim_fragment_in, R.anim.anim_fragment_out, R.anim.anim_fragment_close_in, R.anim.anim_fragment_close_out);
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         transaction.add(R.id.writeMemoSelectIcon, iconSelectFrament, "SELECT_ICON");
         transaction.addToBackStack("SELECT_ICON");
         transaction.commitAllowingStateLoss();

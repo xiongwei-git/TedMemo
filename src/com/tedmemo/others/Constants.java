@@ -24,23 +24,30 @@ public class Constants {
     /**OTHER*/
     public static final long LISTEN_SHAKE_TIME = 1500l;
 
-    public static final String[] ICON_COLORS = {"#fdcb35","#e46682","#aebe7e","#7f74b4",
+    public static final String[] ICON_COLORS = {
+            "#fdcb35","#e46682","#aebe7e","#7f74b4",
             "#a0bde8","#f5ae68","#7c866d","#a8877c",
             "#b8aa83","#a26b9f","#6d92b4","#f07a63",
             "#d35543","#eaa7bd","#9aad9a","#5ebab0"};//"#303030",
 
-    public static final String[] ICON_NAME_A = {"a_diamond","a_club","a_spade","a_square",
+    /**十六个icon在数据库里面有一个对应的ID，默认的NONE的ID为15*/
+    public static final int DEFAULT_NONE_ICON_ID = 15;
+
+    public static final String[] ICON_NAME_A = {
+            "a_diamond","a_club","a_spade","a_square",
             "a_triangle","a_laugh","a_smile","a_surprised","a_wooden",
             "a_upset","a_cry","a_exclamation","a_question","a_checked",
             "a_cross","a_sharp","a_asterisk","a_phone","a_post",
             "a_pointing","a_flower","a_heart","a_star"};
-    public static final String[] ICON_NAME_B = {"b_book","b_pc","b_smartphone","b_mail","b_facebook",
+    public static final String[] ICON_NAME_B = {
+            "b_book","b_pc","b_smartphone","b_mail","b_facebook",
             "b_twitter","b_line","b_ie","b_android","b_ios",
             "b_atmark","b_chat","b_tag","b_secret","b_github",
             "b_idea","b_building","b_worker","b_bag","b_graph",
             "b_picture","b_study","b_pencil","b_paper","b_news",
             "b_clock","b_pin","b_rench"};
-    public static final String[] ICON_NAME_C = {"c_cooking","c_health","c_art","c_body","c_fashion",
+    public static final String[] ICON_NAME_C = {
+            "c_cooking","c_health","c_art","c_body","c_fashion",
             "c_funny","c_game","c_girl","c_home","c_kids",
             "c_money","c_movie","c_outdoor","c_pet","c_present",
             "c_gourmet","c_cafe","c_sweets","c_beer","c_wine",

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.android.TedFramework.Fragment.TFragment;
 import com.android.TedFramework.util.CheckDoubleClick;
 import com.android.TedFramework.util.StringUtil;
+import com.android.TedFramework.util.ToastUtil;
 import com.tedmemo.data.IconDataManager;
 import com.tedmemo.db.IconBgData;
 import com.tedmemo.event.CreateMemoIconEvent;
@@ -37,7 +38,8 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
                 getActivity().onBackPressed();
                 break;
             case R.id.temporarySaveButton:
-
+                ToastUtil.show(getActivity(),"创建了便签");
+                getActivity().onBackPressed();
                 break;
 
             default:
@@ -86,7 +88,8 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
      * @param event
      */
     public void onEventMainThread(CreateMemoIconEvent event) {
-
+        ToastUtil.show(getActivity(),"创建了便签");
+        getActivity().onBackPressed();
     }
 
     class IconGridAdapter extends BaseAdapter {
@@ -158,12 +161,11 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
         public View getView(int position, View convertView, ViewGroup parent) {
             View itemView;
             itemView = LayoutInflater.from(getActivity()).inflate(R.layout.tag_grid, null);
-            setNormalItemData(itemView, position);
-
+            setItemData(itemView, position);
             return itemView;
         }
 
-        private View setNormalItemData(View itemView, int position) {
+        private View setItemData(View itemView, int position) {
             if (null != getItem(position) && getItem(position) instanceof IconBgData) {
                 IconBgData iconBgData = (IconBgData) getItem(position);
                 ((ImageView) itemView.findViewById(R.id.icon)).setImageDrawable(iconBgData.getDrawable(mContext, IconBgData.ICON_TYPE_LARGE));

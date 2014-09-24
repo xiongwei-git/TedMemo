@@ -218,6 +218,9 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
 
     private void selectIcon(){
         IconSelectFrament iconSelectFrament = new IconSelectFrament();
+//        Bundle bundle = new Bundle();
+//        bundle.putBoolean("CREATE_MEMO",true);
+//        iconSelectFrament.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         transaction.add(R.id.writeMemoSelectIcon, iconSelectFrament, "SELECT_ICON");

@@ -1,8 +1,7 @@
 package com.tedmemo.data;
 
-import android.content.Context;
+import com.tedmemo.db.DBUtil;
 import com.tedmemo.db.IconBgData;
-import com.tedmemo.db.IconDBUtil;
 import com.tedmemo.others.Constants;
 
 import java.util.ArrayList;
@@ -13,36 +12,24 @@ import java.util.List;
  * 管理icon资源的类
  */
 public class IconDataManager {
-    private Context mContext;
-    private IconDBUtil iconDBUtil;
     private List<IconBgData> mAllIconBgData = new ArrayList<IconBgData>();
     public static IconDataManager mManager;
-    public static IconDataManager getInstance(Context context){
+    public static IconDataManager getInstance(){
         if(null == mManager){
-            mManager = new IconDataManager(context);
+            mManager = new IconDataManager();
         }
         return mManager;
     }
-    public IconDataManager(Context context){
-        this.mContext = context;
-    }
 
     public void initIconDBDatas(){
-        iconDBUtil = new IconDBUtil(mContext);
-        mAllIconBgData = iconDBUtil.queryAll();
+        mAllIconBgData = DBUtil.getInstance().queryAllIconS();
         if(null == mAllIconBgData || mAllIconBgData.size() == 0){
             createDefaultData();
         }
     }
 
     public void updateIconDBDatas(IconBgData iconBgData){
-        iconDBUtil.insert(iconBgData);
-    }
-
-    public void clostIconDB(){
-        if(null != iconDBUtil){
-            iconDBUtil.closeDB();
-        }
+        DBUtil.getInstance().insertIcon(iconBgData);
     }
 
     /**创建默认的数据，一般只在第一次启动app时调用*/

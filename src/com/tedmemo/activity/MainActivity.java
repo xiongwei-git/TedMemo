@@ -21,11 +21,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.android.TedFramework.util.DeviceUtil;
 import com.android.tedwidget.view.HoldableViewPager;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.tedmemo.adapter.SectionsPagerAdapter;
+import com.tedmemo.data.IconDataManager;
+import com.tedmemo.db.DBUtil;
+import com.tedmemo.db.MemoItemInfo;
 import com.tedmemo.dialog.CustomerFragmentCallBack;
-import com.tedmemo.fragment.WriteMemoFragment;
+import com.tedmemo.fragment.EditMemoFragment;
 import com.tedmemo.service.WatchingService;
 import com.tedmemo.view.R;
+
+import java.io.Serializable;
 
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener,CustomerFragmentCallBack{
@@ -123,7 +129,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     protected void onDestroy() {
-        //IconDataManager.getInstance(this).clostIconDB();
+        DBUtil.getInstance().closeDB();
         stopService(new Intent(this, WatchingService.class));
         super.onDestroy();
     }
@@ -159,7 +165,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             }else if(requestCode == REQUEST_CODE_CAMERA){
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag("WRITE_MEMO");
                 if(null != fragment){
-                    ((WriteMemoFragment)fragment).insertImageToEdit();
+                    ((EditMemoFragment)fragment).insertImageToEdit();
                 }
             }
         }
@@ -226,7 +232,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void writeNewMemo(){
-        WriteMemoFragment writeMemoFragment = new WriteMemoFragment();
+        MemoItemInfo memoItemInfo = new MemoItemInfo();
+        memoItemInfo.set_mText("cek ljsalk jlas");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("MEMO",(Serializable)memoItemInfo);
+        EditMemoFragment writeMemoFragment = new EditMemoFragment();
+        writeMemoFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         transaction.add(android.R.id.content, writeMemoFragment, "WRITE_MEMO");
@@ -240,9 +251,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
      */
     private boolean isAtWriteMode(){
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("WRITE_MEMO");
-        if(null != fragment && fragment instanceof WriteMemoFragment){
+        if(null != fragment && fragment instanceof EditMemoFragment){
             if (fragment.isVisible()){
-                return !((WriteMemoFragment)fragment).checkCancel();
+                return !((EditMemoFragment)fragment).checkCancel();
             }
         }
         return false;
@@ -259,7 +270,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         String imgUrl = cursor.getString(column_index);
         Fragment fragment = getSupportFragmentManager().findFragmentByTag("WRITE_MEMO");
         if(null != fragment){
-            ((WriteMemoFragment)fragment).insertImageToEdit(imgUrl);
+            ((EditMemoFragment)fragment).insertImageToEdit(imgUrl);
         }
     }
 

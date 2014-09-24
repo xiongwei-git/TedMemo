@@ -42,7 +42,7 @@ import java.util.Locale;
 /**
  * Created by w_xiong on 2014/9/11.
  */
-public class WriteMemoFragment extends TFragment implements View.OnClickListener , ExcuteDialogFragmentCallBack{
+public class EditMemoFragment extends TFragment implements View.OnClickListener , ExcuteDialogFragmentCallBack{
     private ImageEditText mImageEditText;
     /**当前手机的宽高比例*/
     private float mWHRatio = 1080/1920;
@@ -61,7 +61,7 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
 //        return self;
 //    }
 
-    public WriteMemoFragment(){
+    public EditMemoFragment(){
         mWHRatio = DeviceUtil.getScreenSize()[0]/DeviceUtil.getScreenSize()[0];
     }
 
@@ -125,7 +125,8 @@ public class WriteMemoFragment extends TFragment implements View.OnClickListener
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
         if(null != getArguments()){
-
+            Bundle ars = getArguments();
+            mMemo = (MemoItemInfo)ars.getSerializable("MEMO");
         }else {
             mMemo = new MemoItemInfo();
             mMemo.set_mIconId(Constants.DEFAULT_NONE_ICON_ID);

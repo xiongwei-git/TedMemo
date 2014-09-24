@@ -1,9 +1,11 @@
 package com.tedmemo.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import com.android.TedFramework.Fragment.TFragment;
 import com.tedmemo.data.InnerMemoData;
@@ -34,6 +36,7 @@ public class MainListFragment extends TFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mRootView = inflater.inflate(R.layout.fragment_main,null);
+        initView(mRootView);
         return mRootView;
     }
 
@@ -42,4 +45,5 @@ public class MainListFragment extends TFragment{
 
 
     }
+
 }

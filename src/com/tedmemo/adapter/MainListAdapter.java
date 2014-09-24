@@ -17,6 +17,8 @@ import java.util.ArrayList;
 public class MainListAdapter extends BaseAdapter{
     private Context mContext;
     private ArrayList<InnerMemoData> mListData = new ArrayList<InnerMemoData>();
+    private boolean isEditMode = false;
+
 
 
     public MainListAdapter(Context context,ArrayList<InnerMemoData> list) {
@@ -24,8 +26,13 @@ public class MainListAdapter extends BaseAdapter{
         setData(list);
     }
 
-    private void setData(ArrayList<InnerMemoData> list){
+
+    public void setData(ArrayList<InnerMemoData> list){
         this.mListData = list;
+    }
+
+    public void setEditMode(boolean isEditMode) {
+        this.isEditMode = isEditMode;
     }
 
     @Override
@@ -60,7 +67,8 @@ public class MainListAdapter extends BaseAdapter{
 
 
 
-    private void updateItemData(MemoCellClass memoCell,InnerMemoData memoData){
+    private void updateItemData(MemoCellClass memoCell,int position){
+        InnerMemoData memoData = (InnerMemoData)getItem(position);
 
     }
 

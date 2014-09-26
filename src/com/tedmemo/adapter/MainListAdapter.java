@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.android.TedFramework.util.ToastUtil;
 import com.android.tedwidget.view.TImageView;
 import com.tedmemo.data.InnerMemoData;
 import com.tedmemo.view.R;
@@ -14,12 +15,26 @@ import java.util.ArrayList;
 /**
  * Created by Ted on 14-8-11.
  */
-public class MainListAdapter extends BaseAdapter{
+public class MainListAdapter extends BaseAdapter implements View.OnClickListener,View.OnLongClickListener{
     private Context mContext;
     private ArrayList<InnerMemoData> mListData = new ArrayList<InnerMemoData>();
+
     private boolean isEditMode = false;
 
 
+    @Override
+    public void onClick(View v) {
+        ToastUtil.show(mContext,"点击id="+v.getId());
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        ToastUtil.show(mContext,"长按id="+v.getId());
+        if(v.getId() == R.id.iconArea){
+            return true;
+        }
+        return false;
+    }
 
     public MainListAdapter(Context context,ArrayList<InnerMemoData> list) {
         this.mContext = context;
@@ -62,6 +77,7 @@ public class MainListAdapter extends BaseAdapter{
             memoCell = (MemoCellClass)convertView.getTag();
         }
 
+        updateItemData(memoCell,position);
         return convertView;
     }
 
@@ -69,6 +85,11 @@ public class MainListAdapter extends BaseAdapter{
 
     private void updateItemData(MemoCellClass memoCell,int position){
         InnerMemoData memoData = (InnerMemoData)getItem(position);
+        memoCell.iconArea.setOnClickListener(this);
+        //memoCell.memoListMaintextArea.setOnClickListener(this);
+        //memoCell.memoListMaintextArea.setOnLongClickListener(this);
+        memoCell.iconArea.setOnLongClickListener(this);
+        //memoCell.checkBox.setVisibility(isEditMode?View.VISIBLE:View.GONE);
 
     }
 

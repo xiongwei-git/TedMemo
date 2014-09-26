@@ -130,7 +130,7 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
 
         public void refreshDatas(){
             iconBgDatas.clear();
-            List<IconBgData> allIcons = IconDataManager.getInstance(getActivity()).getmAllIconBgData();
+            List<IconBgData> allIcons = IconDataManager.getInstance().getmAllIconBgData();
             for (IconBgData iconBgData : allIcons) {
                 if (StringUtil.emptyOrNull(iconBgData.get_mName())) {
                     continue;

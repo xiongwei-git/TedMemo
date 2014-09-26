@@ -12,7 +12,7 @@ public class SplashActivity extends FragmentActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        IconDataManager.getInstance(this).initIconDBDatas();
+        IconDataManager.getInstance().initIconDBDatas();
         Intent intent = new Intent(SplashActivity.this,MainActivity.class);
         startActivity(intent);
         finish();

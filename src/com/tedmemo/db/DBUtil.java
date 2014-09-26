@@ -40,7 +40,7 @@ public class DBUtil {
     }
 
     public List<MemoItemInfo> queryMemosBy(){
-        List<MemoItemInfo> allMemos = mMemoRunDAO.;
+        List<MemoItemInfo> allMemos = mMemoRunDAO.queryForAll();
         return allMemos;
     }
 

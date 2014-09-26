@@ -129,7 +129,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
         switch (v.getId()) {
             case R.id.iconEditButton:
                 if (mShowState == STATE_EDIT) {
-                    ((MainActivity) getActivity()).setEditHeader(View.GONE);
+                    ((MainActivity) getActivity()).switchHeaderMode(MainActivity.HeaderMode.MemoList);
                 } else {
                     openEditIconMode();
                 }
@@ -179,7 +179,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
             return;
         }
         mShowState = STATE_EDIT;
-        ((MainActivity) getActivity()).setEditHeader(View.VISIBLE);
+        ((MainActivity) getActivity()).switchHeaderMode(MainActivity.HeaderMode.EditIcon);
         ((TextView) mIconEditBtn.findViewById(R.id.iconEditButtonText)).setText(R.string.complete_icon);
         mGridViewNormal.setVisibility(View.GONE);
         mGridViewEdit.setVisibility(View.VISIBLE);
@@ -193,7 +193,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
      */
     private void updateIconDataToDB(IconBgData data){
         if(null != data){
-            IconDataManager.getInstance(getActivity()).updateIconDBDatas(data);
+            IconDataManager.getInstance().updateIconDBDatas(data);
         }
     }
 
@@ -322,7 +322,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
 
         public void refreshDatas(){
             iconBgDatas.clear();
-            List<IconBgData> allIcons = IconDataManager.getInstance(getActivity()).getmAllIconBgData();
+            List<IconBgData> allIcons = IconDataManager.getInstance().getmAllIconBgData();
             for (IconBgData iconBgData : allIcons) {
                 if (mShowState == STATE_NORMAL && StringUtil.emptyOrNull(iconBgData.get_mName())) {
                     continue;

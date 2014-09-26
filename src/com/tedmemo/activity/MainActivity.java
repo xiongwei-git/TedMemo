@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.*;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -23,6 +24,7 @@ import com.android.TedFramework.util.DeviceUtil;
 import com.android.tedwidget.view.HoldableViewPager;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.tedmemo.adapter.SectionsPagerAdapter;
+import com.tedmemo.animation.Rotate3dAnimation;
 import com.tedmemo.data.IconDataManager;
 import com.tedmemo.db.DBUtil;
 import com.tedmemo.db.MemoItemInfo;
@@ -56,6 +58,19 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private RelativeLayout mIconEditHeader;
     /**正常状态的顶部视图*/
     private RelativeLayout mTopHeader;
+    /**编辑Memo时候的顶部视图*/
+    private RelativeLayout mEditMemoHeader;
+    /**顶部视图的状态，默认是列表*/
+    private HeaderMode mHeaderMode = HeaderMode.MemoList;
+
+    /**顶部的Header的三种状态*/
+    public enum HeaderMode{
+        MemoList,EditIcon,EditMemo
+    };
+
+    /**顶部视图的旋转动画*/
+    private Rotate3dAnimation mHeaderOutAnimation;
+    private Rotate3dAnimation mHeaderInAnimation;
 
     @Override
     public void onClick(View v) {
@@ -70,7 +85,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 writeNewMemo();
                 break;
             case R.id.iconEditCancelButton:
-                setEditHeader(View.GONE);
+                switchHeaderMode(HeaderMode.MemoList);
                 break;
             default:
                 break;
@@ -120,6 +135,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         initView();
         initData();
         setData();
+        initAnimation();
     }
 
     @Override
@@ -144,8 +160,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK){
             /**当前处在编辑icon模式*/
-            if(mIconEditHeader.isShown()){
-                setEditHeader(View.GONE);
+            if(getHeaderMode() == HeaderMode.EditIcon){
+                switchHeaderMode(HeaderMode.MemoList);
                 return true;
             }else if(isAtWriteMode()){
                 return true;
@@ -172,21 +188,38 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     }
 
     /**********Public***************/
-    public void setEditHeader(int visibility){
-        mIconEditHeader.setVisibility(visibility);
-        if(visibility == View.VISIBLE){
+    public void switchHeaderMode(HeaderMode mode){
+        if(mode == HeaderMode.MemoList){
+            if(mHeaderMode == HeaderMode.EditIcon){
+                //mIconEditHeader.setVisibility(View.GONE);
+                mViewPager.setSwipeHold(false);
+                //mTopHeader.setVisibility(View.VISIBLE);
+                mSectionsPagerAdapter.getTagGridFragment().closeEditIconMode();
+                mHeaderOutAnimation.setAnimationListener(mEditHeaderOutAnimationListener);
+                mHeaderInAnimation.setAnimationListener(mTopHeaderInAnimationListener);
+                mTopHeader.startAnimation(mHeaderInAnimation);
+                mIconEditHeader.startAnimation(mHeaderOutAnimation);
+            }else {
+
+            }
+        }else if(mode == HeaderMode.EditIcon){
+            //mIconEditHeader.setVisibility(View.VISIBLE);
             mViewPager.setSwipeHold(true);
-            mTopHeader.setVisibility(View.GONE);
+            //mTopHeader.setVisibility(View.GONE);
             mIconEditHeader.findViewById(R.id.iconEditCancelButton).setOnClickListener(this);
-        }else {
-            mViewPager.setSwipeHold(false);
-            mTopHeader.setVisibility(View.VISIBLE);
-            mSectionsPagerAdapter.getTagGridFragment().closeEditIconMode();
+            mHeaderOutAnimation.setAnimationListener(mTopHeaderOutAnimationListener);
+            mHeaderInAnimation.setAnimationListener(mEditHeaderInAnimationListener);
+            mTopHeader.startAnimation(mHeaderOutAnimation);
+            mIconEditHeader.startAnimation(mHeaderInAnimation);
+        }else if(mode == HeaderMode.EditMemo){
+            mViewPager.setSwipeHold(true);
+
         }
+        mHeaderMode = mode;
     }
 
 
-    void initService(){
+    private void initService(){
         startService(new Intent(this, WatchingService.class));
     }
 
@@ -204,6 +237,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mTopHeader = (RelativeLayout)findViewById(R.id.topHeader);
         mIconEditHeader = (RelativeLayout)findViewById(R.id.iconEditHeader);
+        mEditMemoHeader = (RelativeLayout)findViewById(R.id.bulkEditHeader);
         mViewPager = (HoldableViewPager) findViewById(R.id.topPager);
         mIconBg = (ImageView) findViewById(R.id.tabIconBackground);
         mTabHome = (ImageView) findViewById(R.id.tabHome);
@@ -278,8 +312,92 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+    private void initAnimation(){
+        int centerHeightY = DeviceUtil.getPixelFromDip(this,58)/2;
+        int centerHeightX = DeviceUtil.getScreenSize()[0]/2;
+        mHeaderOutAnimation = new Rotate3dAnimation(0,90f,centerHeightX,centerHeightY,0,true);
+        mHeaderOutAnimation.setDuration(150);
+        mHeaderOutAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+        mHeaderInAnimation = new Rotate3dAnimation(-90f,0,centerHeightX,centerHeightY,0,false);
+        mHeaderInAnimation.setDuration(150);
+        mHeaderInAnimation.setStartOffset(150);
+        mHeaderInAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+    }
+
+    private Animation.AnimationListener mTopHeaderOutAnimationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            mTopHeader.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private Animation.AnimationListener mTopHeaderInAnimationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            mTopHeader.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private Animation.AnimationListener mEditHeaderOutAnimationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            mIconEditHeader.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
+    private Animation.AnimationListener mEditHeaderInAnimationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+            mIconEditHeader.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+
     /****set+get method****/
     public void setmCustomDialogView(View mCustomDialogView) {
         this.mCustomDialogView = mCustomDialogView;
+    }
+
+    public HeaderMode getHeaderMode() {
+        return mHeaderMode;
     }
 }

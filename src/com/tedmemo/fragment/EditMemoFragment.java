@@ -193,7 +193,7 @@ public class EditMemoFragment extends TFragment implements View.OnClickListener 
 
     private void setMemoIcon(){
         int iconID = mMemo.get_mIconId();
-        List<IconBgData> listIcon = IconDataManager.getInstance(getActivity()).getmAllIconBgData();
+        List<IconBgData> listIcon = IconDataManager.getInstance().getmAllIconBgData();
         for (IconBgData iconBg:listIcon){
             if(iconBg.get_id() == iconID){
                 mMemoIcon.setImageDrawable(iconBg.getDrawable(getActivity()));

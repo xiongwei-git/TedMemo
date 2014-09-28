@@ -1,10 +1,12 @@
 package com.tedmemo.adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.android.TedFramework.util.DeviceUtil;
 import com.android.TedFramework.util.ToastUtil;
 import com.android.tedwidget.view.TImageView;
 import com.tedmemo.data.InnerMemoData;
@@ -20,7 +22,8 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
     private ArrayList<InnerMemoData> mListData = new ArrayList<InnerMemoData>();
 
     private boolean isEditMode = false;
-
+    /**当前勾选的Memo*/
+    private ArrayList<Integer> mSelectMemo = new ArrayList<Integer>();
 
     @Override
     public void onClick(View v) {
@@ -48,6 +51,60 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
 
     public void setEditMode(boolean isEditMode) {
         this.isEditMode = isEditMode;
+    }
+
+    public boolean isEditMode() {
+        return isEditMode;
+    }
+
+    public void selectMemo(FrameLayout checkBox,int position){
+        /**已经包含，就移除*/
+        if(mSelectMemo.contains(position)){
+            mSelectMemo.remove((Integer)position);
+            updateCheckBoxState(checkBox,1);
+        }else {
+            mSelectMemo.add(position);
+            updateCheckBoxState(checkBox,2);
+        }
+    }
+    /***
+     * 更新勾选框的状态
+     * @param state 0正常 1待勾选 2已勾选
+     *
+     */
+    private void updateCheckBoxState(FrameLayout checkBox,int state){
+        if(null == checkBox){
+            return;
+        }
+        View checkBoxOff = checkBox.findViewById(R.id.checkBoxOff);
+        ImageView checkBoxOn = (ImageView)checkBox.findViewById(R.id.checkBoxOn);
+        if(null == checkBoxOff || null == checkBoxOn){
+            return;
+        }
+        LinearLayout.LayoutParams checkBoxLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        checkBoxLp.gravity = Gravity.CENTER_VERTICAL;
+        switch (state){
+            case 0:
+                checkBoxOff.setVisibility(View.GONE);
+                checkBoxLp.height = DeviceUtil.getPixelFromDip(mContext,17);
+                checkBoxLp.width = DeviceUtil.getPixelFromDip(mContext,17);
+                checkBoxOff.setVisibility(View.GONE);
+                checkBoxOn.setVisibility(View.GONE);
+                checkBox.setLayoutParams(checkBoxLp);
+                break;
+            case 1:
+                checkBox.setLayoutParams(checkBoxLp);
+                checkBoxOff.setVisibility(View.VISIBLE);
+                checkBoxOn.setVisibility(View.GONE);
+                break;
+            case 2:
+                checkBox.setLayoutParams(checkBoxLp);
+                checkBoxOff.setVisibility(View.GONE);
+                checkBoxOn.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -86,11 +143,16 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
     private void updateItemData(MemoCellClass memoCell,int position){
         InnerMemoData memoData = (InnerMemoData)getItem(position);
         memoCell.iconArea.setOnClickListener(this);
-        //memoCell.memoListMaintextArea.setOnClickListener(this);
-        //memoCell.memoListMaintextArea.setOnLongClickListener(this);
         memoCell.iconArea.setOnLongClickListener(this);
-        //memoCell.checkBox.setVisibility(isEditMode?View.VISIBLE:View.GONE);
-
+        if(isEditMode){
+            if(mSelectMemo.contains(position)){
+                updateCheckBoxState(memoCell.checkBox,2);
+            }else {
+                updateCheckBoxState(memoCell.checkBox,1);
+            }
+        }else {
+            updateCheckBoxState(memoCell.checkBox,0);
+        }
     }
 
 

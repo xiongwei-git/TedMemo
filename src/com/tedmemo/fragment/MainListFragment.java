@@ -9,6 +9,7 @@ import com.android.TedFramework.Fragment.TFragment;
 import com.android.TedFramework.util.DateUtil;
 import com.android.TedFramework.util.DeviceUtil;
 import com.android.TedFramework.util.ToastUtil;
+import com.tedmemo.activity.MainActivity;
 import com.tedmemo.adapter.MainListAdapter;
 import com.tedmemo.data.InnerMemoData;
 import com.tedmemo.view.R;
@@ -37,13 +38,24 @@ public class MainListFragment extends TFragment {
     private AdapterView.OnItemClickListener mOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            /**因为新增了Header，所以position要减一*/
+            position--;
+            /**当前处于编辑模式*/
+            if(mMainListAdapter.isEditMode()){
+                if(null != view.findViewById(R.id.checkBox)){
+                    mMainListAdapter.selectMemo((FrameLayout)view.findViewById(R.id.checkBox),position);
+                }
+            }else {
 
+            }
         }
     };
 
     private AdapterView.OnItemLongClickListener mItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            ((MainActivity)getActivity()).switchHeaderMode(MainActivity.HeaderMode.EditMemo);
+
             return false;
         }
     };
@@ -67,8 +79,16 @@ public class MainListFragment extends TFragment {
         mMainListAdapter = new MainListAdapter(getActivity(),list);
         mListView.setAdapter(mMainListAdapter);
         mListView.setOnItemClickListener(mOnItemClickListener);
-
         mListView.setOnItemLongClickListener(mItemLongClickListener);
+    }
+
+    public void setEditMode(MainActivity.HeaderMode mode){
+        if(mode == MainActivity.HeaderMode.EditMemo){
+            mMainListAdapter.setEditMode(true);
+        }else {
+            mMainListAdapter.setEditMode(false);
+        }
+        mMainListAdapter.notifyDataSetChanged();
     }
 
     private void initView(View mRootView){

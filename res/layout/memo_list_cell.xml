@@ -20,7 +20,7 @@
             android:layout_marginLeft="5.0dip"
             android:layout_marginRight="5.0dip"
             android:background="@color/check_box_bg_color"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@id/checkBoxOn"

@@ -92,6 +92,7 @@ public class TagGridFragment extends TFragment implements View.OnClickListener ,
             Vibrator mShakeVibrator = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
             long [] pattern = {10,130};
             mShakeVibrator.vibrate(pattern, -1);
+            ((MainActivity)getActivity()).VibrateTips();
             openEditIconMode();
         }
     };

@@ -1,10 +1,12 @@
 package com.tedmemo.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -85,6 +87,18 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 writeNewMemo();
                 break;
             case R.id.iconEditCancelButton:
+                switchHeaderMode(HeaderMode.MemoList);
+                break;
+            case R.id.bulkCancelButton:
+                switchHeaderMode(HeaderMode.MemoList);
+                break;
+            case R.id.bulkDeleteButton:
+                switchHeaderMode(HeaderMode.MemoList);
+                break;
+            case R.id.bulkIconChangeButton:
+                switchHeaderMode(HeaderMode.MemoList);
+                break;
+            case R.id.bulkMergeButton:
                 switchHeaderMode(HeaderMode.MemoList);
                 break;
             default:
@@ -189,35 +203,49 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     /**********Public***************/
     public void switchHeaderMode(HeaderMode mode){
+        /**禁止频繁设置相同的顶部视图*/
+        if(mode == mHeaderMode){
+            return;
+        }
         if(mode == HeaderMode.MemoList){
+            mViewPager.setSwipeHold(false);
             if(mHeaderMode == HeaderMode.EditIcon){
-                //mIconEditHeader.setVisibility(View.GONE);
-                mViewPager.setSwipeHold(false);
-                //mTopHeader.setVisibility(View.VISIBLE);
+                mIconEditHeader.setVisibility(View.GONE);
+                mTopHeader.setVisibility(View.VISIBLE);
                 mSectionsPagerAdapter.getTagGridFragment().closeEditIconMode();
+            }else {
                 mHeaderOutAnimation.setAnimationListener(mEditHeaderOutAnimationListener);
                 mHeaderInAnimation.setAnimationListener(mTopHeaderInAnimationListener);
                 mTopHeader.startAnimation(mHeaderInAnimation);
-                mIconEditHeader.startAnimation(mHeaderOutAnimation);
-            }else {
-
+                mEditMemoHeader.startAnimation(mHeaderOutAnimation);
+                mSectionsPagerAdapter.getMainListFragment().setEditMode(HeaderMode.MemoList);
             }
         }else if(mode == HeaderMode.EditIcon){
-            //mIconEditHeader.setVisibility(View.VISIBLE);
             mViewPager.setSwipeHold(true);
-            //mTopHeader.setVisibility(View.GONE);
+            mIconEditHeader.setVisibility(View.VISIBLE);
+            mTopHeader.setVisibility(View.GONE);
             mIconEditHeader.findViewById(R.id.iconEditCancelButton).setOnClickListener(this);
+        }else if(mode == HeaderMode.EditMemo){
+            VibrateTips();
+            mViewPager.setSwipeHold(true);
+            mEditMemoHeader.findViewById(R.id.bulkCancelButton).setOnClickListener(this);
+            mEditMemoHeader.findViewById(R.id.bulkDeleteButton).setOnClickListener(this);
+            mEditMemoHeader.findViewById(R.id.bulkIconChangeButton).setOnClickListener(this);
+            mEditMemoHeader.findViewById(R.id.bulkMergeButton).setOnClickListener(this);
             mHeaderOutAnimation.setAnimationListener(mTopHeaderOutAnimationListener);
             mHeaderInAnimation.setAnimationListener(mEditHeaderInAnimationListener);
             mTopHeader.startAnimation(mHeaderOutAnimation);
-            mIconEditHeader.startAnimation(mHeaderInAnimation);
-        }else if(mode == HeaderMode.EditMemo){
-            mViewPager.setSwipeHold(true);
-
+            mEditMemoHeader.startAnimation(mHeaderInAnimation);
+            mSectionsPagerAdapter.getMainListFragment().setEditMode(HeaderMode.EditMemo);
         }
         mHeaderMode = mode;
     }
 
+    public void VibrateTips(){
+        Vibrator mShakeVibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+        long [] pattern = {0,80};
+        mShakeVibrator.vibrate(pattern, -1);
+    }
 
     private void initService(){
         startService(new Intent(this, WatchingService.class));
@@ -269,7 +297,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         MemoItemInfo memoItemInfo = new MemoItemInfo();
         memoItemInfo.set_mText("cek ljsalk jlas");
         Bundle bundle = new Bundle();
-        bundle.putSerializable("MEMO",(Serializable)memoItemInfo);
+        bundle.putSerializable("MEMO",memoItemInfo);
         EditMemoFragment writeMemoFragment = new EditMemoFragment();
         writeMemoFragment.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -366,7 +394,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
         @Override
         public void onAnimationEnd(Animation animation) {
-            mIconEditHeader.setVisibility(View.GONE);
+            mEditMemoHeader.setVisibility(View.GONE);
         }
 
         @Override
@@ -378,7 +406,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private Animation.AnimationListener mEditHeaderInAnimationListener = new Animation.AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) {
-            mIconEditHeader.setVisibility(View.VISIBLE);
+            mEditMemoHeader.setVisibility(View.VISIBLE);
         }
 
         @Override

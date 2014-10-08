@@ -67,7 +67,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     /**顶部的Header的三种状态*/
     public enum HeaderMode{
-        MemoList,EditIcon,EditMemo
+        MemoList,EditIcon,SelectMemo
     };
 
     /**顶部视图的旋转动画*/
@@ -179,6 +179,9 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 return true;
             }else if(isAtWriteMode()){
                 return true;
+            }else if(getHeaderMode() == HeaderMode.SelectMemo){
+                switchHeaderMode(HeaderMode.MemoList);
+                return true;
             }
         }
         return super.onKeyDown(keyCode, event);
@@ -225,7 +228,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             mIconEditHeader.setVisibility(View.VISIBLE);
             mTopHeader.setVisibility(View.GONE);
             mIconEditHeader.findViewById(R.id.iconEditCancelButton).setOnClickListener(this);
-        }else if(mode == HeaderMode.EditMemo){
+        }else if(mode == HeaderMode.SelectMemo){
             VibrateTips();
             mViewPager.setSwipeHold(true);
             mEditMemoHeader.findViewById(R.id.bulkCancelButton).setOnClickListener(this);
@@ -236,7 +239,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             mHeaderInAnimation.setAnimationListener(mEditHeaderInAnimationListener);
             mTopHeader.startAnimation(mHeaderOutAnimation);
             mEditMemoHeader.startAnimation(mHeaderInAnimation);
-            mSectionsPagerAdapter.getMainListFragment().setEditMode(HeaderMode.EditMemo);
+            mSectionsPagerAdapter.getMainListFragment().setEditMode(HeaderMode.SelectMemo);
         }
         mHeaderMode = mode;
     }

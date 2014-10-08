@@ -54,8 +54,7 @@ public class MainListFragment extends TFragment {
     private AdapterView.OnItemLongClickListener mItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-            ((MainActivity)getActivity()).switchHeaderMode(MainActivity.HeaderMode.EditMemo);
-
+            ((MainActivity)getActivity()).switchHeaderMode(MainActivity.HeaderMode.SelectMemo);
             return false;
         }
     };
@@ -83,7 +82,7 @@ public class MainListFragment extends TFragment {
     }
 
     public void setEditMode(MainActivity.HeaderMode mode){
-        if(mode == MainActivity.HeaderMode.EditMemo){
+        if(mode == MainActivity.HeaderMode.SelectMemo){
             mMainListAdapter.setEditMode(true);
         }else {
             mMainListAdapter.setEditMode(false);

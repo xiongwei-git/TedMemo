@@ -51,6 +51,10 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
 
     public void setEditMode(boolean isEditMode) {
         this.isEditMode = isEditMode;
+        /**在每次切换模式时候都要把上次勾选的记录清空*/
+        if(null != mSelectMemo){
+            mSelectMemo.clear();
+        }
     }
 
     public boolean isEditMode() {
@@ -124,7 +128,7 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MemoCellClass memoCell = null;
+        MemoCellClass memoCell;
         if(null == convertView){
             convertView = LayoutInflater.from(mContext).inflate(R.layout.memo_list_cell, null);
             memoCell = new MemoCellClass();

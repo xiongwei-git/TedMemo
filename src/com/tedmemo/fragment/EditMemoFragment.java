@@ -127,6 +127,7 @@ public class EditMemoFragment extends TFragment implements View.OnClickListener 
         if(null != getArguments()){
             Bundle ars = getArguments();
             mMemo = (MemoItemInfo)ars.getSerializable("MEMO");
+            mMemo.set_mIconId(Constants.DEFAULT_NONE_ICON_ID);
         }else {
             mMemo = new MemoItemInfo();
             mMemo.set_mIconId(Constants.DEFAULT_NONE_ICON_ID);

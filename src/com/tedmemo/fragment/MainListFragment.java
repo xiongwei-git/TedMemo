@@ -96,6 +96,9 @@ public class MainListFragment extends TFragment {
     }
 
     private void initHeaderView(){
+        if(mListView.getHeaderViewsCount() > 0){
+            return;
+        }
         TextView header = new TextView(getActivity());
         int headerHeight = DeviceUtil.getPixelFromDip(getActivity(),55);
         header.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams.WRAP_CONTENT,headerHeight));

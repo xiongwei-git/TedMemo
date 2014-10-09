@@ -43,7 +43,7 @@ public class MainListFragment extends TFragment {
             /**当前处于编辑模式*/
             if(mMainListAdapter.isEditMode()){
                 if(null != view.findViewById(R.id.checkBox)){
-                    mMainListAdapter.selectMemo((FrameLayout)view.findViewById(R.id.checkBox),position);
+                    mMainListAdapter.selectMemo(view,position);
                 }
             }else {
 

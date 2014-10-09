@@ -7,18 +7,30 @@ public class InnerMemoData {
     public static final int TYPE_IMG = 3;
     public static final int TYPE_SUMMARY = 2;
     public static final int TYPE_TEXT = 1;
+    /**对应的分类icon的名称*/
     private String _mContentType = null;
+    /**创建时间*/
     private long _mCreated = -1L;
-    private String _mDescription = null;
-    private int _mId;
-    private String _mImageThumbnail = null;
-    private int _mStatusCode = -1;
-    private String _mText = null;
-    private String _mTitle = null;
-    private int _mType = -1;
+    /**更新时间*/
     private long _mUpdated = -1L;
+    /**ID*/
+    private int _mId;
+    /**类型值*/
+    private int _mType = -1;
+    /**本地图片的地址*/
     private String _mUri = null;
+    /**URL*/
     private String _mUrl = null;
+    /**图片缩略图地址*/
+    private String _mImageThumbnail = null;
+    /**状态码 0正常 1待勾选 2已勾选*/
+    private int _mStatusCode = -1;
+    /**整个内容*/
+    private String _mDescription = null;
+    /**显示的文本内容*/
+    private String _mText = null;
+    /**有网址内容时的对应的标题*/
+    private String _mTitle = null;
 
     public String getContentType()
     {

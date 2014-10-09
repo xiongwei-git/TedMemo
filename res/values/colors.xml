@@ -13,8 +13,8 @@
     <color name="green">#0D9151</color>
     <color name="red">#f85d00</color>
     <color name="orange">#ff9913</color>
-
-
+    <color name="memo_checked_color">#ffd2e6e5</color>
+    <color name="memo_unread_color">#fffffcf0</color>
 
   <color name="dialog_diver_line">#484848</color>
   <color name="icon_gray_color">#ffc6c8c7</color>

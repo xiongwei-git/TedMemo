@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.android.TedFramework.util.DateUtil;
 import com.android.TedFramework.util.DeviceUtil;
+import com.android.TedFramework.util.LogUtil;
 import com.android.TedFramework.util.ToastUtil;
 import com.android.tedwidget.view.TImageView;
 import com.tedmemo.data.InnerMemoData;
 import com.tedmemo.view.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Ted on 14-8-11.
@@ -92,6 +95,15 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
         LinearLayout.LayoutParams checkBoxLp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         checkBoxLp.gravity = Gravity.CENTER_VERTICAL;
         switch (state){
+            case -1:
+                itemView.setBackgroundResource(R.drawable.cell_drop_shadow_unread);
+                checkBoxOff.setVisibility(View.GONE);
+                checkBoxLp.height = DeviceUtil.getPixelFromDip(mContext,17);
+                checkBoxLp.width = DeviceUtil.getPixelFromDip(mContext,17);
+                checkBoxOff.setVisibility(View.GONE);
+                checkBoxOn.setVisibility(View.GONE);
+                checkBox.setLayoutParams(checkBoxLp);
+                break;
             case 0:
                 itemView.setBackgroundResource(R.drawable.cell_drop_shadow);
                 checkBoxOff.setVisibility(View.GONE);
@@ -125,10 +137,13 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
 
     @Override
     public Object getItem(int position) {
+        /**在非编辑模式下，便签的状态要么就是-1，代表未读。要么就是0，代表正常*/
         if(!isEditMode){
             InnerMemoData memoData = (InnerMemoData)mListData.get(position);
-            memoData.setStatusCode(0);
-            return memoData;
+            if(memoData.getStatusCode() != 0 && memoData.getStatusCode() != -1){
+                memoData.setStatusCode(0);
+                return memoData;
+            }
         }
         return mListData.get(position);
     }
@@ -160,14 +175,27 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
         InnerMemoData memoData = (InnerMemoData)getItem(position);
         memoCell.iconArea.setOnClickListener(this);
         memoCell.iconArea.setOnLongClickListener(this);
+        Calendar create = DateUtil.getCalFromTimeMillis(memoData.getCreated());
+        memoCell.update_date.setText(DateUtil.getCalStrBySDF(create,DateUtil.SIMPLEFORMATTYPE17));
         if(isEditMode){
+            /**在编辑模式的时候，要么是已经被勾选中的状态为2，其他的都是待勾选的*/
             if(memoData.getStatusCode() == 2){
                 updateCheckBoxState(view,2);
             }else {
                 updateCheckBoxState(view,1);
             }
         }else {
-            updateCheckBoxState(view,0);
+            /**正常模式显示时，只有两种状态，未读和已读。两者只有背景不一致*/
+            updateCheckBoxState(view,memoData.getStatusCode());
+        }
+        if(memoData.getType() == InnerMemoData.TYPE_IMG){
+
+        }else if(memoData.getType() == InnerMemoData.TYPE_TEXT){
+
+        }else if(memoData.getType() == InnerMemoData.TYPE_SUMMARY){
+
+        }else {
+            LogUtil.e("memoData.getType()类型错误");
         }
     }
 

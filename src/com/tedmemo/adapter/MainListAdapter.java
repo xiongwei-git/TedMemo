@@ -139,7 +139,7 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
     public Object getItem(int position) {
         /**在非编辑模式下，便签的状态要么就是-1，代表未读。要么就是0，代表正常*/
         if(!isEditMode){
-            InnerMemoData memoData = (InnerMemoData)mListData.get(position);
+            InnerMemoData memoData = mListData.get(position);
             if(memoData.getStatusCode() != 0 && memoData.getStatusCode() != -1){
                 memoData.setStatusCode(0);
                 return memoData;

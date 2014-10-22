@@ -148,15 +148,15 @@ public class IconBgData {
 
     public int getResourceId(Context paramContext, int iconType)
     {
-        StringBuilder localStringBuilder = new StringBuilder();
-        localStringBuilder.append("tag_");
+        StringBuilder builder = new StringBuilder();
+        builder.append("tag_");
         if(iconType == ICON_TYPE_LARGE){
-            localStringBuilder.append("large_");
+            builder.append("large_");
         }else {
-            localStringBuilder.append("small_");
+            builder.append("small_");
         }
-        localStringBuilder.append(get_mName());
-        this._mResourceId = paramContext.getResources().getIdentifier(localStringBuilder.toString(), "drawable", paramContext.getPackageName());
+        builder.append(get_mName());
+        this._mResourceId = paramContext.getResources().getIdentifier(builder.toString(), "drawable", paramContext.getPackageName());
         return this._mResourceId;
     }
 

@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.android.TedFramework.util.DateUtil;
-import com.android.TedFramework.util.DeviceUtil;
-import com.android.TedFramework.util.LogUtil;
-import com.android.TedFramework.util.ToastUtil;
+import com.android.TedFramework.util.*;
 import com.android.tedwidget.view.TImageView;
+import com.tedmemo.data.IconDataManager;
 import com.tedmemo.data.InnerMemoData;
+import com.tedmemo.db.IconBgData;
 import com.tedmemo.view.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Ted on 14-8-11.
@@ -175,6 +175,7 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
         InnerMemoData memoData = (InnerMemoData)getItem(position);
         memoCell.iconArea.setOnClickListener(this);
         memoCell.iconArea.setOnLongClickListener(this);
+        setMemoIcon(memoCell.icon,memoData);
         Calendar create = DateUtil.getCalFromTimeMillis(memoData.getCreated());
         memoCell.update_date.setText(DateUtil.getCalStrBySDF(create,DateUtil.SIMPLEFORMATTYPE17));
         if(isEditMode){
@@ -196,6 +197,21 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
 
         }else {
             LogUtil.e("memoData.getType()类型错误");
+        }
+    }
+
+    private void setMemoIcon(ImageView icon,final InnerMemoData memoData){
+        String type = memoData.getContentType();
+        if(StringUtil.emptyOrNull(type)){
+            icon.setImageDrawable(IconDataManager.getInstance().getDefaultIconBg().getDrawable(mContext));
+            return;
+        };
+        List<IconBgData> listIcon = IconDataManager.getInstance().getmAllIconBgData();
+        for (IconBgData iconBg:listIcon){
+            if(type.equals(iconBg.getBackgroundColorOnStr())){
+                icon.setImageDrawable(iconBg.getDrawable(mContext));
+                break;
+            }
         }
     }
 

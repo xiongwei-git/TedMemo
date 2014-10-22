@@ -23,7 +23,7 @@ public class IconDataManager {
 
     public void initIconDBDatas(){
         mAllIconBgData = DBUtil.getInstance().queryAllIconS();
-        if(null == mAllIconBgData || mAllIconBgData.size() == 0){
+        if(null == mAllIconBgData || mAllIconBgData.size() == 0 || mAllIconBgData.size() != 16){
             createDefaultData();
         }
     }
@@ -58,5 +58,13 @@ public class IconDataManager {
 
     public List<IconBgData> getmAllIconBgData() {
         return mAllIconBgData;
+    }
+
+    /***
+     * 获取默认的none的icon
+     * @return
+     */
+    public IconBgData getDefaultIconBg(){
+        return mAllIconBgData.get(15);
     }
 }

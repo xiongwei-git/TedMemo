@@ -173,11 +173,15 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
 
     private void updateItemData(View view,MemoCellClass memoCell,int position){
         InnerMemoData memoData = (InnerMemoData)getItem(position);
+        /**监听事件*/
         memoCell.iconArea.setOnClickListener(this);
         memoCell.iconArea.setOnLongClickListener(this);
+        /**icon*/
         setMemoIcon(memoCell.icon,memoData);
+        /**日期*/
         Calendar create = DateUtil.getCalFromTimeMillis(memoData.getCreated());
         memoCell.update_date.setText(DateUtil.getCalStrBySDF(create,DateUtil.SIMPLEFORMATTYPE17));
+        /**勾选状态*/
         if(isEditMode){
             /**在编辑模式的时候，要么是已经被勾选中的状态为2，其他的都是待勾选的*/
             if(memoData.getStatusCode() == 2){
@@ -189,15 +193,24 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
             /**正常模式显示时，只有两种状态，未读和已读。两者只有背景不一致*/
             updateCheckBoxState(view,memoData.getStatusCode());
         }
+        /**根据类型填充其他内容*/
         if(memoData.getType() == InnerMemoData.TYPE_IMG){
 
         }else if(memoData.getType() == InnerMemoData.TYPE_TEXT){
-
+            createTextMemo(memoData,memoCell);
         }else if(memoData.getType() == InnerMemoData.TYPE_SUMMARY){
 
         }else {
             LogUtil.e("memoData.getType()类型错误");
         }
+    }
+
+    private void createTextMemo(InnerMemoData memoData,MemoCellClass memoCell){
+        memoCell.summary_cell.setVisibility(View.GONE);
+        memoCell.summary_image_layout.setVisibility(View.GONE);
+        int textLength = memoData.getText().length();
+        memoCell.see_more.setVisibility(textLength >60?View.VISIBLE:View.GONE);
+        memoCell.text_top.setText(memoData.getText());
     }
 
     private void setMemoIcon(ImageView icon,final InnerMemoData memoData){

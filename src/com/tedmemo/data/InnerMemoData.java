@@ -7,153 +7,152 @@ public class InnerMemoData {
     public static final int TYPE_IMG = 3;
     public static final int TYPE_SUMMARY = 2;
     public static final int TYPE_TEXT = 1;
-    /**对应的分类icon的名称*/
+    /**
+     * 对应的分类icon的名称
+     */
     private String _mContentType = null;
-    /**创建时间*/
+    /**
+     * 创建时间
+     */
     private long _mCreated = -1L;
-    /**更新时间*/
+    /**
+     * 更新时间
+     */
     private long _mUpdated = -1L;
-    /**ID*/
+    /**
+     * ID
+     */
     private int _mId;
-    /**类型值*/
+    /**
+     * 类型值
+     */
     private int _mType = -1;
-    /**本地图片的地址*/
+    /**
+     * 本地图片的地址
+     */
     private String _mUri = null;
-    /**URL*/
+    /**
+     * URL
+     */
     private String _mUrl = null;
-    /**图片缩略图地址*/
+    /**
+     * 图片缩略图地址
+     */
     private String _mImageThumbnail = null;
-    /**状态码 0正常 1待勾选 2已勾选*/
+    /**
+     * 状态码 0正常 1待勾选 2已勾选
+     */
     private int _mStatusCode = -1;
-    /**整个内容*/
+    /**
+     * 整个内容
+     */
     private String _mDescription = null;
-    /**显示的文本内容*/
+    /**
+     * 显示的文本内容
+     */
     private String _mText = null;
-    /**有网址内容时的对应的标题*/
+    /**
+     * 有网址内容时的对应的标题
+     */
     private String _mTitle = null;
 
-    public String getContentType()
-    {
+    public String getContentType() {
         return this._mContentType;
     }
 
-    public long getCreated()
-    {
+    public long getCreated() {
         return this._mCreated;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return this._mDescription;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return this._mId;
     }
 
-    public String getImageThumbnail()
-    {
+    public String getImageThumbnail() {
         return this._mImageThumbnail;
     }
 
-    public int getStatusCode()
-    {
+    public int getStatusCode() {
         return this._mStatusCode;
     }
 
-    public String getText()
-    {
+    public String getText() {
         return this._mText;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return this._mTitle;
     }
 
-    public int getType()
-    {
+    public int getType() {
         return this._mType;
     }
 
-    public long getUpdated()
-    {
+    public long getUpdated() {
         return this._mUpdated;
     }
 
-    public String getUri()
-    {
+    public String getUri() {
         return this._mUri;
     }
 
-    public String getUrl()
-    {
+    public String getUrl() {
         return this._mUrl;
     }
 
-    public void setContentType(String paramString)
-    {
-        this._mContentType = paramString;
+    public void setContentType(String type) {
+        this._mContentType = type;
     }
 
-    public void setCreated(long paramLong)
-    {
-        this._mCreated = paramLong;
+    public void setCreated(long date) {
+        this._mCreated = date;
     }
 
-    public void setDescription(String paramString)
-    {
-        this._mDescription = paramString;
+    public void setDescription(String description) {
+        this._mDescription = description;
     }
 
-    public void setId(int paramInt)
-    {
-        this._mId = paramInt;
+    public void setId(int id) {
+        this._mId = id;
     }
 
-    public void setImageThumbnail(String paramString)
-    {
-        this._mImageThumbnail = paramString;
+    public void setImageThumbnail(String thumbnail) {
+        this._mImageThumbnail = thumbnail;
     }
 
-    public void setStatusCode(int paramInt)
-    {
-        this._mStatusCode = paramInt;
+    public void setStatusCode(int statusCode) {
+        this._mStatusCode = statusCode;
     }
 
-    public void setText(String paramString)
-    {
-        this._mText = paramString;
+    public void setText(String text) {
+        this._mText = text;
     }
 
-    public void setTitle(String paramString)
-    {
-        this._mTitle = paramString;
+    public void setTitle(String title) {
+        this._mTitle = title;
     }
 
-    public void setType(int paramInt)
-    {
-        this._mType = paramInt;
+    public void setType(int type) {
+        this._mType = type;
     }
 
-    public void setUpdated(long paramLong)
-    {
-        this._mUpdated = paramLong;
+    public void setUpdated(long updated) {
+        this._mUpdated = updated;
     }
 
-    public void setUri(String paramString)
-    {
-        this._mUri = paramString;
+    public void setUri(String uri) {
+        this._mUri = uri;
     }
 
-    public void setUrl(String paramString)
-    {
-        this._mUrl = paramString;
+    public void setUrl(String url) {
+        this._mUrl = url;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "";
     }
 }

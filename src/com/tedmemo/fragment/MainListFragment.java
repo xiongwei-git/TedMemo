@@ -73,8 +73,14 @@ public class MainListFragment extends TFragment {
         ArrayList<InnerMemoData> list = new ArrayList<InnerMemoData>();
         for (int i= 0;i<10;i++){
             InnerMemoData  memoData = new InnerMemoData();
+            memoData.setType(1);
+            memoData.setText("一个android项目开发到后期，页面和组件越来越多，页面与页面或者组件之间的通信就变得越来越繁多，使用接口回调或者或者或者的");
             list.add(memoData);
         }
+        InnerMemoData  memoData = new InnerMemoData();
+        memoData.setType(1);
+        memoData.setText("android android android");
+        list.add(memoData);
         mMainListAdapter = new MainListAdapter(getActivity(),list);
         mListView.setAdapter(mMainListAdapter);
         mListView.setOnItemClickListener(mOnItemClickListener);

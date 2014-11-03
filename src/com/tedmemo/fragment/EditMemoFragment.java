@@ -52,15 +52,6 @@ public class EditMemoFragment extends TFragment implements View.OnClickListener 
     /**编辑页面对应的icon*/
     private MemoItemInfo mMemo;
 
-
-//    private static WriteMemoFragment self = null;
-//    public static WriteMemoFragment getInstance(){
-//        if(null == self){
-//            self = new WriteMemoFragment();
-//        }
-//        return self;
-//    }
-
     public EditMemoFragment(){
         mWHRatio = DeviceUtil.getScreenSize()[0]/DeviceUtil.getScreenSize()[0];
     }

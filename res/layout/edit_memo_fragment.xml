@@ -152,10 +152,10 @@
           android:src="@drawable/tagchoice"/>
     </FrameLayout>
   </RelativeLayout>
+
     <FrameLayout
         android:id="@id/writeMemoSelectIcon"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-
-        </FrameLayout>
+    </FrameLayout>
 </RelativeLayout>

@@ -25,6 +25,8 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
     private ArrayList<InnerMemoData> mListData = new ArrayList<InnerMemoData>();
 
     private boolean isEditMode = false;
+    /**当前勾选的Memo*/
+    //private ArrayList<Integer> mSelectMemo = new ArrayList<Integer>();
 
     @Override
     public void onClick(View v) {
@@ -52,6 +54,10 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
 
     public void setEditMode(boolean isEditMode) {
         this.isEditMode = isEditMode;
+        /**在每次切换模式时候都要把上次勾选的记录清空*/
+//        if(null != mSelectMemo){
+//            mSelectMemo.clear();
+//        }
     }
 
     public boolean isEditMode() {
@@ -63,9 +69,11 @@ public class MainListAdapter extends BaseAdapter implements View.OnClickListener
         /**已经包含，就移除*/
         if(memoData.getStatusCode() == 2){
             memoData.setStatusCode(1);
+            //mSelectMemo.remove((Integer)position);
             updateCheckBoxState(itemView,1);
         }else {
             memoData.setStatusCode(2);
+            //mSelectMemo.add(position);
             updateCheckBoxState(itemView,2);
         }
     }

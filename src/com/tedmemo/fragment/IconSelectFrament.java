@@ -31,13 +31,6 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
     private ArrayList<IconBgData> iconBgDatas = new ArrayList<IconBgData>();
     private GridView mGridView;
 
-    /***
-     * 选择icon的来源页面 列表，详情，编辑，创建,未知来源
-     */
-    public enum SlectIconSrc{
-        List,Detail,Edit,Create,Null
-    };
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -115,7 +108,6 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
                     int position = ((Integer)v.getTag()).intValue();
                     if(position>=0 && position < getCount()){
                         IconBgData iconBgData = (IconBgData)getItem(position);
-
                         if(bIsCreatMemo){
                             CreateMemoIconEvent event = new CreateMemoIconEvent();
                             event.setIconId(iconBgData.get_id());

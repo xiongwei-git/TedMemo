@@ -3,7 +3,7 @@ package com.tedmemo.event;
 /**
  * Created by Ted on 2014/9/23.
  */
-public class SelectIconEvent extends BaseEvent{
+public class CreateMemoIconEvent extends BaseEvent{
     int iconId = -1;
 
     public int getIconId() {

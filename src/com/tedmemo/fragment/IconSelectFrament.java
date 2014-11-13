@@ -17,6 +17,7 @@ import com.tedmemo.data.IconDataManager;
 import com.tedmemo.db.IconBgData;
 import com.tedmemo.event.CreateMemoIconEvent;
 import com.tedmemo.event.SelectIconEvent;
+import com.tedmemo.others.Constants;
 import com.tedmemo.view.R;
 import de.greenrobot.event.EventBus;
 
@@ -27,7 +28,10 @@ import java.util.List;
  * Created by w_xiong on 2014/9/12.
  */
 public class IconSelectFrament extends TFragment implements View.OnClickListener {
-    private boolean bIsCreatMemo = false;
+
+    /**谁调用了本页面*/
+    private int mFromWhere = Constants.FROM_CREATE;
+
     private ArrayList<IconBgData> iconBgDatas = new ArrayList<IconBgData>();
     private GridView mGridView;
 
@@ -50,16 +54,17 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(null != getArguments()){
-            bIsCreatMemo = getArguments().getBoolean("CREATE_MEMO",false);
-        }
         EventBus.getDefault().register(this);
+        if(null != getArguments()){
+            mFromWhere = getArguments().getInt(Constants.SELECT_KEY, Constants.FROM_CREATE);
+        }
+
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -77,6 +82,7 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
     }
 
     private void initView(View rootView) {
+        boolean bIsCreatMemo = mFromWhere == Constants.FROM_CREATE;
         mGridView = (GridView)rootView.findViewById(R.id.icon_selection_gridview);
         rootView.findViewById(R.id.cancelButton).setOnClickListener(this);
         rootView.findViewById(R.id.temporarySaveButton).setVisibility(bIsCreatMemo?View.VISIBLE:View.GONE);
@@ -87,9 +93,11 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
      * 点击了icon
      * @param event
      */
-    public void onEventMainThread(CreateMemoIconEvent event) {
-        ToastUtil.show(getActivity(),"创建了便签");
-        getActivity().onBackPressed();
+    public void onEventMainThread(SelectIconEvent event) {
+        if(event.getFromWhere() == Constants.FROM_CREATE){
+            ToastUtil.show(getActivity(),"创建了便签");
+            getActivity().onBackPressed();
+        }
     }
 
     class IconGridAdapter extends BaseAdapter {
@@ -104,19 +112,14 @@ public class IconSelectFrament extends TFragment implements View.OnClickListener
                 if (CheckDoubleClick.isFastDoubleClick()) {
                     return;
                 }
-                if(null != v && v.getTag() instanceof Integer){
-                    int position = ((Integer)v.getTag()).intValue();
-                    if(position>=0 && position < getCount()){
-                        IconBgData iconBgData = (IconBgData)getItem(position);
-                        if(bIsCreatMemo){
-                            CreateMemoIconEvent event = new CreateMemoIconEvent();
-                            event.setIconId(iconBgData.get_id());
-                            EventBus.getDefault().post(event);
-                        }else {
-                            SelectIconEvent event = new SelectIconEvent();
-                            event.setIconId(iconBgData.get_id());
-                            EventBus.getDefault().post(event);
-                        }
+                if (null != v && v.getTag() instanceof Integer) {
+                    int position = ((Integer) v.getTag()).intValue();
+                    if (position >= 0 && position < getCount()) {
+                        IconBgData iconBgData = (IconBgData) getItem(position);
+                        SelectIconEvent event = new SelectIconEvent();
+                        event.setIconId(iconBgData.get_id());
+                        event.setFromWhere(mFromWhere);
+                        EventBus.getDefault().post(event);
                     }
                 }
             }

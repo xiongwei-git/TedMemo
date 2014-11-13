@@ -14,7 +14,7 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="TedWidget" />
-    <orderEntry type="library" name="memo_libs" level="project" />
+    <orderEntry type="library" name="View_libs" level="project" />
   </component>
 </module>
 

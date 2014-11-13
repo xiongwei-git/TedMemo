@@ -212,17 +212,19 @@ public class EditMemoFragment extends TFragment implements View.OnClickListener 
      * @param event
      */
     public void onEventMainThread(SelectIconEvent event) {
-        mMemo.set_mIconId(event.getIconId());
-        setMemoIcon();
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.popBackStack();
+        if(event.getFromWhere() == Constants.FROM_WRITE){
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.popBackStack();
+            mMemo.set_mIconId(event.getIconId());
+            setMemoIcon();
+        }
     }
 
     private void selectIcon(){
         IconSelectFrament iconSelectFrament = new IconSelectFrament();
-//        Bundle bundle = new Bundle();
-//        bundle.putBoolean("CREATE_MEMO",true);
-//        iconSelectFrament.setArguments(bundle);
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.SELECT_KEY,Constants.FROM_WRITE);
+        iconSelectFrament.setArguments(bundle);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         transaction.add(R.id.writeMemoSelectIcon, iconSelectFrament, "SELECT_ICON");

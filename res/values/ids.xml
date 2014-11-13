@@ -1,77 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <item type="id" name="headerShadow">false</item>
-  <item type="id" name="topPager">false</item>
-  <item type="id" name="topHeader">false</item>
-  <item type="id" name="topTabArea">false</item>
-  <item type="id" name="tabIconBackground">false</item>
-  <item type="id" name="topTabIcons">false</item>
-  <item type="id" name="tabHome">false</item>
-  <item type="id" name="tabTag">false</item>
-  <item type="id" name="writeButton">false</item>
-  <item type="id" name="homeListView">false</item>
+    <!--MainActivity-->
+    <item type="id" name="main_fragment_container">false</item>
 
-  <item type="id" name="iconEditHeader">false</item>
-  <item type="id" name="iconEditCancelButton">false</item>
 
-  <item type="id" name="topSpace">false</item>
-  <item type="id" name="tabGridViewNormal">false</item>
-  <item type="id" name="tabGridViewEdit">false</item>
-  <item type="id" name="iconEditButton">false</item>
-  <item type="id" name="iconEditButtonText">false</item>
+    <item type="id" name="headerShadow">false</item>
+    <item type="id" name="topPager">false</item>
+    <item type="id" name="topHeader">false</item>
+    <item type="id" name="topTabArea">false</item>
+    <item type="id" name="tabIconBackground">false</item>
+    <item type="id" name="topTabIcons">false</item>
+    <item type="id" name="tabHome">false</item>
+    <item type="id" name="tabTag">false</item>
+    <item type="id" name="writeButton">false</item>
+    <item type="id" name="homeListView">false</item>
 
-  <item type="id" name="bulkEditHeader">false</item>
-  <item type="id" name="bulkCancelButton">false</item>
+    <item type="id" name="iconEditHeader">false</item>
+    <item type="id" name="iconEditCancelButton">false</item>
+
+    <item type="id" name="topSpace">false</item>
+    <item type="id" name="tabGridViewNormal">false</item>
+    <item type="id" name="tabGridViewEdit">false</item>
+    <item type="id" name="iconEditButton">false</item>
+    <item type="id" name="iconEditButtonText">false</item>
+
+    <item type="id" name="bulkEditHeader">false</item>
+    <item type="id" name="bulkCancelButton">false</item>
     <item type="id" name="bulkDeleteButton">false</item>
     <item type="id" name="bulkMergeButton">false</item>
     <item type="id" name="bulkIconChangeButton">false</item>
-  <item type="id" name="editIconHeader">false</item>
-  <item type="id" name="editIconCloseDialogButton">false</item>
-  <item type="id" name="editIconSelected">false</item>
-  <item type="id" name="editIconOkButton">false</item>
-  <item type="id" name="editIconGridView">false</item>
-  <item type="id" name="editIconCategoryLayout">false</item>
-  <item type="id" name="editIconCategoryButton1">false</item>
-  <item type="id" name="editIconCategoryButton2">false</item>
-  <item type="id" name="editIconCategoryButton3">false</item>
-  <item type="id" name="editSureDlg_Delete">false</item>
-  <item type="id" name="editSureDlg_Change">false</item>
+    <item type="id" name="editIconHeader">false</item>
+    <item type="id" name="editIconCloseDialogButton">false</item>
+    <item type="id" name="editIconSelected">false</item>
+    <item type="id" name="editIconOkButton">false</item>
+    <item type="id" name="editIconGridView">false</item>
+    <item type="id" name="editIconCategoryLayout">false</item>
+    <item type="id" name="editIconCategoryButton1">false</item>
+    <item type="id" name="editIconCategoryButton2">false</item>
+    <item type="id" name="editIconCategoryButton3">false</item>
+    <item type="id" name="editSureDlg_Delete">false</item>
+    <item type="id" name="editSureDlg_Change">false</item>
 
     <item type="id" name="temporarySaveButton">false</item>
     <item type="id" name="icon_selection_gridview">false</item>
 
-  <!--edit_memo_fragment-->
-  <item type="id" name="editMemoHeader">false</item>
-  <item type="id" name="cancelButton">false</item>
-  <item type="id" name="saveButton">false</item>
-  <item type="id" name="imageEditTextScrollView">false</item>
-  <item type="id" name="editMemoFooter">false</item>
-  <item type="id" name="galleryButton">false</item>
-  <item type="id" name="imageCaptureButton">false</item>
-  <item type="id" name="tagButton">false</item>
-  <item type="id" name="tagButtonImg">false</item>
-  <item type="id" name="imageEditText">false</item>
-  <item type="id" name="writeMemoSelectIcon">false</item>
+    <!--edit_memo_fragment-->
+    <item type="id" name="editMemoHeader">false</item>
+    <item type="id" name="cancelButton">false</item>
+    <item type="id" name="saveButton">false</item>
+    <item type="id" name="imageEditTextScrollView">false</item>
+    <item type="id" name="editMemoFooter">false</item>
+    <item type="id" name="galleryButton">false</item>
+    <item type="id" name="imageCaptureButton">false</item>
+    <item type="id" name="tagButton">false</item>
+    <item type="id" name="tagButtonImg">false</item>
+    <item type="id" name="imageEditText">false</item>
+    <item type="id" name="writeMemoSelectIcon">false</item>
 
 
-
-  <item type="id" name="checkBox">false</item>
-  <item type="id" name="article_thumb">false</item>
-  <item type="id" name="checkBoxOff">false</item>
-  <item type="id" name="checkBoxOn">false</item>
-  <item type="id" name="memoListMaintextArea">false</item>
-  <item type="id" name="text_top">false</item>
-  <item type="id" name="summary_image_layout">false</item>
-  <item type="id" name="summary_image">false</item>
-  <item type="id" name="summary_cell">false</item>
-  <item type="id" name="article_url">false</item>
-  <item type="id" name="article_title">false</item>
-  <item type="id" name="iconArea">false</item>
-  <item type="id" name="icon">false</item>
-  <item type="id" name="iconEdit">false</item>
-  <item type="id" name="iconEditPlus">false</item>
-  <item type="id" name="dateArea">false</item>
-  <item type="id" name="see_more">false</item>
-  <item type="id" name="update_date">false</item>
-  <item type="id" name="memo_count">false</item>
+    <item type="id" name="checkBox">false</item>
+    <item type="id" name="article_thumb">false</item>
+    <item type="id" name="checkBoxOff">false</item>
+    <item type="id" name="checkBoxOn">false</item>
+    <item type="id" name="memoListMaintextArea">false</item>
+    <item type="id" name="text_top">false</item>
+    <item type="id" name="summary_image_layout">false</item>
+    <item type="id" name="summary_image">false</item>
+    <item type="id" name="summary_cell">false</item>
+    <item type="id" name="article_url">false</item>
+    <item type="id" name="article_title">false</item>
+    <item type="id" name="iconArea">false</item>
+    <item type="id" name="icon">false</item>
+    <item type="id" name="iconEdit">false</item>
+    <item type="id" name="iconEditPlus">false</item>
+    <item type="id" name="dateArea">false</item>
+    <item type="id" name="see_more">false</item>
+    <item type="id" name="update_date">false</item>
+    <item type="id" name="memo_count">false</item>
 </resources>

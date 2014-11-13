@@ -23,15 +23,15 @@ public class IconBgData {
     public static final int ICON_TYPE_LARGE = 1;
     public static final int ICON_TYPE_SMALL = 2;
 
-    @DatabaseField(columnName="color_off")
+    @DatabaseField(columnName = "color_off")
     private String _mBackgroundColorOffStr;
-    @DatabaseField(columnName="color_on")
+    @DatabaseField(columnName = "color_on")
     private String _mBackgroundColorOnStr;
-    @DatabaseField(columnName="order")
+    @DatabaseField(columnName = "order")
     private int _mOrder = -1;
-    @DatabaseField(columnName="name")
+    @DatabaseField(columnName = "name")
     private String _mName;
-    @DatabaseField(columnName="id", id=true)
+    @DatabaseField(columnName = "id", id = true)
     private int _id;
 
     private Drawable _mDrawable = null;
@@ -39,41 +39,38 @@ public class IconBgData {
     private int _mResourceId = -1;
     private int _mSizeGroup = -1;
 
-    public String getBackgroundColorOffStr()
-    {
+    public String getBackgroundColorOffStr() {
         return this._mBackgroundColorOffStr;
     }
 
-    public String getBackgroundColorOnStr()
-    {
+    public String getBackgroundColorOnStr() {
         return this._mBackgroundColorOnStr;
     }
 
-    public Drawable getBackgroundDrawable(Context paramContext, int iconType)
-    {
+    public Drawable getBackgroundDrawable(Context paramContext, int iconType) {
         Resources localResources = paramContext.getResources();
-        GradientDrawable localGradientDrawableOn = (GradientDrawable)localResources.getDrawable(R.drawable.icon_white_stroke_bg);
+        GradientDrawable localGradientDrawableOn = (GradientDrawable) localResources.getDrawable(R.drawable.icon_white_stroke_bg);
         localGradientDrawableOn.setColor(Color.parseColor(getBackgroundColorOnStr()));
 
 //        GradientDrawable localGradientDrawableOff = (GradientDrawable)localResources.getDrawable(R.drawable.icon_white_stroke_bg);
 //        localGradientDrawableOff.setColor(Color.parseColor(getBackgroundColorOffStr()));
         StateListDrawable localStateListDrawable = new StateListDrawable();
-        localStateListDrawable.addState(new int[] {}, localGradientDrawableOn);
-        this._mDrawable = new LayerDrawable(new Drawable[] { localStateListDrawable });
+        localStateListDrawable.addState(new int[]{}, localGradientDrawableOn);
+        this._mDrawable = new LayerDrawable(new Drawable[]{localStateListDrawable});
         return this._mDrawable;
     }
 
-    public Drawable getDrawable(Context paramContext)
-    {
+    public Drawable getDrawable(Context paramContext) {
         return getDrawable(paramContext, ICON_TYPE_LARGE);
     }
 
-    /**获取到背景加图片的drawable*/
-    public Drawable getMixDrawable(Context paramContext, int iconType)
-    {
+    /**
+     * 获取到背景加图片的drawable
+     */
+    public Drawable getMixDrawable(Context paramContext, int iconType) {
         Resources localResources = paramContext.getResources();
 
-        GradientDrawable localGradientDrawableOn = ((GradientDrawable)localResources.getDrawable(R.drawable.icon_white_stroke_bg));
+        GradientDrawable localGradientDrawableOn = ((GradientDrawable) localResources.getDrawable(R.drawable.icon_white_stroke_bg));
         localGradientDrawableOn.setColor(Color.parseColor(getBackgroundColorOnStr()));
 
 //        GradientDrawable localGradientDrawableOff = (GradientDrawable)localResources.getDrawable(R.drawable.icon_bg2);
@@ -86,15 +83,14 @@ public class IconBgData {
         if (i == 0) {
             i = getResourceId(paramContext);
         }
-        this._mDrawable = new LayerDrawable(new Drawable[] { localStateListDrawable, localResources.getDrawable(i) });
+        this._mDrawable = new LayerDrawable(new Drawable[]{localStateListDrawable, localResources.getDrawable(i)});
         return this._mDrawable;
     }
 
-    public Drawable getDrawable(Context paramContext, int iconType)
-    {
+    public Drawable getDrawable(Context paramContext, int iconType) {
         Resources localResources = paramContext.getResources();
 
-        GradientDrawable localGradientDrawableOn = ((GradientDrawable)localResources.getDrawable(R.drawable.icon_bg));
+        GradientDrawable localGradientDrawableOn = ((GradientDrawable) localResources.getDrawable(R.drawable.icon_bg));
         localGradientDrawableOn.setColor(Color.parseColor(getBackgroundColorOnStr()));
 
 //        GradientDrawable localGradientDrawableOff = (GradientDrawable)localResources.getDrawable(R.drawable.icon_bg2);
@@ -107,52 +103,48 @@ public class IconBgData {
         if (i == 0) {
             i = getResourceId(paramContext);
         }
-        this._mDrawable = new LayerDrawable(new Drawable[] { localStateListDrawable, localResources.getDrawable(i) });
+        this._mDrawable = new LayerDrawable(new Drawable[]{localStateListDrawable, localResources.getDrawable(i)});
         return this._mDrawable;
     }
 
-    /***
+    /**
      * 如果某个颜色尚未分配到资源，就只能获取到颜色为背景的图片
+     *
      * @param paramContext
      * @return
      */
-    public Drawable getColorDrawable(Context paramContext)
-    {
+    public Drawable getColorDrawable(Context paramContext) {
         Resources localResources = paramContext.getResources();
 
-        GradientDrawable localGradientDrawableOn = ((GradientDrawable)localResources.getDrawable(R.drawable.icon_bg));
+        GradientDrawable localGradientDrawableOn = ((GradientDrawable) localResources.getDrawable(R.drawable.icon_bg));
         localGradientDrawableOn.setColor(Color.parseColor(getBackgroundColorOnStr()));
 
         StateListDrawable localStateListDrawable = new StateListDrawable();
         //localStateListDrawable.addState(new int[]{android.R.attr.state_pressed}, localGradientDrawableOff);
         localStateListDrawable.addState(new int[]{}, localGradientDrawableOn);
-        this._mDrawable = new LayerDrawable(new Drawable[] { localStateListDrawable });
+        this._mDrawable = new LayerDrawable(new Drawable[]{localStateListDrawable});
         return this._mDrawable;
     }
 
-    public long getMemoCount(Context paramContext)
-    {
+    public long getMemoCount(Context paramContext) {
         //this._mMemoCount = new o(paramContext).a(this);
         return this._mMemoCount;
     }
 
-    public int getOrder()
-    {
+    public int getOrder() {
         return this._mOrder;
     }
 
-    public int getResourceId(Context paramContext)
-    {
+    public int getResourceId(Context paramContext) {
         return getResourceId(paramContext, ICON_TYPE_LARGE);
     }
 
-    public int getResourceId(Context paramContext, int iconType)
-    {
+    public int getResourceId(Context paramContext, int iconType) {
         StringBuilder builder = new StringBuilder();
         builder.append("tag_");
-        if(iconType == ICON_TYPE_LARGE){
+        if (iconType == ICON_TYPE_LARGE) {
             builder.append("large_");
-        }else {
+        } else {
             builder.append("small_");
         }
         builder.append(get_mName());
@@ -160,8 +152,7 @@ public class IconBgData {
         return this._mResourceId;
     }
 
-    public int getSizeGroup()
-    {
+    public int getSizeGroup() {
         return this._mSizeGroup;
     }
 
@@ -181,43 +172,35 @@ public class IconBgData {
         this._mName = _mName;
     }
 
-    public void setBackgroundColorOffStr(String paramString)
-    {
+    public void setBackgroundColorOffStr(String paramString) {
         this._mBackgroundColorOffStr = paramString;
     }
 
-    public void setBackgroundColorOnStr(String paramString)
-    {
+    public void setBackgroundColorOnStr(String paramString) {
         this._mBackgroundColorOnStr = paramString;
     }
 
-    public void setDrawable(Drawable paramDrawable)
-    {
+    public void setDrawable(Drawable paramDrawable) {
         this._mDrawable = paramDrawable;
     }
 
-    public void setMemoCount(long paramLong)
-    {
+    public void setMemoCount(long paramLong) {
         this._mMemoCount = paramLong;
     }
 
-    public void setOrder(int paramInt)
-    {
+    public void setOrder(int paramInt) {
         this._mOrder = paramInt;
     }
 
-    public void setResourceId(int paramInt)
-    {
+    public void setResourceId(int paramInt) {
         this._mResourceId = paramInt;
     }
 
-    public void setSizeGroup(int paramInt)
-    {
+    public void setSizeGroup(int paramInt) {
         this._mSizeGroup = paramInt;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return new StringBuilder().toString();
     }
 

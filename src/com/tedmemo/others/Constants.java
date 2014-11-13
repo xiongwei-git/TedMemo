@@ -20,6 +20,14 @@ public class Constants {
 
     public static final String PHOTO_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString();
 
+    /**Select icon from where*/
+    public static final String SELECT_KEY = "select_icon_from";
+    public static final int FROM_CREATE = 0x1;
+    public static final int FROM_WRITE = 0x2;
+    public static final int FROM_DETAIL = 0x3;
+    public static final int FROM_LIST = 0x4;
+
+
 
     /**OTHER*/
     public static final long LISTEN_SHAKE_TIME = 1500l;
